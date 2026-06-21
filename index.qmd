@@ -1,5 +1,6 @@
 ---
-title: "ISI-BUDS Summer 2026 Schedule (June 22rd - July 31)"
+title: "ISI-BUDS Summer 2026 Schedule"
+subtitle: "June 22rd - July 31" 
 format: 
   html:
     toc: true
