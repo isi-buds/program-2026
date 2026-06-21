@@ -1,0 +1,579 @@
+---
+title: "Introduction to Toolkit"
+execute:
+  echo: true
+subtitle: "ISI-BUDS 2026"
+format: 
+  revealjs:
+    slide-number: true
+    incremental: true
+    theme: ["../slide-style.scss"]
+    title-slide-attributes: 
+      data-background-size: 12%
+      data-background-position: 50% 75%
+---
+
+```{r}
+#| echo: false
+library(DiagrammeR)
+library(DiagrammeRsvg)
+library(rsvg)
+```
+
+
+## hello woRld
+
+<center>
+
+<video width="80%" height="45%%" align = "center" controls>
+  <source src="screencast/01a-hello-world.mp4" type="video/mp4">
+</video>
+
+</center>
+
+## Object assignment operator
+
+```{r}
+my_apples <- 4
+```
+
+
+. . .
+
+|                            | Windows        | Mac              |
+|----------------------------|----------------|------------------|
+| Shortcut     | Alt + -        | Option + -       |
+
+
+## R is case-sensitive
+
+
+```{r}
+#| error: true
+My_apples
+```
+
+##
+
+If something comes in quotes, it is not defined in R. 
+
+
+```{r}
+
+n_apples <- c(7, my_apples, 3)
+
+names <- c("Menglin", "Gloria", "Robert")
+
+data.frame(person = names, apple_count = n_apples)
+```
+
+
+## Vocabulary
+
+```{r eval=FALSE}
+do(something)
+```
+
+`do()` is a function;   
+`something` is the argument of the function.
+
+. . .
+
+```{r eval=FALSE}
+do(something, colorful)
+```
+
+`do()` is a function;   
+`something` is the first argument of the function;   
+`colorful` is the second argument of the function.
+
+
+
+## Getting Help
+
+In order to get any help we can use `?` followed by function (or object) name. 
+
+```{r eval=FALSE}
+?c
+```
+
+##
+
+::: callout-tip
+You should not copy paste code from my slides or from the internet. 
+Part of learning to code is building up your muscle memory. 
+:::
+
+## tidyverse style guide
+
+>canyoureadthissentence?
+
+## tidyverse style guide
+
+:::: {.columns}
+
+::: {.column width="40%"}
+```{r eval = FALSE}
+n_apples <- c(7, my_apples, 3)
+
+names <- c("Menglin", "Gloria", "Robert")
+
+data.frame(person = names, 
+           apple_count = n_apples)
+```
+:::
+
+::: {.column width="60%"}
+- After function names do not leave any spaces.
+
+- Before and after operators (e.g. <-, =) leave spaces. 
+
+- Put a space after a comma, **not** before. 
+
+- Object names are all lower case, with words separated by an underscore.
+
+:::
+
+::::
+
+##
+
+::: callout-tip
+
+You can let RStudio do the indentation for your code.
+
+:::
+    
+
+## RStudio Setup
+
+<center>
+
+<video width="80%" height="45%%" align = "center" controls>
+  <source src="screencast/01b-rstudio-setup.mp4" type="video/mp4">
+</video>
+
+</center>
+
+# Literate Programming 
+
+## Quarto
+
+<center>
+
+<video width="80%" height="45%%" align = "center" controls>
+  <source src="screencast/01c-intro-quarto.mov" type="video/mp4">
+</video>
+
+</center>
+
+
+## markdown `r fontawesome::fa(name = "markdown")`
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+```
+
+_Hello world_ 
+
+__Hello world__
+
+~~Hello world~~ 
+```
+:::
+
+::: {.column width="60%"}
+_Hello world_ 
+
+__Hello world__
+
+~~Hello world~~ 
+:::
+
+::::
+
+## Quarto parts
+
+```{r}
+#| echo: false
+knitr::include_graphics("img/quarto.001.png")
+```
+
+## Quarto parts
+
+```{r}
+#| echo: false
+knitr::include_graphics("img/quarto.002.png")
+```
+
+## Quarto parts
+
+```{r}
+#| echo: false
+knitr::include_graphics("img/quarto.003.png")
+```
+
+## Quarto parts
+
+```{r}
+#| echo: false
+knitr::include_graphics("img/quarto.004.png")
+```
+
+## Quarto parts
+
+```{r}
+#| echo: false
+knitr::include_graphics("img/quarto.005.png")
+```
+
+## Quarto parts
+
+```{r}
+#| echo: false
+knitr::include_graphics("img/quarto.007.png")
+```
+
+## Quarto parts
+
+```{r}
+#| echo: false
+knitr::include_graphics("img/quarto.006.png")
+```
+
+## Slides for this program
+
+Slides that you are currently looking at are also written in Quarto. You can take a look at them on our [GitHub organization](https://github.com/isi-buds) in the `program-2026` repo.
+
+# R packages
+
+## Phone apps vs. R packages
+
+:::: {.columns}
+
+::: {.column width="50%"}
+When you buy a new phone it comes with some apps pre-installed.
+
+- Calendar
+- Email
+- Messages
+:::
+
+::: {.column width="50%"}
+If you want to use a different app you can install it.
+
+- Instagram
+- GMail
+- BlueSky
+:::
+
+::::
+
+When you download R for the first time to your computer. It comes with some packages already installed. You can also install many other R packages.
+
+## R packages
+
+What do R packages have? All sorts of things but mainly
+
+- functions 
+
+- datasets
+
+## R packages
+
+Try running the following code:
+
+```{r error = TRUE}
+beep()
+```
+
+Why are we seeing this error? 
+
+
+##
+
+:::{.font75}
+
+Installing packages
+
+:::
+
+
+## Using `install.packages()`
+
+In your **Console**, install the beepr package
+
+```{r eval = FALSE}
+install.packages("beepr")
+```
+
+We do this in the Console because we only need to do it once.
+
+
+
+## Using Packages pane
+
+```{r echo = FALSE, out.width="40%", fig.align='center'}
+knitr::include_graphics("img/packages-pane.png")
+```
+
+Packages Pane > Install 
+
+
+
+## Letting RStudio Install
+
+```{r echo = FALSE, out.width="80%", fig.align='center'}
+knitr::include_graphics("img/rstudio-install.png")
+```
+
+If you save your file and using a package RStudio will tell you that you have not installed the package.
+
+
+
+
+:::{.font75}
+
+Using packages
+
+:::
+
+
+
+## Using beep() from beepr
+
+
+Option 1
+```{r warning = FALSE, eval = FALSE}
+library(beepr)
+beep()
+```
+
+More common usage. 
+
+Useful if you are going to use multiple functions from the same package.
+E.g. we have used many functions (ggplot, aes, geom_...) from the ggplot2 package. In such cases, usual practice is to put the library name in the first R chunk in the .Rmd file.
+
+
+
+## Using beep() from beepr
+
+Option 2
+
+```{r eval = FALSE}
+beepr::beep()
+```
+Useful when you are going to use a function once or few times. Also useful if there are any conflicts. For instance if there is some other package in your environment that has a beep() function that prints the word beep, you would want to distinguish the beep function from the beepr package and the beep function from the other imaginary package. 
+
+##
+
+```{r echo=FALSE, fig.align='center', out.width="80%"}
+knitr::include_graphics("img/beep-help.png")
+```
+
+
+## Open Source
+
+- Any one around the world can create R packages. 
+
+
+
+- Good part: We are able to do pretty much anything R because someone from around the world has developed the package and shared it. 
+
+
+- Bad part: The language can be inconsistent. 
+
+
+- Good news: We have tidyverse. 
+
+
+
+## Tidyverse
+
+
+>The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures. 
+                  tidyverse.org
+
+
+## Tidyverse
+
+In short, tidyverse is a family of packages. From practical stand point, you can install many tidyverse packages at once (and you did this). 
+
+
+##
+
+We can also load multiple tidyverse packages all at the same time.
+
+```{r message = TRUE}
+library(tidyverse)
+```
+
+
+# Version Control
+
+##
+
+::: {.incremental}
+
+Does this look familiar?
+
+- hw1
+
+- hw1_final
+
+- hw1_final2
+
+- hw1_final3
+
+- hw1_finalwithfinalimages
+
+- hw1_finalestfinal
+
+:::
+
+
+##
+
+::: {.incremental}
+
+What if we tracked our file with better names for each version and have only 1 file **hw1**?
+
+
+- hw1 ***added questions 1 through 5***
+
+- hw1 ***changed question 1 image***
+
+- hw1 ***fixed typos***
+
+
+We will call the descriptions in italic **commit** messages.
+
+:::
+
+
+## git vs. GitHub
+
+- git allows us to keep track of different versions of a file(s).
+
+- GitHub is a website where we can store (and share) different versions of the files. 
+
+##
+
+```{r}
+#| out.width: '40%'
+#| fig.align: 'center' 
+#| echo: false
+knitr::include_graphics('img/github-illustration.002.jpeg')
+```
+
+##
+
+```{r}
+#| out.width: '55%'
+#| fig.align: 'center'
+#| echo: false
+knitr::include_graphics('img/github-illustration.003.jpeg')
+```
+
+##
+
+```{r}
+#| out.width: '55%'
+#| fig.align: 'center'
+#| echo: false
+knitr::include_graphics('img/github-illustration.004.jpeg')
+```
+
+##
+
+```{r}
+#| out.width: '55%'
+#| fig.align: 'center'
+#| echo: false
+knitr::include_graphics('img/github-illustration.005.jpeg')
+```
+
+##
+
+```{r}
+#| out.width: '55%'
+#| fig.align: 'center'
+#| echo: false
+knitr::include_graphics('img/github-illustration.006.jpeg')
+```
+
+##
+
+```{r}
+#| out.width: '55%'
+#| fig.align: 'center'
+#| echo: false
+knitr::include_graphics('img/github-illustration.007.jpeg')
+```
+
+##  Demo
+
+
+
+::: callout-tip
+## Tip
+
+Always use `.Rproj` file to open projects. Then open the appropriate `.qm`d / `.R` file from the Files pane. If you don't open `.Rproj` file you will not be able to see the Git pane.
+:::
+
+
+## Cloning a repo
+
+**repo** is a short form of repository. Repositories contain all of your project's files as well as each file's revision history.
+
+For this course our weekly repos (lecture code, activity etc.) are hosted on Github. 
+
+To **clone** a GitHub repo to our computer, we first copy the cloning link as shown in screencast then start an RStudio project using that link.  
+
+**Cloning** a repo pulls (downloads) all the elements of a repo available at that specific time. 
+
+
+
+## Commits
+
+Once you make changes to your repo (e.g. take notes during lecture, answer an activity question) you can take a snapshot of your changes with a commit.
+
+This way if you ever have to go back in version history you have your older commits to get back to. 
+
+This is especially useful, for instance, if you want to go back to an earlier solution you have committed.
+
+
+
+## Push
+
+All the commits you make will initially be local (i.e. on your own computer). 
+
+In order for us to see your commits and your final submission on any file, you have to **push** your commits. In other words upload your files at the stage in that specific time.
+
+
+
+
+## (An incomplete) Git/GitHub glossary
+
+**Git:** is software for tracking changes in any set of files
+
+**GitHub:** is an internet host for Git projects.
+
+**repo:** is a short form of repository. Repositories contain all of your project's files as well as each file's revision history.
+
+**clone:** Cloning a repo **pulls** (downloads) all the elements of a repo available at that specific time. 
+
+**commit:** A snapshot of your repo at a specific point in time. We distinguish each commit with a **commit message**. 
+
+**push:** Uploads the latest "committed" state of your repo to GitHub.
+
+##
+
+::: {.font150} 
+
+Do you git it?
+
+::: 
+

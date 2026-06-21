@@ -1,0 +1,67 @@
+---
+title: "Tech Setup"
+execute:
+  echo: true
+subtitle: "ISI-BUDS 2026"
+format: 
+  revealjs:
+    slide-number: true
+    incremental: true
+    theme: ["../slide-style.scss"]
+    title-slide-attributes: 
+      data-background-size: 12%
+      data-background-position: 50% 75%
+---
+
+# Bookmark this page <br>
+
+isi-buds.github.io/program-2026
+
+# GitHub
+
+## GitHub Username
+
+
+1. Register for a GitHub account if you don't already have one. [Here are some recommendations](https://happygitwithr.com/github-acct).
+
+2. Let us know of your username on [this survey](https://forms.gle/nZp82At5G4L7QWNF8).
+
+3. Check your email to join the ISI-BUDS organization.
+
+# Git
+
+- Check to see if you have Git installed. If you are on Mac open terminal and on Windows open your command line write `git --version`. If you have it installed it would show you the git version.
+
+- If you don't have it installed then [download](https://git-scm.com/downloads) and install. 
+
+# R and RStudio
+
+
+- [Download the latest version of R](https://mirror.las.iastate.edu/CRAN/).
+
+- [Download the latest version of RStudio](https://posit.co/download/rstudio-desktop/).
+
+## Introduce yourself to Git
+
+<center>
+
+<video width="80%" height="45%" align = "center" controls>
+  <source src="screencast/00a-introduce-yourself.mp4" type="video/mp4">
+</video>
+
+</center>
+
+## Set Up SSH key
+
+<center>
+
+<video width="80%" height="45%" align = "center" controls>
+  <source src="screencast/00b-ssh-setup.mp4" type="video/mp4">
+</video>
+
+</center>
+
+# Checking Installations
+
+
+

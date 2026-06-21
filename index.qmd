@@ -26,5 +26,22 @@ Make sure notifications are on.
 
 ## Day 1 - June 22, 2026
 
+| Topic | Material |
+|:-----------------------|:-----------------------|
+| Tech Setup | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day01-prerequisites/1-setup/1-setup.html){target="_blank"} |
+| Introduction to Toolkit | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day01-prerequisites/2-intro-toolkit/2-intro-toolkit.html){target="_blank"} |
+| Lab (Intro Coding) | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day01-prerequisites/lab/day01-intro-coding.html){target="_blank"} |
+| Lab (Quarto) | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day01-prerequisites/lab/day01-quarto.html){target="_blank"} |
+
+## Day 2 - June 23, 2026
+
+| Topic | Material |
+|:-----------------------|:-----------------------|
+| Working with Datasets and Describing Them With Numbers | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day02-intro-data-viz/1-data-numbers/1-data-numbers.html){target="_blank"} |
+| Basics of Data Visualization | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day02-intro-data-viz/2-data-viz/2-data-viz.html){target="_blank"} |
+| Introduction to Toolkit | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day01-prerequisites/2-intro-toolkit/2-intro-toolkit.html){target="_blank"} |
+| Lab Part 1 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day02-intro-data-viz/lab/day02-lab-part1-solutions.html){target="_blank"} |
+| Lab Part 2 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2025/week1-material/day02-intro-data-viz/lab/day02-lab-part2-solutions.html){target="_blank"} |
+
 
 
