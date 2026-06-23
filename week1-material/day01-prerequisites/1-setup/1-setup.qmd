@@ -24,7 +24,7 @@ isi-buds.github.io/program-2026
 
 1. Register for a GitHub account if you don't already have one. [Here are some recommendations](https://happygitwithr.com/github-acct).
 
-2. Let us know of your username on [this survey](https://forms.gle/nZp82At5G4L7QWNF8).
+2. Let us know of your username (hopefully you already did via a google form).
 
 3. Check your email to join the ISI-BUDS organization.
 
