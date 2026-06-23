@@ -40,6 +40,7 @@ Make sure notifications are on.
 |:-----------------------|:-----------------------|
 | Working with Datasets and Describing Them With Numbers | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day02-intro-data-viz/1-data-numbers/1-data-numbers.html){target="_blank"} |
 | Basics of Data Visualization | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day02-intro-data-viz/2-data-viz/2-data-viz.html){target="_blank"} |
+| Principles of Data Visualization | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day02-intro-data-viz/2-data-viz/day02-slides_dataviz_principles.pdf){target="_blank"} |
 | Lab Part 1 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day02-intro-data-viz/lab/day02-lab-part1.qmd){target="_blank"} |
 | Lab Part 2 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day02-intro-data-viz/lab/day02-lab-part2.qmd){target="_blank"} |
 
