@@ -177,29 +177,3 @@ Compare your answers with you neighbors and debate your plotting choices.
 
 **Extra challenge:** Spend some time looking up plotting options and making your plots more visually appealing (e.g. changing the theme, colors, font size, legend position, etc).
 Look up how to change your legend title and apply it to any of your plots with legends.
-
-
-## Question 6: Practicing file reading
-
-We have seen how to read csv files and Excel files in lecture. But there is unfortunately many many types of files! Some examples are tab-separated files (`.tsv` or `.txt` files), STATA files, SAS files...
-
-
-In the `data` folder there is two files to allow you to practice reading data in multiple formats.
-
-1.  `pizzadata.tsv` (Tab Separated File)
-2. `RheumArth_Tx_AgeComparisons.dta` (STATA file)
-
-
-
-Since many different files can be available and it is not possible to memorize the functions for each of them, try to use Google or tidyverse documentation to find the best function to read these files into R. 
-
-Once you are done, can you answer this question?
-
-Q1: How many unique `pizza_name` values are there? Of the pizzas sold, which one is your favorite?  
-
-
-Q2: **Extra challenge** Can you figure out how what is the name of the pizza with the most sales (More on this on day 3)?  
-
-Classic Deluxe Pizza!
-
-Once you have finished this lab you should save and commit your changes to Git, then pull and push to GitHub.
