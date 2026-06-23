@@ -1,0 +1,3 @@
+- The COVID-19 hospitalization data can be found at https://data.ca.gov/dataset/covid-19-hospital-data1. 
+- The dataset `RheumArth_Tx_AgeComparisons.dta` is the Arthritis dataset with a Stata extension
+- The dataset `pizzadata.tsv` is a tab-separated file.

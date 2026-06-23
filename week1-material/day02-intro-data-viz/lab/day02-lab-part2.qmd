@@ -1,0 +1,82 @@
+---
+title: "Day 2 Lab Part 2"
+format: html
+embed-resources: true
+---
+
+# Visualizing California COVID-19 hospital data
+
+Today we are also going to work with California COVID hospital data. This is available in the data folder of the repository you cloned. Try reading in the data using an appropriate path! 
+
+## Question 1
+x
+**1a.** Begin by reading in the data by running the chunk below.
+
+```{r}
+library(tidyverse)
+
+ca_covid_hosp_data <- read_csv("data/covid19hospitalbycounty.csv")
+```
+
+**1b.** Use `glimpse()` to get a preview of the data and view the columns.
+
+
+**1c.** How many observations and variables are in this data set?
+Which variables are categorical and which are numeric?
+
+
+## Question 2
+
+**2a.** Run the following code chunk to make a bar plot of the number of hospitalized COVID confirmed patients by date and colored by county.
+
+
+**2b.**
+
+The above plot tells us something about CA trends, but prevents us from comparing trends among counties, in addition to being absolutely hideous.
+Let's focus on just five counties.
+
+
+
+Redo the plot from question 2a with this subsetted data.
+
+
+
+## Question 3
+
+The 5 county graph from question 2b is more readable than the graph in 2a, but still has tons of problems if one really wants to compare COVID-19 hospitalization trends across CA counties.
+Create your own visualization of the 5 county data, remembering best practices that we talked about in the lecture.
+There is more than one way of doing this, so don't be inhibited by trying to think of "the right" solution.
+
+
+
+## Question 4: Pizza dataset
+
+Returning to the Pizza dataset we used in the previous lab. We want to create a graph that see visualize, and quickly see, whether there are differences in price by pizza category. Before even starting to code, what are some types of graphs that you think can show this?
+
+
+Following these steps:
+
+1. What are the different categories of pizza ? (See variable `pizza_category`)?
+
+
+2. What is an appropriate plot to see the `total_price` of all pizzas?
+
+
+
+A common ggplot mistakes...
+
+
+
+
+3. How would you plot `total_price` by `pizza_category` to illustrate prices by pizza category?
+
+
+Now, let's first ensure `pizza_size` is a factor.
+
+
+If you make the same plot as above, but check how `total_price` by `pizza_size`, what do you see?
+
+
+
+Check with your classmates if you have made the same plot or different plots to answer this question!
+

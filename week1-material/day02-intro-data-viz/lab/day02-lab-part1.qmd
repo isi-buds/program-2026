@@ -1,0 +1,205 @@
+---
+title: "Day 2 Lab Part 1"
+format: html
+embed-resources: true
+---
+
+# Univariate plotting
+
+```{r}
+#| label: load libraries/packages
+#| message: FALSE
+
+library(tidyverse) # The tidyverse package is a massive package that includes packages such as ggplot
+
+library(janitor) # The janitor package has functions to help clean data, such as clean_names()
+```
+
+## Question 1
+
+For this lab we will be exploring the [Arthritis Treatment data](https://www.causeweb.org/tshs/arthritis-treatment/).
+Visit the website, read the abstract, and browse the data dictionary to learn more about this data.
+
+**1a.** Read and clean the data by running the two following code chunks.
+
+```{r}
+#| label: read in data
+
+arthritis_og <- read_csv("https://raw.githubusercontent.com/cosmos-uci-dshs/data/main/RheumArth_Tx_AgeComparisons.csv")
+```
+
+*At this point we do not expect you to understand the code in the following chunk, we will learn data wrangling on a later date.*
+
+```{r}
+#| label: clean data
+
+# clean_names() changes the variable names to fit tidyverse style guidelines
+# factor() is re-coding the digits to meaningful labels
+
+arthritis <- clean_names(arthritis_og) %>%
+  mutate(
+    sex = factor(
+      sex,
+      levels = c(0,1),
+      labels = c("Female", "Male")
+    ),
+    cdai_yn = factor(
+      cdai_yn,
+      levels = c(1,2),
+      labels = c("No", "Yes")
+    ),
+    das28_yn = factor(
+      das28_yn,
+      levels = c(1,2),
+      labels = c("No", "Yes")
+    ),
+    steroids_gt_5 = factor(
+      steroids_gt_5,
+      levels = c(0,1),
+      labels = c("No", "Yes")
+    ),
+    dmar_ds = factor(
+      dmar_ds,
+      levels = c(0,1),
+      labels = c("No", "Yes")
+    ),
+    biologics = factor(
+      biologics,
+      levels = c(0,1),
+      labels = c("No", "Yes")
+    ),
+    s_dmards = factor(
+      s_dmards,
+      levels = c(0,1),
+      labels = c("No", "Yes")
+    ),
+    osteop_screen = factor(
+      osteop_screen,
+      levels = c(0,1),
+      labels = c("No", "Yes")
+    ),
+    age_gp = factor(
+      age_gp,
+      levels = c(1,2),
+      labels = c("control", "elderly")
+    )
+  )
+```
+
+**1b.** Use `head(arthritis, n = 10)` to view the first 10 rows of the data frame.
+
+
+Note:
+
+-   `NA` means missing data.
+-   The assumed variable type is under the variable name. A factor is a categorical variable with the grouping specified (e.g. cdai_yn is either yes or no) while a double is a numerical variable (e.g. age).
+
+**1c.** Use `glimspe(arthritis)` to see an overview of the data.
+How many observations and variables does this data have?
+
+
+**1d.** What are the unique values that the variables `age_gp`, and `osteop_screen`can take? Hint: you can use the function `unique()` to figure this out. 
+
+
+## Question 2
+
+Now we are going to investigate using some numerical and graphical summaries of our data.
+
+**2a.** Use `summary(arthitis)` to view quick summaries of each of the variables.
+What are some observations about the distribution of the data or missing data?
+
+```{r}
+summary(arthritis)
+```
+
+`cdai` has a lot of missing variables!
+
+**2b.** To better understand the ages distribution of the patients, it would be helpful to have a visual.
+Make a one variable plot that helps visualize the distribution of age.
+What do you observe from the plot?
+
+
+Less older people!
+
+**2c.** Create a plot to visualize the counts of females and males in this study.
+Use add the layer `labs(x = "Sex", y = "Count", title = "Study participants by sex")` to specify informative titles.
+For all plots in this document make sure to manually specify the axis labels instead of using the defaults.
+
+
+
+**2d.** Why would a histogram not be appropriate to visualize the counts of females and males in this study?
+What is a variable in this data that would be appropriate to visualize with a histogram?
+
+**2e.** Choose a plot to summarize the distribution of the clinical disease activity indicator.
+Note the median cdai as well as extreme outliers.
+
+
+# Multivariate plotting
+
+## Question 3
+
+Of interest was whether elderly patients were less likely to have disease activity measured and less likely to received aggressive treatment.
+This means we want to look at one variable grouped by another variable.
+
+**3a.** Below we use `group_by()` and `summarize()` to obtain the counts of each age group as well as the counts and percents of people within each group that did not have clinical disease activity measured.
+
+
+
+Does there appear to be an equal amount of `cdai` missingness between the two groups?
+Did you use the counts or percentages to conclude this and why? Do you think this could lead to problems in the analysis?
+
+Data appears to be not missing at random!
+
+**3b.** Let's plot this missingness.
+We want to plot relative `cdai_yn` for each `age_gp`.
+Chose an appropriate way to visualize this.
+
+
+## Question 4
+
+Now we want to investigate the relationship between years since diagnosis and clinical disease activity indicator.
+
+**4a.** Create a plot to visualize the relationship between these two variables.
+What information does your plot provide you with?
+
+
+
+**4b.** Now we want to learn if the relationship differs for patients that were and were not on steroids at more than 5 mg daily.
+Create a plot to aid in this investigation and state your findings.
+
+ solutions
+
+
+## Question 5
+
+Visualizing data is an art and there is not necessarily one perfect way.
+Compare your answers with you neighbors and debate your plotting choices.
+
+**Extra challenge:** Spend some time looking up plotting options and making your plots more visually appealing (e.g. changing the theme, colors, font size, legend position, etc).
+Look up how to change your legend title and apply it to any of your plots with legends.
+
+
+## Question 6: Practicing file reading
+
+We have seen how to read csv files and Excel files in lecture. But there is unfortunately many many types of files! Some examples are tab-separated files (`.tsv` or `.txt` files), STATA files, SAS files...
+
+
+In the `data` folder there is two files to allow you to practice reading data in multiple formats.
+
+1.  `pizzadata.tsv` (Tab Separated File)
+2. `RheumArth_Tx_AgeComparisons.dta` (STATA file)
+
+
+
+Since many different files can be available and it is not possible to memorize the functions for each of them, try to use Google or tidyverse documentation to find the best function to read these files into R. 
+
+Once you are done, can you answer this question?
+
+Q1: How many unique `pizza_name` values are there? Of the pizzas sold, which one is your favorite?  
+
+
+Q2: **Extra challenge** Can you figure out how what is the name of the pizza with the most sales (More on this on day 3)?  
+
+Classic Deluxe Pizza!
+
+Once you have finished this lab you should save and commit your changes to Git, then pull and push to GitHub.
