@@ -1,0 +1,109 @@
+---
+title: "Day 2 Lab Part 2"
+format: html
+embed-resources: true
+---
+
+## Question 1: Practicing file reading
+
+We have seen how to read csv files and Excel files in lecture. But there is unfortunately many many types of files! Some examples are tab-separated files (`.tsv` or `.txt` files), STATA files, SAS files...
+
+
+In the `data` folder there is two files to allow you to practice reading data in multiple formats.
+
+1.  `pizzadata.tsv` (Tab Separated File)
+2. `RheumArth_Tx_AgeComparisons.dta` (STATA file)
+
+
+```{r}
+pizza <- read_tsv("data/pizzadata.tsv")
+```
+
+
+```{r}
+library(haven)
+arth_stat <- read_dta("data/RheumArth_Tx_AgeComparisons.dta")
+```
+
+
+Since many different files can be available and it is not possible to memorize the functions for each of them, try to use Google or tidyverse documentation to find the best function to read these files into R. 
+
+Once you are done, can you answer this question?
+
+Q1: How many unique `pizza_name` values are there? Of the pizzas sold, which one is your favorite?  
+
+```{r}
+unique(pizza$pizza_name)
+```
+
+Q2: **Extra challenge** Can you figure out how what is the name of the pizza with the most sales (More on this on day 3)?  
+
+```{r}
+pizza %>% group_by(pizza_name) %>% summarize(sold = n()) %>% arrange(desc(sold)) %>% head(5)
+```
+Classic Deluxe Pizza!
+
+Once you have finished this lab you should save and commit your changes to Git, then pull and push to GitHub.
+
+
+## Question 2: Pizza dataset
+
+Returning to the Pizza dataset we used in the previous lab. We want to create a graph that see visualize, and quickly see, whether there are differences in price by pizza category. Before even starting to code, what are some types of graphs that you think can show this?
+
+```{r}
+pizza <- read_tsv("data/pizzadata.tsv")
+```
+
+Following these steps:
+
+1. What are the different categories of pizza ? (See variable `pizza_category`)?
+
+```{r}
+unique(pizza$pizza_category)
+```
+
+2. What is an appropriate plot to see the `total_price` of all pizzas?
+
+
+```{r}
+ggplot(data=pizza) + geom_histogram(aes(x=total_price),fill="white", color="black")
+```
+
+A common ggplot mistakes...
+
+
+```{r}
+ggplot(data=pizza) + geom_histogram(aes(x=total_price,fill="white", color="black"))
+```
+
+
+
+3. How would you plot `total_price` by `pizza_category` to illustrate prices by pizza category?
+
+```{r}
+ggplot(data=pizza) + geom_histogram(aes(x=total_price,fill=pizza_category), color="black")
+```
+
+Now, let's first ensure `pizza_size` is a factor.
+
+```{r}
+pizza$pizza_size <- as.factor(pizza$pizza_size)
+```
+
+If you make the same plot as above, but check how `total_price` by `pizza_size`, what do you see?
+
+```{r}
+ggplot(data=pizza) + geom_histogram(aes(x=total_price,fill=pizza_size),color="black")
+```
+
+```{r}
+ggplot(data=pizza) + geom_histogram(aes(x=total_price,fill=pizza_size), bins= 60,color="black")
+```
+
+
+```{r}
+ggplot(data=pizza) + geom_density(aes(x=total_price,fill=pizza_size), color="black") + xlim(c(5,60))
+```
+
+
+Check with your classmates if you have made the same plot or different plots to answer this question!
