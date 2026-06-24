@@ -1,0 +1,272 @@
+---
+title: "Day 3 Lab Data Wrangling and Viz"
+format: 
+  html:
+    toc: true
+    toc-expand: true
+    toc-depth: 2
+    
+editor: visual
+execute:
+  echo: fenced
+theme: cerulean
+embed-resources: true
+---
+
+```{r}
+library(tidyverse)
+```
+
+# NYC Citi Bikes Dataset
+
+The dataset can be found in the data folder.
+However, take a few minutes to visit the Citi-Bikes website (https://citibikenyc.com/system-data) to learn about their data.
+
+```{r}
+citi <- read_csv("data/nyc_bikes.csv")
+```
+
+# Examining our data
+
+## Question 1
+
+Begin by reading in the data.
+Use `glimpse()` to get a preview of the data and view the columns.
+
+```{r}
+glimpse(citi)
+```
+
+Clean the names so that they are consistent with `tidyverse` conventions.
+
+```{r}
+citi <- janitor::clean_names(citi)
+```
+
+How many rows and columns does the dataset have?
+What do they represent?
+
+## Question 2
+
+Let's now learn something about the data.
+
+a.  We have not learned much about Date manipulation in R.
+    However, in this dataset, there should be enough information to figure out what time period the dataset covers.
+    Can you tell which time period this dataset covers?
+
+    The data spans from January of 2017 to March of 2017
+
+```{r}
+citi |>
+  summarize(
+    min_time = min(start_time),
+    max_time = max(stop_time),
+  )
+```
+
+b.  What are the most popular pick-up locations across the city for NY Citi Bike rental during this time period? What is the post popular drop-off location?
+
+```{r}
+# two possible solutions
+citi |>
+  group_by(start_station_name) |> 
+  summarize(number_of_trips = n()) |>
+  ungroup() |>
+  arrange(desc(number_of_trips))
+
+
+citi |>
+  group_by(start_station_name) |> 
+  summarize(number_of_trips = n()) |>
+  arrange(desc(number_of_trips),.by_group = T)
+```
+
+```{r}
+citi |>
+  group_by(end_station_name) |> 
+  summarize(number_of_trips = n()) |>
+  arrange(desc(number_of_trips),.by_group = T)
+```
+
+c.  Which age group rents the most bikes?
+
+```{r}
+count(citi, age_groups,sort=T)
+```
+
+d.  What is the longest trip recorder? Where did this user start from and end to?
+
+```{r}
+citi |> 
+  slice_max(trip_duration, n=5) |>
+  dplyr::select(start_station_name, end_station_name,trip_duration_in_min) |>
+  mutate(trip_duration_in_hours = trip_duration_in_min/60)
+```
+
+## Question 3
+
+Let's learn some information about this data.
+a.
+What are the most popular pick-up locations across the city for NY Citi Bike rental?
+(see before)
+
+b.  Does this change between depending on whether the trip happens on a weekday or a weekend?
+
+Hint: to figure this out, you will first need to create a new column using `mutate()`.
+This will need to classify a day in `weekday` or `weekend`.
+
+```{r}
+citi |>
+  mutate(is_weekend = ifelse(weekday %in% c("Saturday","Sunday"),T,F)) |>
+  group_by(is_weekend, start_station_name) |> 
+  summarize(number_of_trips = n()) |>
+  slice_max(number_of_trips,n=1) 
+```
+
+The station does not change, but the number of trips does significantly!!
+
+## Question 4
+
+Let's look only at trips that happen in the weekend.
+How does the average trip duration vary across different age groups in these days?
+
+Do this using the `filter()`, `group_by()`, and `summarise()` functions.
+
+```{r}
+
+citi |>
+  filter((weekday %in% c("Saturday","Sunday")))
+
+# alternatively
+citi |>
+  mutate(is_weekend = ifelse(weekday %in% c("Saturday","Sunday"),1,0)) |>
+  filter(is_weekend == T) |>
+  group_by(age_groups) |>
+  summarize(avg_trip_length = mean(trip_duration_in_min))
+```
+
+In the weekdays :
+
+```{r}
+citi |>
+  mutate(is_weekend = ifelse(weekday %in% c("Saturday","Sunday"),1,0)) |>
+  filter(is_weekend == F) |>
+  group_by(age_groups) |>
+  summarize(avg_trip_length = mean(trip_duration_in_min))
+```
+
+::: callout-note
+## Trouble with filter
+
+There are some other packages with functions named `filter()` or `select()` and if those packages are loaded most recently then sometimes you can get problems.
+In the future when you are doing data cleaning if `filter()` or `select()` are not working but you are confident you have called them correctly, check to make sure `tidyverse` is your most recently loaded package.
+:::
+
+## Question 5
+
+For the most popular start location, find what are the 3 top drop off station.
+For each one of them, find the average length of the trip between the start and the end location.
+
+```{r}
+top_pickup <- citi |> group_by(start_station_name) |> summarize(number_of_trips =n()) |> slice_max(number_of_trips,n=1) |> pull(start_station_name)
+
+citi |>
+  filter(start_station_name == top_pickup) |>
+  group_by(end_station_name) |>
+  summarize(n_trips = n(), avg_trip_duration_in_min = mean(trip_duration)) |>
+  slice_max(n_trips, n=3)
+```
+
+# Data Visualization
+
+Using the skills you have learned during lecture, try making plots that answer the following questions.
+
+## Question 6
+
+How does bike rental vary across the two user groups (one-time users vs subscribers) on different days of the week?
+
+```{r}
+citi |>
+  group_by(user_type,weekday) |>
+  summarize(n_trips = n()) |>
+  ggplot() +
+  geom_col(aes(y=n_trips,x = weekday,fill=user_type),position="dodge") 
+```
+
+What's wrong with this graph and how can we improve it?
+
+```{r}
+citi |>
+  group_by(user_type,weekday) |>
+  summarize(n_trips = n()) |>
+  mutate(weekday = factor(weekday, levels=c("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"))) |>
+  ggplot() +
+  geom_col(aes(y=n_trips,x = weekday,fill=user_type),position = "dodge") + 
+  ylab("Number of Trips") + 
+  xlab("") +
+  theme_bw() +
+  scale_fill_brewer(palette = "Set2",name = "User Type")
+```
+
+## Question 7
+
+Filter only the trips that last less than 30 minutes.
+Create a visualization to see whether the rider's age is correlated with the duration trip (in minutes).
+Look at the same information for trips that happen during the weekend and during the weekday.
+
+\[As always, there is multiple possible solutions to this question.
+Here, I look at a scatterplot between the two variables.
+`age` and `trip_duration_in_min`.\]
+
+```{r}
+citi |> 
+  mutate(is_weekend = ifelse(weekday %in% c("Saturday","Sunday"),"Yes","No")) |>
+  filter(trip_duration_in_min<30) |>
+  ggplot() +
+  geom_point(aes(x=age,y = trip_duration_in_min,color=is_weekend)) +
+  ylab("Tripe Duration (min)") + 
+  xlab("Age of rider") + 
+  ggtitle("Age vs Trip Duration",subtitle ="Citi Bike Trips Jan-Mar 2017" ) + 
+  scale_color_brewer(palette = "Set2",name = "Weekend?") +
+  theme_bw()+
+  theme(plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust=0.5)) 
+```
+
+## Question 9 (Extra exercises for practice)
+
+a.  Create a bar plot illustrating the number of trips that start at each of the 10 most popular pick up locations. Make sure to include titles, labels, and to make the colors clear.
+
+```{r}
+citi |>
+  group_by(start_station_name) |> 
+  summarize(number_of_trips = n()) |>
+  slice_max(number_of_trips,n=10) |>
+  mutate(start_station_name = factor(start_station_name)) |>
+  ggplot() + 
+  geom_col(aes(x=reorder(start_station_name,-number_of_trips),y=number_of_trips),col="black",fill="gray") +
+  xlab("") +
+  ylab("Number of Trips") + 
+  ggtitle("Top 10 Pick-Up Stations") +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 25, hjust=1)) 
+```
+
+b.  Earlier, you found the average trip length from the original station to the top three drop off - now we are interested instead in visualizing the distribution of these trip lengths. As always, there are many ways you can represent this! Try out of few, with boxplots, histograms, or density plots (`geom_density`) Note , you can filter out outliers if it will make your plot more understandable.
+
+```{r}
+top_three_dropoffs<- citi |>
+  filter(start_station_name == top_pickup) |>
+  group_by(end_station_name) |>
+  summarize(n_trips = n(), avg_trip_duration_in_min = mean(trip_duration)) |>
+  slice_max(n_trips, n=3) |>
+  pull(end_station_name)
+
+citi |>
+  filter(start_station_name == top_pickup, end_station_name %in% top_three_dropoffs) |>
+  filter(trip_duration_in_min < 30) |>
+  ggplot()+
+  geom_histogram(aes(trip_duration_in_min),fill="gray",col="black",bins=10) + 
+  facet_wrap(~end_station_name) + 
+  theme_bw() + xlab("Trip Duration Time") + 
+  labs(title="Trip duration times from Grove Street to:",caption = "Trips lasting less than 30 minutes only")
+```
