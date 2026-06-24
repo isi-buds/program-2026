@@ -50,9 +50,9 @@ Make sure notifications are on.
 | Topic | Material |
 |:-----------------------|:-----------------------|
 | Advanced Data Visualization | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day03-data-viz2-wrangle/1-data-viz2/1-data-viz2.html){target="_blank"} |
-| Lab Part 2 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day02-intro-data-viz/lab/day02-lab-part2.qmd){target="_blank"} |
+| Lab Part 1 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day02-intro-data-viz/lab/day02-lab-part2.qmd){target="_blank"} |
 | Data Wranling Part I | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day03-data-viz2-wrangle/2-data-wrangle1/2-data-wrangle1.html){target="_blank"} |
-
+| Lab Part 2 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day03-data-viz2-wrangle/lab/day03-lab-part2.qmd){target="_blank"} |
 
 ## Day 4 - June 25, 2026
 
