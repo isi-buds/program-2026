@@ -1,0 +1,1 @@
+- The COVID-19 hospitalization data can be found at https://data.ca.gov/dataset/covid-19-hospital-data1. 
