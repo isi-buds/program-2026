@@ -58,9 +58,9 @@ Make sure notifications are on.
 
 | Topic | Material |
 |:-----------------------|:-----------------------|
-| Data Wranling Part II | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day04-wrangle2-dates/1-data-wrangle2/1-data-wrangle2.html){target="_blank"} |
-| Dates | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day04-wrangle2-dates/2-dates/2-dates.html){target="_blank"} |
-| Strings | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day04-wrangle2-dates/3-strings/3-strings.html){target="_blank"} |
+| Data Wranling Part II | [`r fa(name = "desktop")`](https://github.com/isi-buds/program-2026/blob/main/week1-material/day04-wrangle-dates/1-data-wrangle2/1-data-wrangle2.html){target="_blank"} |
+| Dates | [`r fa(name = "desktop")`](https://github.com/isi-buds/program-2026/blob/main/week1-material/day04-wrangle-dates/2-dates/2-dates.html){target="_blank"} |
+| Strings | [`r fa(name = "desktop")`](https://github.com/isi-buds/program-2026/blob/main/week1-material/day04-wrangle-dates/3-strings/3-strings.html){target="_blank"} |
 | Lab 1 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day04-wrangle2-dates/lab/day04-lab-1.qmd){target="_blank"} |
 | Lab 2 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day04-wrangle2-dates/lab/day04-lab-2.qmd){target="_blank"} |
 | DEI Panel | | | 
