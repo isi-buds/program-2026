@@ -16,6 +16,7 @@ In the `data` folder there is two files to allow you to practice reading data in
 
 
 ```{r}
+library(readr)
 pizza <- read_tsv("data/pizzadata.tsv")
 ```
 
@@ -39,7 +40,8 @@ unique(pizza$pizza_name)
 Q2: **Extra challenge** Can you figure out how what is the name of the pizza with the most sales (More on this on day 3)?  
 
 ```{r}
-pizza %>% group_by(pizza_name) %>% summarize(sold = n()) %>% arrange(desc(sold)) %>% head(5)
+library(dplyr)
+pizza |> group_by(pizza_name) |> summarize(sold = n()) |> arrange(desc(sold)) |> head(5)
 ```
 Classic Deluxe Pizza!
 
@@ -49,10 +51,6 @@ Once you have finished this lab you should save and commit your changes to Git, 
 ## Question 2: Pizza dataset
 
 Returning to the Pizza dataset we used in the previous lab. We want to create a graph that see visualize, and quickly see, whether there are differences in price by pizza category. Before even starting to code, what are some types of graphs that you think can show this?
-
-```{r}
-pizza <- read_tsv("data/pizzadata.tsv")
-```
 
 Following these steps:
 
@@ -66,16 +64,9 @@ unique(pizza$pizza_category)
 
 
 ```{r}
+library(ggplot2)
 ggplot(data=pizza) + geom_histogram(aes(x=total_price),fill="white", color="black")
 ```
-
-A common ggplot mistakes...
-
-
-```{r}
-ggplot(data=pizza) + geom_histogram(aes(x=total_price,fill="white", color="black"))
-```
-
 
 
 3. How would you plot `total_price` by `pizza_category` to illustrate prices by pizza category?

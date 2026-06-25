@@ -1,0 +1,373 @@
+---
+title: "Data Wrangling <br> Part II"
+execute:
+  echo: true
+subtitle: "ISI-BUDS 2026"
+format: 
+  revealjs:
+    slide-number: true
+    incremental: true
+    theme: ["../slide-style.scss"]
+    title-slide-attributes: 
+      data-background-size: 12%
+      data-background-position: 50% 75%
+---
+
+
+
+```{r}
+#| echo: false
+library(tidyverse)
+library(janitor)
+options(scipen = 999)
+```
+
+
+```{r}
+#| echo: false
+artists <- readxl::read_xlsx("../data/spotify.xlsx", sheet = "artist")
+songs <- readxl::read_xlsx("../data/spotify.xlsx", sheet = "top_song")
+albums <- readxl::read_xlsx("../data/spotify.xlsx", sheet = "album") |> 
+  mutate(album_release_date = lubridate::ymd(album_release_date))
+```
+
+## Data
+
+```{r}
+library(medicaldata)
+covid_data <- medicaldata::covid_testing
+glimpse(covid_data)
+```
+
+
+# Aggregating Data
+
+
+##
+
+::::{.columns}
+:::{.column width="50%"}
+### Data
+Observations
+:::
+
+:::{.column width="50%"}
+### Aggregate Data
+Summaries of observations
+:::
+::::
+
+## Aggregating Categorical Data
+
+Categorical data are summarized with **counts** or **proportions**.
+
+##
+
+
+```{r}
+covid_data |> 
+  count(result)
+```
+
+. . .
+
+```{r}
+covid_data |> 
+  count(result) |> 
+  mutate(prop = n/sum(n))
+```
+
+## Aggregating Numerical Data
+
+Mean, median, standard deviation, variance, and quartiles are some of the numerical summaries of numerical variables.
+
+
+```{r}
+covid_data |> 
+  mutate(report_delay = col_rec_tat + rec_ver_tat) |> 
+  filter(report_delay <= 48) |> 
+  summarize(mean_report_delay = mean(report_delay),
+          sd_report_delay = sd(report_delay))
+```
+
+# Aggregating Data By Groups
+
+## `group_by()`
+
+We have used this function yesterday to aggregate data into daily counts of test results. Let's review and use this function for other types of groups.
+
+```{r}
+#| echo: false
+#| fig-align: center
+knitr::include_graphics("img/group-by.jpeg")
+```
+
+`group_by()` separates the data frame by the groups. Any action following `group_by()` will be completed for each group separately.
+
+##
+
+Q. What is the median test reporting delay for each clinic type?
+
+## 
+
+```{r}
+covid_data |> 
+  group_by(clinic_name)
+```
+
+##
+
+Note that when `group_by()` is used there have been no changes to the number of columns or rows. 
+The only difference we can observe is now `Groups: clinic_name [88]` is displayed indicating the data frame (i.e., tibble) is divided into 88 groups.
+
+##
+
+```{r}
+covid_data |> 
+  mutate(report_delay = col_rec_tat + rec_ver_tat) |> 
+  filter(report_delay <= 48) |>
+  group_by(result) |> 
+  summarize(med_report_delay = median(report_delay))
+```
+
+##
+
+We can also remind ourselves how many tests were performed in each clinic group.
+
+```{r}
+covid_data |> 
+  group_by(clinic_name) |> 
+  mutate(report_delay = col_rec_tat + rec_ver_tat) |> 
+  filter(report_delay <= 48) |>
+  summarize(med_report_delay = median(report_delay), count=n())
+```
+
+Note that `n()` does not take any arguments.
+
+
+
+# Data Joins
+
+## `left_join(x, y)`
+
+```{r}
+#| echo: false
+#| fig-align: center
+knitr::include_graphics("img/left-join.png")
+```
+
+## `right_join(x, y)`
+
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| out-width: 45% 
+knitr::include_graphics("img/right-join.png")
+```
+
+## `full_join(x, y)`
+
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| out-width: 45% 
+knitr::include_graphics("img/full-join.png")
+```
+
+## `inner_join(x, y)` and `semi_join(x, y)`
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| out-width: 45% 
+knitr::include_graphics("img/inner-semi-join.png")
+```
+
+## `anti_join(x, y)`
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| out-width: 45% 
+knitr::include_graphics("img/anti-join.png")
+```
+
+## `something_join(x, y)`
+
+
+<table>
+<thead>
+  <tr>
+    <th></th>
+    <th colspan="2" style="text-align: center">x</th>
+    <th colspan="2" style="text-align: center">y</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td></td>
+    <td>rows</td>
+    <td>columns</td>
+    <td>rows</td>
+    <td>columns</td>
+  </tr>
+  <tr>
+    <td>`left_join()`</td>
+    <td>all</td>
+    <td>all</td>
+    <td>matched</td>
+    <td>all</td>
+  </tr>
+  <tr>
+    <td>`right_join()`</td>
+    <td>matched</td>
+    <td>all</td>
+    <td>all</td>
+    <td>all</td>
+  </tr>
+  <tr>
+    <td>`full_join()`</td>
+    <td>all</td>
+    <td>all</td>
+    <td>all</td>
+    <td>all</td>
+  </tr>
+  <tr>
+    <td>`inner_join()`</td>
+    <td>matched</td>
+    <td>all</td>
+    <td>matched</td>
+    <td>all</td>
+  </tr>
+  <tr>
+    <td>`semi_join()`</td>
+    <td>matched</td>
+    <td>all</td>
+    <td>none</td>
+    <td>none</td>
+  </tr>
+  <tr>
+    <td>`anti_join()`</td>
+    <td>unmatched</td>
+    <td>all</td>
+    <td>none</td>
+    <td>none</td>
+  </tr>
+</tbody>
+</table>
+
+## 
+
+::: {.panel-tabset}
+
+## artists
+
+```{r}
+artists
+```
+
+## songs
+
+```{r}
+songs
+```
+
+## albums
+
+```{r}
+albums
+```
+
+
+
+:::
+##
+
+```{r}
+#| echo: false
+#| fig-align: center
+knitr::include_graphics("img/data_joins_spotify.png")
+```
+
+## 
+
+```{r}
+left_join(songs, artists)
+```
+
+## 
+
+```{r}
+right_join(songs, artists)
+```
+
+
+##
+
+```{r}
+full_join(songs, artists, by = "name")
+```
+
+##
+
+```{r}
+full_join(songs, artists, by = "name") |> 
+  full_join(albums, by = "album_name")
+```
+
+
+##
+*Your tasks*:
+
+- Download hospitalization data from [CA Open Data Portal](https://data.ca.gov/dataset/covid-19-hospital-data-archived/resource/e34f966b-39dc-4f86-8087-2f9b327f60f3). 
+
+- Load the data into R/RStudio using `read_csv()` function and compute average number of hospital beds for each county in California over the whole time span of the data. Use hospitalized confirmed COVID patients as your variable of interest.
+
+##
+*Your tasks*:
+
+- Download a file with county population sizes from Slack.
+
+- Load the data into R/RStudio using `read_csv()` function, join this table with the hospitalization data to plot a scatter plot of county averages of hospitalized COVID patients and county population sizes. 
+
+- Compute county average hospitalized patients per 100,000 people 
+
+## 
+
+```{r}
+ca_covid_hosp <- read_csv("../data/ca_covid_hosp.csv") 
+ca_county_pop <- read_csv("../data/county_pop.csv")
+```
+
+## 
+```{r}
+ca_average_covid_hosp <- ca_covid_hosp |> 
+  group_by(county) |> 
+  summarize(average_hosp_covid_patients = mean(hospitalized_covid_confirmed_patients, na.rm=TRUE)) 
+
+ca_average_covid_hosp
+```
+
+
+## 
+```{r}
+ca_average_covid_hosp <- inner_join(ca_average_covid_hosp, ca_county_pop, by = "county") 
+
+ca_average_covid_hosp
+```
+
+##
+```{r}
+ca_average_covid_hosp |> 
+  ggplot(aes(x=pop_size, y=average_hosp_covid_patients)) + 
+  geom_point(size=2) + 
+  geom_smooth(method=lm, se=FALSE)
+```
+## 
+
+```{r}
+ca_average_covid_hosp |>
+  mutate(average_hosp_covid_patients_per_100K = average_hosp_covid_patients/pop_size*100000)
+```
