@@ -304,15 +304,37 @@ wday(apollo11_return, label = TRUE)
 
 
 ##
-*Your tasks*:
+*Your tasks 1*:
 
 
-- Download cases/tests/deaths data from [CA Open Data Portal](https://data.ca.gov/dataset/covid-19-time-series-metrics-by-county-and-state-archived/resource/246e823b-4ce9-4258-a3cd-88aecd8744de). 
+- Download cases/tests/deaths data from [CA Open Data Portal](https://data.ca.gov/dataset/covid-19-time-series-metrics-by-county-and-state-archived/resource/246e823b-4ce9-4258-a3cd-88aecd8744de). Or load them from the local repo:
 
 - Load this new data into R/RStudio using `read_csv()` function
 
 - What format do dates in both hospitalization and cases/tests/deaths tibbles follow? Let's make sure that they are of `Date` type
 
-- Join the two datasets by date and county
+```{r}
+ca_covid_hosp <- read_csv("../data/ca_covid_hosp.csv",
+                          col_types = cols(
+                          todays_date  = col_date("%m/%d/%Y")))
+
+ca_covid_cases <- read_csv("../data/ca_covid_cases.csv",
+                          col_types = cols(
+                          date  = col_date("%Y-%m-%d")))
+```
+
+##
+*Your tasks 2*:
+
+- Join the two data sets by date and county
 
 - Plot the time series of hospitalization-to-cases ratio in Orange county during 2020-2024 on the days when both metrics are available
+
+- Download a file with county population sizes from our repo
+
+```{r}
+ca_covid_hosp <- read_csv("../data/ca_covid_hosp.csv") 
+ca_county_pop <- read_csv("../data/county_pop.csv")
+```
+
+Compute county average hospitalized patients per 100,000 people 

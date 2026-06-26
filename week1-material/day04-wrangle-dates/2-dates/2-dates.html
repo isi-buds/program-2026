@@ -423,11 +423,11 @@
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">today</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2026-06-24"</code></pre>
+<pre><code>[1] "2026-06-25"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="fu">now</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2026-06-24 22:43:04 PDT"</code></pre>
+<pre><code>[1] "2026-06-25 10:28:03 PDT"</code></pre>
 </div>
 </div>
 </section></section>
@@ -876,7 +876,7 @@ attr(,"Version")
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a><span class="fu">today</span>() <span class="sc">-</span> <span class="fu">ymd</span>(<span class="st">"1911/05/31"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Time difference of 42028 days</code></pre>
+<pre><code>Time difference of 42029 days</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -884,7 +884,7 @@ attr(,"Version")
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a>since_titanic <span class="ot">&lt;-</span> <span class="fu">today</span>() <span class="sc">-</span> <span class="fu">ymd</span>(<span class="st">"1911/05/31"</span>)</span>
 <span id="cb31-2"><a href=""></a><span class="fu">str</span>(since_titanic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> 'difftime' num 42028
+<pre><code> 'difftime' num 42029
  - attr(*, "units")= chr "days"</code></pre>
 </div>
 </div>
@@ -897,11 +897,11 @@ attr(,"Version")
 <span id="cb33-2"><a href=""></a><span class="fu">str</span>(since_titanic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Formal class 'Duration' [package "lubridate"] with 1 slot
-  ..@ .Data: num 3631219200</code></pre>
+  ..@ .Data: num 3631305600</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href=""></a>since_titanic</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "3631219200s (~115.07 years)"</code></pre>
+<pre><code>[1] "3631305600s (~115.07 years)"</code></pre>
 </div>
 </div>
 </section>
@@ -1020,14 +1020,35 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 </section>
 <section id="section-8" class="slide level2">
 <h2></h2>
-<p><em>Your tasks</em>:</p>
+<p><em>Your tasks 1</em>:</p>
 <ul>
-<li class="fragment"><p>Download cases/tests/deaths data from <a href="https://data.ca.gov/dataset/covid-19-time-series-metrics-by-county-and-state-archived/resource/246e823b-4ce9-4258-a3cd-88aecd8744de">CA Open Data Portal</a>.</p></li>
+<li class="fragment"><p>Download cases/tests/deaths data from <a href="https://data.ca.gov/dataset/covid-19-time-series-metrics-by-county-and-state-archived/resource/246e823b-4ce9-4258-a3cd-88aecd8744de">CA Open Data Portal</a>. Or load them from the local repo:</p></li>
 <li class="fragment"><p>Load this new data into R/RStudio using <code>read_csv()</code> function</p></li>
 <li class="fragment"><p>What format do dates in both hospitalization and cases/tests/deaths tibbles follow? Let’s make sure that they are of <code>Date</code> type</p></li>
-<li class="fragment"><p>Join the two datasets by date and county</p></li>
-<li class="fragment"><p>Plot the time series of hospitalization-to-cases ratio in Orange county during 2020-2024 on the days when both metrics are available</p></li>
 </ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href=""></a>ca_covid_hosp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../data/ca_covid_hosp.csv"</span>,</span>
+<span id="cb59-2"><a href=""></a>                          <span class="at">col_types =</span> <span class="fu">cols</span>(</span>
+<span id="cb59-3"><a href=""></a>                          <span class="at">todays_date  =</span> <span class="fu">col_date</span>(<span class="st">"%m/%d/%Y"</span>)))</span>
+<span id="cb59-4"><a href=""></a></span>
+<span id="cb59-5"><a href=""></a>ca_covid_cases <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../data/ca_covid_cases.csv"</span>,</span>
+<span id="cb59-6"><a href=""></a>                          <span class="at">col_types =</span> <span class="fu">cols</span>(</span>
+<span id="cb59-7"><a href=""></a>                          <span class="at">date  =</span> <span class="fu">col_date</span>(<span class="st">"%Y-%m-%d"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="section-9" class="slide level2">
+<h2></h2>
+<p><em>Your tasks 2</em>:</p>
+<ul>
+<li class="fragment"><p>Join the two data sets by date and county</p></li>
+<li class="fragment"><p>Plot the time series of hospitalization-to-cases ratio in Orange county during 2020-2024 on the days when both metrics are available</p></li>
+<li class="fragment"><p>Download a file with county population sizes from our repo</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href=""></a>ca_covid_hosp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../data/ca_covid_hosp.csv"</span>) </span>
+<span id="cb60-2"><a href=""></a>ca_county_pop <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../data/county_pop.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Compute county average hospitalized patients per 100,000 people</p>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 

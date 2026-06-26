@@ -318,56 +318,13 @@ full_join(songs, artists, by = "name") |>
 ```
 
 
-##
-*Your tasks*:
-
-- Download hospitalization data from [CA Open Data Portal](https://data.ca.gov/dataset/covid-19-hospital-data-archived/resource/e34f966b-39dc-4f86-8087-2f9b327f60f3). 
-
-- Load the data into R/RStudio using `read_csv()` function and compute average number of hospital beds for each county in California over the whole time span of the data. Use hospitalized confirmed COVID patients as your variable of interest.
-
-##
-*Your tasks*:
-
-- Download a file with county population sizes from Slack.
-
-- Load the data into R/RStudio using `read_csv()` function, join this table with the hospitalization data to plot a scatter plot of county averages of hospitalized COVID patients and county population sizes. 
-
-- Compute county average hospitalized patients per 100,000 people 
-
-## 
-
-```{r}
-ca_covid_hosp <- read_csv("../data/ca_covid_hosp.csv") 
-ca_county_pop <- read_csv("../data/county_pop.csv")
-```
-
-## 
-```{r}
-ca_average_covid_hosp <- ca_covid_hosp |> 
-  group_by(county) |> 
-  summarize(average_hosp_covid_patients = mean(hospitalized_covid_confirmed_patients, na.rm=TRUE)) 
-
-ca_average_covid_hosp
-```
+- Download cases/tests/deaths data from [CA Open Data Portal](https://data.ca.gov/dataset/covid-19-time-series-metrics-by-county-and-state-archived/resource/246e823b-4ce9-4258-a3cd-88aecd8744de).
 
 
-## 
-```{r}
-ca_average_covid_hosp <- inner_join(ca_average_covid_hosp, ca_county_pop, by = "county") 
+- Load this new data into R/RStudio using `read_csv()` function
 
-ca_average_covid_hosp
-```
+- What format do dates in both hospitalization and cases/tests/deaths tibbles follow? Let's make sure that they are of `Date` type
 
-##
-```{r}
-ca_average_covid_hosp |> 
-  ggplot(aes(x=pop_size, y=average_hosp_covid_patients)) + 
-  geom_point(size=2) + 
-  geom_smooth(method=lm, se=FALSE)
-```
-## 
+- Join the two datasets by date and county
 
-```{r}
-ca_average_covid_hosp |>
-  mutate(average_hosp_covid_patients_per_100K = average_hosp_covid_patients/pop_size*100000)
-```
+- Plot the time series of hospitalization-to-cases ratio in Orange county during 2020-2024 on the days when both metrics are available
