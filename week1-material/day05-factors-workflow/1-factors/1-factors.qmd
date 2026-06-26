@@ -13,14 +13,10 @@ format:
       data-background-position: 50% 75%
 ---
 
-
 ```{r}
 #| echo: false
 library(tidyverse)
 ```
-
-
-
 
 # Working with Factors
 
@@ -32,20 +28,17 @@ knitr::include_graphics("img/forcats-logo.png")
 library(forcats)
 ```
 
-
 Functions have the form `fct_something()`
 
 . . .
 
 Most of the examples in this lecture is from the `forcats` packages documentation.
 
-##
+## 
 
 ```{r}
 glimpse(gss_cat)
 ```
-
-
 
 ## Collapsing factors
 
@@ -71,7 +64,6 @@ partyid2 <- fct_collapse(gss_cat$partyid,
                          )
 ```
 
-
 . . .
 
 ```{r}
@@ -90,8 +82,6 @@ gss_cat |>
                         ind = c("Ind,near rep", "Independent", "Ind,near dem"),
                         dem = c("Not str democrat", "Strong democrat")))
 ```
-
-
 
 ## Dropping levels
 
@@ -114,7 +104,6 @@ fct_drop(year)
 fct_drop(year, only = "senior")
 ```
 
-
 ## Matching
 
 ```{r}
@@ -127,7 +116,7 @@ fct_match(gss_cat$marital, "Married")
 fct_match(gss_cat$marital, c("Married", "Divorced"))
 ```
 
-##
+## 
 
 We can use these functions along with other data wrangling functions.
 
@@ -135,8 +124,6 @@ We can use these functions along with other data wrangling functions.
 gss_cat |> 
   mutate(married_divorced = fct_match(marital, c("Married", "Divorced")))
 ```
-
-
 
 ## Recoding levels
 
@@ -149,7 +136,7 @@ places
 
 ```
 
-##
+## 
 
 ```{r}
 fct_recode(places, 
@@ -157,8 +144,7 @@ fct_recode(places,
            California = "Los Angeles") 
 ```
 
-
-##
+## 
 
 ```{r}
 fct_recode(places, 
@@ -166,7 +152,7 @@ fct_recode(places,
            California = "Los Angeles")
 ```
 
-##
+## 
 
 ```{r warning = TRUE, error=TRUE}
 fct_recode(places, 
@@ -174,7 +160,6 @@ fct_recode(places,
            California = "Los Angeles")
 ```
 
-##
+## 
 
 [forcats cheatsheet](https://rstudio.github.io/cheatsheets/html/factors.html)
-

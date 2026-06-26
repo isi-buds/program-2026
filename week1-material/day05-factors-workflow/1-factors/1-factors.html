@@ -6601,77 +6601,7 @@ Levels: Albany Irvine California New York City</code></pre>
 </section>
 <section id="section-5" class="slide level2">
 <h2></h2>
-<p><a href="http://www.flutterbys.com.au/stats/downloads/slides/figure/factors.pdf">forcats cheatsheet</a></p>
-</section>
-<section id="section-6" class="slide level2">
-<h2></h2>
-<p><em>Your task</em>:</p>
-<ul>
-<li class="fragment">Load covid testing line list data</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href=""></a><span class="co"># install.packages("medicaldata")</span></span>
-<span id="cb34-2"><a href=""></a><span class="fu">library</span>(medicaldata)</span>
-<span id="cb34-3"><a href=""></a>covid_data <span class="ot">&lt;-</span> medicaldata<span class="sc">::</span>covid_testing</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ul>
-<li class="fragment"><p>make <code>patient_class</code> a factor using <code>as.factor()</code> function. How many levels does it have?</p></li>
-<li class="fragment"><p>count appearances of each level in the data.</p></li>
-<li class="fragment"><p>create a new <code>patient_class2</code> column/variable by collapsing 9 levels of the <code>patient_class</code> factor into 5 levels by grouping some of them together. Count appearances of these new levels in the data</p></li>
-</ul>
-</section>
-<section id="section-7" class="slide level2">
-<h2></h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href=""></a>covid_data <span class="ot">&lt;-</span> covid_data <span class="sc">|&gt;</span> </span>
-<span id="cb35-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">patient_class =</span> <span class="fu">as.factor</span>(patient_class))</span>
-<span id="cb35-3"><a href=""></a></span>
-<span id="cb35-4"><a href=""></a>covid_data <span class="sc">|&gt;</span> </span>
-<span id="cb35-5"><a href=""></a>  <span class="fu">count</span>(patient_class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 2
-   patient_class               n
-   &lt;fct&gt;                   &lt;int&gt;
- 1 admit after surgery-ip      4
- 2 admit after surgery-obs     1
- 3 day surgery                39
- 4 emergency                1378
- 5 inpatient                3438
- 6 not applicable           1096
- 7 observation               723
- 8 outpatient                973
- 9 recurring outpatient      795
-10 &lt;NA&gt;                     7077</code></pre>
-</div>
-</div>
-</section>
-<section id="section-8" class="slide level2">
-<h2></h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href=""></a>covid_data <span class="ot">&lt;-</span> covid_data <span class="sc">|&gt;</span> </span>
-<span id="cb37-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">patient_class2 =</span> </span>
-<span id="cb37-3"><a href=""></a>           <span class="fu">fct_collapse</span>(patient_class,</span>
-<span id="cb37-4"><a href=""></a>                        <span class="at">inpatient =</span> <span class="fu">c</span>(<span class="st">"inpatient"</span>),</span>
-<span id="cb37-5"><a href=""></a>                        <span class="at">surgery =</span> <span class="fu">c</span>(<span class="st">"admit after surgery-ip"</span>, <span class="st">"admit after surgery-obs"</span>, <span class="st">"day surgery"</span>),</span>
-<span id="cb37-6"><a href=""></a>                        <span class="at">outpatient =</span> <span class="fu">c</span>(<span class="st">"outpatient"</span>, <span class="st">"recurring outpatient"</span>, <span class="st">"observation"</span>),</span>
-<span id="cb37-7"><a href=""></a>                        <span class="at">emergency =</span> <span class="fu">c</span>(<span class="st">"emergency"</span>),</span>
-<span id="cb37-8"><a href=""></a>                        <span class="at">not_applicable =</span> <span class="fu">c</span>(<span class="st">"not applicable"</span>)</span>
-<span id="cb37-9"><a href=""></a>                        ))</span>
-<span id="cb37-10"><a href=""></a></span>
-<span id="cb37-11"><a href=""></a>covid_data <span class="sc">|&gt;</span> </span>
-<span id="cb37-12"><a href=""></a>  <span class="fu">count</span>(patient_class2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 2
-  patient_class2     n
-  &lt;fct&gt;          &lt;int&gt;
-1 surgery           44
-2 emergency       1378
-3 inpatient       3438
-4 not_applicable  1096
-5 outpatient      2491
-6 &lt;NA&gt;            7077</code></pre>
-</div>
-</div>
+<p><a href="https://rstudio.github.io/cheatsheets/html/factors.html">forcats cheatsheet</a></p>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 

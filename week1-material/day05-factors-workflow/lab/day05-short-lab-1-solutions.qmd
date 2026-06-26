@@ -1,0 +1,50 @@
+---
+title: "Factors Lab"
+format: html
+embed-resources: true
+---
+
+## Collapsing factors
+
+- Load covid testing line list data 
+
+```{r echo = TRUE, message = FALSE, warning=FALSE}
+# install.packages("medicaldata")
+library(medicaldata)
+library(tidyverse)
+covid_data <- medicaldata::covid_testing
+```
+
+- make `patient_class` a factor using `as.factor()` function. How many levels does it have?
+
+
+- count appearances of each level in the data.
+
+- create a new `patient_class2` column/variable by collapsing 9 levels of the `patient_class` factor into 5 levels by grouping some of them together. Count appearances of these new levels in the data
+
+## 
+
+```{r echo = TRUE, message = FALSE}
+covid_data <- covid_data |> 
+  mutate(patient_class = as.factor(patient_class))
+
+covid_data |> 
+  count(patient_class)
+```
+
+##
+
+```{r echo = TRUE, message = FALSE}
+covid_data <- covid_data |> 
+  mutate(patient_class2 = 
+           fct_collapse(patient_class,
+                        inpatient = c("inpatient"),
+                        surgery = c("admit after surgery-ip", "admit after surgery-obs", "day surgery"),
+                        outpatient = c("outpatient", "recurring outpatient", "observation"),
+                        emergency = c("emergency"),
+                        not_applicable = c("not applicable")
+                        ))
+
+covid_data |> 
+  count(patient_class2)
+```
