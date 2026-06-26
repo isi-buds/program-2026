@@ -28,6 +28,8 @@ covid_data <- medicaldata::covid_testing
 covid_data <- covid_data |> 
   mutate(patient_class = as.factor(patient_class))
 
+covid_data$patient_class <- addNA(covid_data$patient_class)
+
 covid_data |> 
   count(patient_class)
 ```
@@ -42,7 +44,7 @@ covid_data <- covid_data |>
                         surgery = c("admit after surgery-ip", "admit after surgery-obs", "day surgery"),
                         outpatient = c("outpatient", "recurring outpatient", "observation"),
                         emergency = c("emergency"),
-                        not_applicable = c("not applicable")
+                        not_applicable = c("not applicable", NA)
                         ))
 
 covid_data |> 

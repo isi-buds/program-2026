@@ -3124,8 +3124,10 @@ vertical-align: -.125em;
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>covid_data <span class="ot">&lt;-</span> covid_data <span class="sc">|&gt;</span> </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">patient_class =</span> <span class="fu">as.factor</span>(patient_class))</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>covid_data <span class="sc">|&gt;</span> </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(patient_class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>covid_data<span class="sc">$</span>patient_class <span class="ot">&lt;-</span> <span class="fu">addNA</span>(covid_data<span class="sc">$</span>patient_class)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>covid_data <span class="sc">|&gt;</span> </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(patient_class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 2
    patient_class               n
@@ -3153,21 +3155,20 @@ vertical-align: -.125em;
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">surgery =</span> <span class="fu">c</span>(<span class="st">&quot;admit after surgery-ip&quot;</span>, <span class="st">&quot;admit after surgery-obs&quot;</span>, <span class="st">&quot;day surgery&quot;</span>),</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">outpatient =</span> <span class="fu">c</span>(<span class="st">&quot;outpatient&quot;</span>, <span class="st">&quot;recurring outpatient&quot;</span>, <span class="st">&quot;observation&quot;</span>),</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">emergency =</span> <span class="fu">c</span>(<span class="st">&quot;emergency&quot;</span>),</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                        <span class="at">not_applicable =</span> <span class="fu">c</span>(<span class="st">&quot;not applicable&quot;</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                        <span class="at">not_applicable =</span> <span class="fu">c</span>(<span class="st">&quot;not applicable&quot;</span>, <span class="cn">NA</span>)</span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                        ))</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>covid_data <span class="sc">|&gt;</span> </span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(patient_class2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 2
+<pre><code># A tibble: 5 × 2
   patient_class2     n
   &lt;fct&gt;          &lt;int&gt;
 1 surgery           44
 2 emergency       1378
 3 inpatient       3438
-4 not_applicable  1096
-5 outpatient      2491
-6 &lt;NA&gt;            7077</code></pre>
+4 not_applicable  8173
+5 outpatient      2491</code></pre>
 </div>
 </div>
 </section>
