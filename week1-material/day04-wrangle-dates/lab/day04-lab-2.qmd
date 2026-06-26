@@ -49,21 +49,17 @@ The naming convention used by the census made sense when it contained data for a
 
 Remove "\_county_california" from each name in the `county` column of `population_data_uncleaned` and save the new data frame into an object named `population_data1`.
 
-
 ## Question 3
 
 Replace all "\_" with " " in each name in the `county` column of `population_data1` and save the new data frame into an object named `population_data2`.
-
 
 ## Question 4
 
 Capitalize the first letter of each word in each name in the `county` column of `population_data2` and save the new data frame into an object named `population_data3`.
 
-
 ## Question 5
 
 Use `anti_join()` to check that you did the string manipulations correctly. If the county names match, this should return a data frame with two rows for those counties present in the population data and not present in the hospital data.
-
 
 Alpine and Sierra counties did not find a match.
 
@@ -73,11 +69,9 @@ Notice in questions 5-7 I had you make a new data frame each time you made a cha
 
 Once you are confident in your code it is better practice to do data cleaning using pipes which save into a single data frame with clear naming, instead individual data frames for each mutate() call. Combine your code from questions 5-7 into a single pipe (like in question 4) that begins with `population_data_uncleaned` and saves into an object named `population_data_cleaned`.
 
-
 ## Question 7
 
 Now join the hospital and population data into a single data frame (with an understandable name!).
-
 
 # New numeric variable
 
@@ -105,7 +99,6 @@ Save your cleaned combined data frame into the data folder using `write_csv()`. 
 
 # Extra challenge: New factor variable (optional)
 
-
 ## Question 11
 
 Make a new variable called `covid_burden` with three categories which correspond to:
@@ -118,8 +111,6 @@ Make all remaining rows have value `NA` for this variable (these would be any ro
 
 To check you did this right you should have 2,969 high, 9,986 medium, 66,392 low, and 9,242 `NA`. You can use `table(combined_covid_hosp_pop_data$covid_burden, useNA = "ifany")` to check.
 
-
 ## Question 12
 
 Make `covid_burden` into a factor variable with levels in the order of "Low", "Medium", "High". Notice if you don't specify the levels then it will sort them alphabetically. Compare your counts of each level to check that you specified them correctly.
-
