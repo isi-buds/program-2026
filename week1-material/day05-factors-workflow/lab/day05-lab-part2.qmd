@@ -1,0 +1,150 @@
+---
+title: "Day 05 Lab Part 2"
+format: 
+  html:
+    toc: true
+    toc-expand: true
+    toc-depth: 2
+editor: visual
+execute:
+  echo: fenced
+theme: cerulean
+---
+
+In this lab we will revisit the hospital COVID data again.
+
+```{r}
+#| message: false
+
+library(tidyverse)
+library(janitor)
+library(here)
+
+hospital_data_og <- read_csv(
+  here::here("data/covid19hospitalbycounty.csv"),
+  show_col_types = FALSE
+)
+
+population_data_og <- read_csv(
+  here::here("data/county-population-census2020.csv"),
+  show_col_types = FALSE
+)
+
+
+# This code is from lab 3
+population_data_1row <- population_data_og |> 
+  clean_names() |> 
+  filter(label_grouping == "Total:") |> 
+  select(-label_grouping)
+
+population_data_uncleaned <- population_data_1row |> 
+  pivot_longer(cols = colnames(population_data_1row)) |> 
+  rename(county = name, population = value)
+```
+
+Note the use of `here()` to read in data that is stored in a different folder than this code file. Check what happens if you try to just run `hospital_data_og <- read_csv("data/covid19hospitalbycounty.csv")`.
+
+# Gitignore
+
+## Question 1
+
+You may notice under the "Git" tab in your RStudio it shows a file that ends with ".Rproj" to be committed (and possibly a ".DS_Store" for Mac users). These files are specific to what you decide to name your R project when you create one from cloning a repo. When working across multiple devices/people the project's local name may differ so you **do not want to commit the ".Rproj" and ".DS_Store" files**.
+
+In previous labs I added these to your .gitignore for you, to tell Git that you do not want to track these files. For this lab I am having you do this. **Add "\*.Rproj" and "\*.DS_Store" to your .gitignore file** (each on its own line) and save. If this was done properly these files should disappear from your Git pane in RStudio.
+
+Note the asterisk followed by a file type denotes that you want all files of that type to be ignored.
+
+# README's
+
+## Question 2
+
+Make a README for this repo to describe what is contained (e.g., Lab working with COVID hospitalization data to practice data wrangling and good workflow).
+
+## Question 3
+
+Make a README for the data folder to describe the two data sets and where they came from.
+
+# Manipulating `county` variable
+
+In lab 11 I provided the code to do string cleaning of the county column in the population data. Recall the population data from the US Census had the ugly naming convention, and we changed the hospital county names to match that convention.
+
+## Question 4
+
+We are now going to take a step by step look at that cleaning. Make sure you understand what we did in the code chunk below. Refer to your lecture notes or look at help documentation for functions you are unsure about.
+
+```{r}
+#| eval: false
+
+hospital_data <- hospital_data_og |> 
+  mutate(county = str_to_lower(county)) |>
+  mutate(county = str_replace_all(county, pattern = " ", replacement = "_")) |>
+  mutate(county = str_c(county,"_county_california"))
+```
+
+## Question 5
+
+The naming convention used by the census made sense when it contained data for all counties in all states, but here we are only considering California counties so the naming is redundant. Let's clean our `county` column in the population data to match the naming convention for the `county` column in the original hospital data.
+
+Remove "\_county_california" from each name in the `county` column of `population_data_uncleaned` and save the new data frame into an object named `population_data1`.
+
+## Question 6
+
+Replace all "\_" with " " in each name in the `county` column of `population_data1` and save the new data frame into an object named `population_data2`.
+
+## Question 7
+
+Capitalize the first letter of each word in each name in the `county` column of `population_data2` and save the new data frame into an object named `population_data3`.
+
+## Question 8
+
+Use `anti_join()` to check that you did the string manipulations correctly. If the county names match, this should return a data frame with two rows for those counties present in the population data and not present in the hospital data. NOTE from 2026: please use anti_join() on the uncleaned data. There was a mishap with the instructions.
+
+## Question 9
+
+Notice in questions 5-7 I had you make a new data frame each time you made a change to the county data. I find this helpful when I am mutating existing columns in my data and want to check that I am doing it correctly, but this can cause confusion later on, especially for long code scripts/files. One could easily forget the difference between `population_data_uncleaned`, `population_data1`, `population_data2`, and `population_data3`, and accidentally use the wrong one.
+
+Once you are confident in your code it is better practice to do data cleaning using pipes which save into a single data frame with clear naming, instead individual data frames for each mutate() call. Combine your code from questions 5-7 into a single pipe (like in question 4) that begins with `population_data_uncleaned` and saves into an object named `population_data_cleaned`.
+
+## Question 10
+
+Now join the hospital and population data into a single data frame (with an understandable name!).
+
+# New numeric variable
+
+## Question 11
+
+Like in lab 11, make a new variable which records daily percent of the population that is COVID confirmed in the hospital for each county.
+
+# Saving your cleaned data
+
+## Question 12
+
+Arrange your data by date and then county using `arrange()`.
+
+## Question 13
+
+Save your cleaned combined data frame into the data folder using `write_csv()`. Make sure to follow the naming convention discussed in [today's lecture](https://isi-buds.github.io/program-2024/week3-material/day12-reproduce/1-lec-good-workflow/1-lec-good-workflow.html#/naming-files).
+
+## Question 14
+
+Update your data folder README to describe the new combined data. You should include a link to this document that did the data cleaning.
+
+# Extra challenge: New factor variable (optional)
+
+*I recommend tackling this section once you finish labs part 1 and part 2, if you have time.*
+
+## Question 15
+
+Make a new variable called `covid_burden` with three categories which correspond to:
+
+- "low" when the fraction of hospitalized COVID confirmed patients out of all hospital beds is less than 10%
+- "medium" when the fraction of hospitalized COVID confirmed patients out of all hospital beds is greater than or equal to 10 % and less than 25%
+- "high" when the fraction of hospitalized COVID confirmed patients out of all hospital beds is greater than or equal to 25%
+
+Make all remaining rows have value `NA` for this variable (these would be any row with an `NA` for either hospitalized_covid_confirmed_patients or all_hospital_beds).
+
+To check you did this right you should have 3,328 high, 9,657 medium, 64,300 low, and 8,169 `NA`. You can use `table(combined_covid_hosp_pop_data$covid_burden, useNA = "ifany")` to check.
+
+## Question 16
+
+Make `covid_burden` into a factor variable with levels in the order of "Low", "Medium", "High". Notice if you don't specify the levels then it will sort them alphabetically. Compare your counts of each level to check that you specified them correctly.

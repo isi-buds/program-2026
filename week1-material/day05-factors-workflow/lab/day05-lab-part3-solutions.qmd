@@ -1,0 +1,231 @@
+---
+title: "Day 05 Lab Part 3 Soultions"
+format: 
+  html:
+    toc: true
+    toc-expand: true
+    toc-depth: 2
+editor: visual
+execute:
+  echo: fenced
+theme: cerulean
+---
+
+# Initial investigations
+
+In this lab we will focus on five counties: Alameda, Los Angeles, Orange, San Diego, Santa Clara.
+
+## Question 1
+
+Begin by reading in your cleaned and combined COVID hospital data.
+
+## Question 1 Solution
+
+```{r}
+#| message: false
+
+library(here)
+library(tidyverse)
+
+covid_hospital_data <- read_csv("data/combined-covid-hosp-pop-data.csv")
+```
+
+## Question 2
+
+Recall at the end of lab 11 you computed the average daily percent of the county with COVID confirmed hospitalizations for five counties.
+
+This data has a wide date range, let's narrow it down and look at the averages specifically for records between December 1, 2020 and February 1, 2021. For the five counties (Alameda, Los Angeles, Orange, San Diego, Santa Clara) compute:
+
+- average daily count of COVID confirmed hospitalizations
+- average daily percent of the county with COVID confirmed hospitalizations
+
+## Question 2 Solution
+
+```{r}
+covid_hospital_data |> 
+  filter(county %in% c("Alameda", "Los Angeles", "Orange", "San Diego", "Santa Clara")) |> 
+  filter(
+    todays_date >= as_date("2020-12-01") & todays_date <= as_date("2021-02-01")
+  ) |> 
+  group_by(county) |> 
+  summarize(
+    ave_covid_hosp = mean(hospitalized_covid_confirmed_patients),
+    ave_per_covid_hosp = mean(per_hospital_covid_cofirmed)
+  )
+```
+
+# Visualizing our data
+
+Recall the ugly plot from lab 11
+
+```{r}
+
+covid_hospital_data |> 
+  ggplot(aes(x = todays_date, y = per_hospital_covid_cofirmed, fill = county)) +
+  geom_bar(position = "stack", stat = "identity")
+```
+
+The above plot tells us something about CA trends, but prevents us from comparing trends among counties, in addition to being absolutely hideous. Let's focus on just five counties.
+
+```{r}
+
+covid_hospital_data |>
+  filter(county %in% c("Alameda", "Los Angeles", "Orange", "San Diego", "Santa Clara")) |> 
+  ggplot(aes(
+    x = todays_date, 
+    y = per_hospital_covid_cofirmed,
+    fill = county
+  )) +
+  geom_bar(position = "stack", stat = "identity")
+```
+
+The five county graph is more readable than the first graph, but still has tons of problems if one really wants to compare COVID-19 hospitalization trends across CA counties. Recall from lab two we said this plot should be a scatter plot with lines connecting, not a bar plot since the variable is numeric. We also said scaling 100,000 people could help make the low percentages more understandable. The main last difference is using a 7 day moving average to avoid the noise caused from not sampling on some days.
+
+Ultimately, the Minin lab's solution can be view at [COVID 19 Trends by UCI Statistics](https://www.stat.uci.edu/covid19/).
+
+The code chunk below produces a similar plot, without the moving average.
+
+```{r}
+
+covid_hospital_data |>
+  mutate(hosp_covid_confirmed_patients_per100k = hospitalized_covid_confirmed_patients / (population / 100000)) |> 
+  filter(county %in% c("Alameda", "Los Angeles", "Orange", "San Diego", "Santa Clara")) |> 
+  ggplot(aes(
+    x = todays_date, 
+    y = hosp_covid_confirmed_patients_per100k,
+    color = county
+  )) +
+  geom_line(size = 1) +
+  scale_x_date(date_breaks = "1 months", date_labels = "%b '%y") +
+  scale_color_manual(values = c(
+    "Alameda" = "#56B4E9",
+    "Los Angeles" = "#009E73",
+    "Orange" = "#E69F00",
+    "San Diego" = "#CC625E",
+    "Santa Clara" = "#0072B2"
+  )) +
+  theme_bw(base_size = 12.5) + # This is to set font size
+  theme(legend.position = "bottom") +
+  labs(
+    x = "Date",
+    y = "Hospitalized Patients with COVID-19\nper 100,000 People",
+    color = "County",
+    title = "Hospitalized Patients with COVID-19"
+  )
+```
+
+## Question 3
+
+An obvious issue with this plot is that the x axis labels every month, and there are too many months to see clearly. One solution would be to specify few breaks (e.g. every 3 months), and to rotate the x axis tick labels Implement the following changes:
+
+- Edit the layer `scale_x_date()` layer to have date breaks every 2 months and set `date_labels` = "%b %Y"
+- Add `axis.text.x` = `element_text(angle = 90, hjust = 1))` as an additional argument to `theme()` to adjust tick marks
+
+## Question 3 Solution
+
+```{r}
+
+covid_hospital_data |>
+  mutate(hosp_covid_confirmed_patients_per100k = hospitalized_covid_confirmed_patients / (population / 100000)) |> 
+  filter(county %in% c("Alameda", "Los Angeles", "Orange", "San Diego", "Santa Clara")) |> 
+  ggplot(aes(
+    x = todays_date, 
+    y = hosp_covid_confirmed_patients_per100k,
+    color = county
+  )) +
+  geom_line(size = 1) +
+  scale_x_date(date_breaks = "2 months", date_labels = "%b %Y") +
+  scale_color_manual(values = c(
+    "Alameda" = "#56B4E9",
+    "Los Angeles" = "#009E73",
+    "Orange" = "#E69F00",
+    "San Diego" = "#CC625E",
+    "Santa Clara" = "#0072B2"
+  )) +
+  theme_bw(base_size = 12.5) + # This is to set font size
+  theme(
+    legend.position = "bottom",
+    axis.text.x = element_text(angle = 90, hjust = 1)
+  ) +
+  labs(
+    x = "Date",
+    y = "Hospitalized Patients with COVID-19\nper 100,000 People",
+    color = "County",
+    title = "Hospitalized Patients with COVID-19"
+  ) 
+```
+
+## Question 4
+
+Say we wanted to use this plot in a presentation or paper. There are different ways to save a plot. Here we are going to save our plot manually.
+
+- Save your plot into an object called `covid_plot`. For example:
+
+```{r}
+#| eval: false
+
+covid_plot <- ggplot(covid_hospital_data, aes(x = todays_date)) +
+  geom_point()
+```
+
+- Make a folder in your main repo called "plots"
+
+- Use `ggsave()` to save your plot into the `plots` folder in this repo.
+
+```{r}
+#| eval: false
+
+ggsave(
+  filename = here("plots/covid_hospital_plot.png"),
+  plot = covid_plot,
+  width = 5.5,
+  units = "in"
+)
+```
+
+## Question 4 Solution
+
+```{r}
+covid_plot <- covid_hospital_data |>
+  mutate(hosp_covid_confirmed_patients_per100k = hospitalized_covid_confirmed_patients / (population / 100000)) |> 
+  filter(county %in% c("Alameda", "Los Angeles", "Orange", "San Diego", "Santa Clara")) |> 
+  ggplot(aes(
+    x = todays_date, 
+    y = hosp_covid_confirmed_patients_per100k,
+    color = county
+  )) +
+  geom_line(size = 1) +
+  scale_x_date(date_breaks = "2 months", date_labels = "%b %Y") +
+  scale_color_manual(values = c(
+    "Alameda" = "#56B4E9",
+    "Los Angeles" = "#009E73",
+    "Orange" = "#E69F00",
+    "San Diego" = "#CC625E",
+    "Santa Clara" = "#0072B2"
+  )) +
+  theme_bw(base_size = 12.5) + # This is to set font size
+  theme(
+    legend.position = "bottom",
+    axis.text.x = element_text(angle = 90, hjust = 1)
+  ) +
+  labs(
+    x = "Date",
+    y = "Hospitalized Patients with COVID-19\nper 100,000 People",
+    color = "County",
+    title = "Hospitalized Patients with COVID-19"
+  )
+
+#ggsave(
+#  filename = here("plots/covid_hospital_plot.png"), 
+#  plot = covid_plot,
+#  width = 6.5,
+#  height = 6.5,
+#  units = "in"
+#)
+```
+
+# Update your README
+
+## Question 5
+
+Update your README.md for the repo to reflect that this code produces a plot of hospitalized patients with confirmed COVID-19.
