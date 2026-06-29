@@ -152,8 +152,7 @@ c(
 
 ## Exercise 1
 
-Find the 4th moment of a beta distribution with parameters alpha = 2, beta = 5.
-Use:
+Find the 4th moment of a beta distribution with parameters alpha = 2, beta = 5. Use:
 
 a.  deterministic
 
@@ -161,7 +160,7 @@ b.  Monte Carlo integration
 
 c.  Compute Monte Carlo error and confidence intervals of your estimate(s) from part b.
 
-## Exercise 1 solution
+## Exercise 1 
 
 ```{r}
 alpha <- 2
@@ -171,44 +170,25 @@ beta <- 5
 a.  deterministic integration
 
 ```{r}
-beta_integrand <- function(x){
-  return(x^4 * dbeta(x, shape1 = alpha, shape2 = beta))
-}
 
-(beta_4th_moment_det <- integrate(beta_integrand, lower = 0, upper = 1))
 ```
 
 b.  Monte Carlo integration
 
 ```{r}
-beta_mcarlo_iterations <- 1000
 
-beta_sample <- rbeta(beta_mcarlo_iterations, shape1 = alpha, shape2 = beta)
-
-(beta_4th_moment_mc <- mean(beta_sample^4))
 ```
 
 c.  Monte Carlo error and 95% confidence intervals
 
 ```{r}
-(beta_mcarlo_error <- sd(beta_sample^4) / sqrt(beta_mcarlo_iterations))
 
-c(
-  beta_4th_moment_mc - 1.96 * beta_mcarlo_error, 
-  beta_4th_moment_mc + 1.96 * beta_mcarlo_error
-)
 ```
 
 Compare the two answers
 
 ```{r}
-beta_4th_moment_det
-beta_4th_moment_mc
 
-c(
-  beta_4th_moment_mc - 1.96 * beta_mcarlo_error, 
-  beta_4th_moment_mc + 1.96 * beta_mcarlo_error
-)
 ```
 
 ## Exercise 2
@@ -219,95 +199,63 @@ Use:
 
 a.  deterministic integration
 
-b.  Monte Carlo integration to approximate it Hint: Uniform sampling won't work, because uniform distribution is not defined on $[0, \infty]$.
-    For importance sampling to work, the support must be the same.
-    Use exponential distribution samples instead -- think about how to write the desired integral in terms of expectation
+b.  Monte Carlo integration to approximate it Hint: Uniform sampling won't work, because uniform distribution is not defined on $[0, \infty]$. For importance sampling to work, the support must be the same. Use exponential distribution samples instead -- think about how to write the desired integral in terms of expectation
 
 c.  compute Monte Carlo error and confidence intervals of your estimate(s) from part b
 
 d.  compare Monte Carlo error of the procedure using two different rates of the exponential distribution
 
-## Exercise 2 Solutions
+## Exercise 2 
 
 Define function
 
 ```{r}
-integrand_function2 <- function(x){
-  return(exp(-x^5))
-}
+
 ```
 
 ```{r}
-x_values <- seq(0,20,0.1)
 
-plot(x_values, integrand_function2(x_values), type = "l", lwd = 2, xlab = "x", ylab = "y", cex.lab = 1.3, col = "red")
 ```
 
 Deterministic integration
 
 ```{r}
-(det_int2 <- integrate(integrand_function2, lower = 0, upper = Inf))
+
 ```
 
 Monte Carlo
 
 ```{r}
-mcarlo_iterations2 <- 1000000
-exp_rate <- 0.6
-exp_sample <- rexp(mcarlo_iterations2, rate = exp_rate)
 
-#arithmetic average
-
-mc_samples <- integrand_function2(exp_sample) / dexp(exp_sample, rate = exp_rate)
-mcarlo_int2 <- mean(mc_samples)
 ```
 
 Monte Carlo error
 
 ```{r}
-mcarlo_error2 = sd(mc_samples) / sqrt(mcarlo_iterations2)
-print(mcarlo_error2)
+
 ```
 
 Monte Carlo 95% confidence interval
 
 ```{r}
-c(mcarlo_int2 - 1.96 * mcarlo_error2, mcarlo_int2 + 1.96 * mcarlo_error2)
+
 ```
 
 Compare to the deterministic numerical integration
 
 ```{r}
-det_int2
-```
 
-## Different rate
-
-```{r}
-mcarlo_iterations2 <- 1000000
-exp_rate <- 10
-exp_sample <- rexp(mcarlo_iterations2, rate = exp_rate)
-
-#arithmetic average
-(mcarlo_int3 <- mean(integrand_function2(exp_sample) / dexp(exp_sample, rate = exp_rate)))
-(mcarlo_error3 = sd(integrand_function2(exp_sample) / dexp(exp_sample, rate = exp_rate)) / sqrt(mcarlo_iterations2))
-
-mcarlo_error3
 ```
 
 # Importance sampling
 
-Let Z have a standard normal distribution, $Z \sim N(0,1)$.
-We want to compute $P(X \geq 4.5)$.
-We could do this via a Naive Monte Carlo simulation.
-(How?)
+Let Z have a standard normal distribution, $Z \sim N(0,1)$. We want to compute $P(X \geq 4.5)$. We could do this via a Naive Monte Carlo simulation. (How?)
 
 ```{r}
 hist(rnorm(10000,0,1), main = "10,000 Random samples from a Standard Normal")
 ```
 
-We generate a bunch of samples of Z and count how many satisfy $Z \geq 4$.
-The problem is that there won’t be very many (perhaps none), unless my number of samples is very large.
+We generate a bunch of samples of Z and count how many satisfy $Z \geq 4$. The problem is that there won’t be very many (perhaps none), unless my number of samples is very large.
 
 **Q:** What is the error of the MC estimate for $p = P(Z \geq 4)$?
 
@@ -335,16 +283,13 @@ Instead, we can compute this via importance sampling.
 
 We can take the sampling distribution to be a shifted exponential:
 
-$$
-q(x) = \begin{cases} & e^{-(x-4.5)} \quad \text{when } x \geq 4.5, \\
-& 0 \quad \text{ o.w. } \end{cases}
-$$ (This means that if $Y \sim Exp(1)$, $Y+4 \sim q(x)$)
+$$q(x) = \begin{cases} & e^{-(x-4.5)} \quad \text{when } x \geq 4.5, \\
+& 0 \quad \text{ o.w. } \end{cases}$$
+(This means that if $Y \sim Exp(1)$, $Y+4 \sim q(x)$)
 
 So the probability that we want to compute, i.e. $p = P(X \geq 4)$
 
-$$
-p = \int 1_{x \geq 4} \frac{p(x)}{q(x)}q(x)dx
-$$
+$$p = \int 1_{x \geq 4} \frac{p(x)}{q(x)}q(x)dx$$
 
 Importance sampling estimate:
 
@@ -380,15 +325,14 @@ c(is_est - 1.96 * sqrt(is_var_mc), is_est + 1.96 * sqrt(is_var_mc))
 
 ### Check your understanding
 
--   Try repeating these sames steps with `my_const = 0.9`. Can you explain why the Naive MC performs better in this case?
+- Try repeating these sames steps with `my_const = 0.9`. Can you explain why the Naive MC performs better in this case?
 
 We will get more samples from the normal distribution in that area.
 
--   Why do you think a shifted exponential is a good proposal distribution in this case?
+- Why do you think a shifted exponential is a good proposal distribution in this case?
 
 It generates samples that are in the area of the original distribution that we want to approximate.
 
--   Let's say that you want to use the same shifted exponential (with shift constant = 4), but you want to find $P(Z>8)$. How would you have to modify the Importance Sampling sample to target the correct distribution?
+- Let's say that you want to use the same shifted exponential (with shift constant = 4), but you want to find $P(Z>8)$. How would you have to modify the Importance Sampling sample to target the correct distribution?
 
-We need to only consider the values where $X>8$ for the I.S.
-sample (assing 0 to the others).
+We need to only consider the values where $X>8$ for the I.S. sample (assing 0 to the others).
