@@ -81,5 +81,7 @@ Make sure notifications are on.
 | Topic | Material |
 |:-----------------------|:-----------------------|
 | Intro to Probability | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day06-intro-prob/lecture_probability.html){target="_blank"} |
-| Lab 1 |  |
+| Lab 1 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day06-intro-prob/lab/2026-day06-lab.qmd){target="_blank"} |
 | Lab 1 Solutions | (will be uploaded later today) |
+| Research Pitch | | | 
+
