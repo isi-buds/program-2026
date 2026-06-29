@@ -74,3 +74,12 @@ Make sure notifications are on.
 | Data Science Workflow | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day05-factors-workflow/2-workflow/2-workflow.html){target="_blank"} |
 | Lab 1 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day05-factors-workflow/lab/day05-short-lab-1.html){target="_blank"} |
 | Lab 1 Solutions | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week1-material/day05-factors-workflow/lab/day05-short-lab-1-solutions.html){target="_blank"} |
+
+
+## Day 6 - June 29, 2026
+
+| Topic | Material |
+|:-----------------------|:-----------------------|
+| Intro to Probability | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day06-intro-prob/lecture_probability.html){target="_blank"} |
+| Lab 1 |  |
+| Lab 1 Solutions | (will be uploaded later today) |
