@@ -13,8 +13,7 @@ embed-resources: true
 
 *Premise for Inverse CDF method: When you want random samples from a distribution.*
 
-Here we use examples from distributions that are easy to sample from so we can compare our results with existing functions.
-In reality this method would be used for uncommon distributions.
+Here we use examples from distributions that are easy to sample from so we can compare our results with existing functions. In reality this method would be used for uncommon distributions.
 
 ## Preparation
 
@@ -35,8 +34,7 @@ add_two_numbers(2, 9)
 
 Before we start generating random numbers, let's set the seed to make our experiments reproducible.
 
-To understand why we set a seed run the chunk below and compare the output.
-Then run it again and compare between runs.
+To understand why we set a seed run the chunk below and compare the output. Then run it again and compare between runs.
 
 ```{r}
 rnorm(1)
@@ -52,10 +50,7 @@ set.seed(345454)
 
 ## Example 1: Generating realizations of an exponential distributed random variable using the inverse cdf method
 
-What is the inverse CDF of an exponential distribution?
-Uh oh.
-How can we calculate this?
-R has functions that compute quantiles, but quantiles return the same value as inverse cdfs.
+What is the inverse CDF of an exponential distribution? Uh oh. How can we calculate this? R has functions that compute quantiles, but quantiles return the same value as inverse cdfs.
 
 For example, if $X \sim Exp(0.1)$, then number $c$ such that $Pr(X < c) = 0.6$ is $F^{-1}(0.6)$ and can be obtained by the following R code
 
@@ -74,8 +69,7 @@ rexp_isi_buds <- function(num_draws, rate = 1){
 my_exp_sample <- rexp_isi_buds(100000, rate = 0.1)
 ```
 
-We can plot our observations to visually asses that we did it correctly.
-Note the difference in default bin sizes for the two plotting methods.
+We can plot our observations to visually asses that we did it correctly. Note the difference in default bin sizes for the two plotting methods.
 
 ```{r}
 # base R plot for reference
@@ -116,19 +110,25 @@ After the example, can you better explain why we would want to use the inverse c
 
 ## Exercise 1
 
-Write a function to generate realizations of a normal random variable with a user specified mean and variance.
-Compare results of your simulations and simulation produced using rnorm().
+Write a function to generate realizations of a normal random variable with a user specified mean and variance. Compare results of your simulations and simulation produced using rnorm().
 
 ```{r}
-rnorm_isi_buds <- function(num_draws, mean,var){
-  runif_draws <- runif(num_draws) 
-  return(qnorm(runif_draws, mean = mean, sd = sqrt(var))) 
-}
+# here is some structural starter code 
+# mean is the user specified mean parameter 
+# var is the user specified variance parameter
+# num_draws is the user specified number of draws 
 
+rnorm_isi_buds <- function(num_draws, mean, var){
+  # create function here 
+  return() 
+ }
+
+# example function call 
 my_norm_sample <- rnorm_isi_buds(100000, mean = 0, var =1 )
 
-# Looking at different sample sizes
-par(mfrow=c(1,2))
+# Looking at different sample sizes and plotting, should be rougly bell shaped for 
+# normal distribution
+npar(mfrow=c(1,2))
 hist(my_norm_sample)
 hist(rnorm_isi_buds(40, mean=0,var=1))
 ```
@@ -140,8 +140,7 @@ qqplot(my_norm_sample, rnorm(100000,mean = 0,sd = 1))
 abline(0,1)
 ```
 
-(NOTE): the function we implemented takes `variance` as an argument to parametrize the Normal distribution, while `rnorm` takes `sd`.
-Indeed:
+(NOTE): the function we implemented takes `variance` as an argument to parametrize the Normal distribution, while `rnorm` takes `sd`. Indeed:
 
 ```{r}
 qqplot(
@@ -188,70 +187,22 @@ mean(my_coins)
 
 Modify the `rbernoulli()` function so it has 2 arguments: the number of realizations to draw and success probability
 
-Compare the mean number of successes, first from 10 realizations with probability of successs p = 0.2 and 10 realizations with probability of success p = 0.6 ; and then 1000 realizations with each of p=0.2 and p = 0.6.
-What do you observe?
+Compare the mean number of successes, first from 10 realizations with probability of successs p = 0.2 and 10 realizations with probability of success p = 0.6 ; and then 1000 realizations with each of p=0.2 and p = 0.6. What do you observe?
 
 ```{r}
-rbernoulli_draws <- function(num_draws, success_prob){
-  bernoulli_sample <- c()
-  for(i in 1:num_draws){
-    bernoulli_sample[i] <- rbernoulli(success_prob)
-  }
-  return(bernoulli_sample)
-}
-
-sample1_10 <- rbernoulli_draws(10,0.2)
-sample2_10 <- rbernoulli_draws(10,0.6)
-
-paste0("Mean for sample size of 10, p = 0.2: ", mean(sample1_10)) 
-paste0("Mean for sample size of 10, p = 0.6: ", mean(sample2_10)) 
-
-
-sample1_1000 <- rbernoulli_draws(1000,0.2)
-sample2_1000 <- rbernoulli_draws(1000,0.6)
-
-paste0("Mean for sample size of 1000, p = 0.2: ", mean(sample1_1000)) 
-paste0("Mean for sample size of 1000, p = 0.6: ", mean(sample2_1000)) 
 
 
 ```
 
 ## Exercise 3
 
-Write a function to simulate from a discrete random variable taking values 1, 2, 3 with probabilities p1, p2, p3, supplied by the user of the function.
-**Note**: you could do it with a `sample()` function, but we don't want you to use it for this exercise.
+Write a function to simulate from a discrete random variable taking values 1, 2, 3 with probabilities p1, p2, p3, supplied by the user of the function. **Note**: you could do it with a `sample()` function, but we don't want you to use it for this exercise.
 
 ```{r}
-rdiscr3 <- function(p1, p2, p3){
-  if (abs(1 - p1 - p2 - p3) > 10^-7) { # 10^-7 used to approximate 0
-    stop("probabilities must add to 1")
-  }
-  
-  return_value <- 3
-  
-  my_unif <- runif(1)
-  
-  if (my_unif < p1) {
-    return_value <- 1
-  } else if (my_unif < p1 + p2) {
-    return_value <- 2
-  }
-  
-  return(return_value)
-}
-
-rdiscr3_ndraws <- function(num_draws, p1, p2, p3){
-  random_sample <- c()
-  for(i in 1:num_draws){
-    random_sample[i] <- rdiscr3(p1,p2,p3)
-  }
-  return(random_sample)
-}
 
 ```
 
-The code below should help you test your function.
-Name your function `rdiscr3`
+The code below should help you test your function. Name your function `rdiscr3`
 
 ```{r}
 num_sim <- 10000
@@ -264,27 +215,22 @@ sum(ifelse(test_vector == 3, yes = 1, no = 0)) / num_sim
 
 ## Exercise 4
 
-For many common distributions, you can use `base R` or common packages to simulate random samples.
-Generate 1000 samples and show the results using an appropriate plot from :
+For many common distributions, you can use `base R` or common packages to simulate random samples. Generate 1000 samples and show the results using an appropriate plot from :
 
--   Gamma(3,4) distribution.\
+- Gamma(3,4) distribution.\
 
 ```{r}
-gamma_draws <- rgamma(10000,3,4)
-hist(gamma_draws, main = "Random Sample from Gamma(3,4)")
+
 ```
 
--   Beta(5,6) distribution.\
+- Beta(5,6) distribution.\
 
 ```{r}
-beta_draws <- rbeta(10000, 5,6)
-hist(beta_draws, main = "Random Sample from Beta(5,6)")
+
 ```
 
--   Poisson(5) distribution.
+- Poisson(5) distribution.
 
 ```{r}
-poisson_draws <- rpois(10000,5)
-# discrete distribution
-barplot(table(poisson_draws), main = "Random Sample from Poisson(5)")
+
 ```
