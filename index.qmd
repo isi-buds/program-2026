@@ -91,8 +91,33 @@ Make sure notifications are on.
 |:-----------------------|:-----------------------|
 | Monte Carlo Integration | |
 | Monte Carlo Inference | |
-| Lab 1 |  |
-| Lab 2 |  |
+| Lab 1 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day07-monte-carlo/lab/2026-day07-lab-part1-mc.qmd){target="_blank"} |
+| Lab 2 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day07-monte-carlo/lab/2026-day07-lab-part2-mc.qmd){target="_blank"} |
 | Lab 1 Solutions |  |
 | Lab 2 Solutions |  |
+
+
+## Day 8 - July 1, 2026
+
+| Topic | Material |
+|:-----------------------|:-----------------------|
+| Bayes' Rule for Events | |
+| Bayesian Models for Random Variables | |
+| The Beta-Binomial Model | |
+| Lab  |  |
+| Lab Solutions |  |
+
+
+## Day 9 - July 2, 2026
+
+| Topic | Material |
+|:-----------------------|:-----------------------|
+| Balance and Sequentiality in Bayesian Analyses | |
+| Posterior Inference and Prediction | |
+| Lab  |  |
+| Lab Solutions |  |
+
+
+
+
 
