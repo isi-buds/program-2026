@@ -1,0 +1,267 @@
+---
+title: "Day 08 - Lab : Bayes Rule"
+format: 
+  html:
+    toc: true
+    toc-expand: true
+    toc-depth: 2
+editor: visual
+embed-resources: true
+execute:
+  echo: fenced
+theme: cerulean
+---
+
+For this lab we will be working exercises from the [Baye's Rules Book](https://www.bayesrulesbook.com/chapter-1#exercises){target="_blank"}.
+
+## Exercise 1.6 (Applying for an internship)
+
+There are several data scientist openings at a much-ballyhooed company.
+Having read the job description, you know for a fact that you are qualified for the position: this is your *data*.
+Your goal is to ascertain whether you will actually be offered a position: this is your *hypothesis*.b
+
+*a)* : From the perspective of someone using frequentist thinking, what question is answered in testing the hypothesis that you’ll be offered the position?
+
+$$P(\text{Qualified} | \text{Offer}^C)$$
+
+*b)* : Repeat part a from the perspective of someone using Bayesian thinking.
+
+$$P(\text{Offer} | \text{Qualified})$$
+
+*c)* : Which question would you rather have the answer to: the frequentist or the Bayesian?
+Explain your reasoning.
+
+Bayesian prospective as that is what I will be interested in knowing.
+
+## Exercise 2.1 (Comparing the prior and posterior) \[Only parts a-c\]
+
+For each scenario below, you’re given a pair of events, $A$ and $B$.
+Explain what you believe to be the relationship between the posterior and prior probabilities of $B$.
+$P(B|A) > P(B)$ or $P(B|A)<P(B)$ :
+
+**a)** A = you just finished reading Lambda Literary Award-winning author Nicole Dennis-Benn’s first novel, and you enjoyed it!
+B = you will also enjoy Benn’s newest novel.
+
+$$P(B | A) > P(B)$$
+
+**b)** A = it’s 0 degrees Fahrenheit in Minnesota on a January day.
+B = it will be 60 degrees tomorrow.
+
+$$P(B | A) < P(B)$$
+
+**c)** B = the authors only got 3 hours of sleep last night.
+B = the authors make several typos in their writing today.
+
+$$P(B | A) > P(B)$$
+
+## Exercise 2.2 (Marginal, conditional, or joint?) \[Parts a, b, d\]
+
+Define the following events for a resident of a fictional town:\
+A = drives 10 miles per hour above the speed limit,\
+B = gets a speeding ticket,\
+C = took statistics at the local college,\
+D = has used R,\
+E = likes the music of Prince F = is a Minnesotan.
+
+Several facts about these events are listed below.
+Specify each of these facts using probability notation, paying special attention to whether it’s a marginal, conditional, or joint probability.
+
+**a)** 73% of people that drive 10 miles per hour above the speed limit get a speeding ticket.
+
+$$P(B | A) = 0.73$$
+
+**b)** 20% of residents drive 10 miles per hour above the speed limit.
+
+$$P(A) = 0.2$$
+
+**d)** 91% of statistics students at the local college have used R.
+
+$$P(D | C) = 0.91$$
+
+**e)** 38% of residents are Minnesotans that like the music of Prince.
+
+$$
+P(A \text{ and }B) =0.38
+$$
+
+## Exercise 2.3 (Binomial practice) \[Parts c-f\]
+
+For each variable Y below, determine whether Y is Binomial.
+If yes, use notation to specify this model and its parameters.
+If not, explain why the Binomial model is not appropriate for Y.
+
+**c)** : Each time they try out for the television show Ru Paul’s Drag Race, Alaska has a 17% probability of succeeding.
+Let Y be the number of times Alaska has to try out until they’re successful.
+
+No, there is no fixed number of trials.
+This would be geometric, i.e., number of failures until success.
+
+**d)** : Y is the amount of time that Henry is late to your lunch date.
+
+No, there are no trials.
+(no success/failure)
+
+**e)** : Y is the probability that your friends will throw you a surprise birthday party even though you said you hate being the center of attention and just want to go out to eat.
+
+No, $Y$ is a probability not an outcome.
+
+**f)** : You invite 60 people to your "$\pi$ day" party, none of whom know each other, and each of whom has an 80% chance of showing up.
+Let Y be the total number of guests at your party.
+
+Yes, $Y$ is binomial with 60 trials and a success probability of 0.8.
+
+## Exercise 2.10 (LGBTQ students: rural and urban)
+
+A recent study of 415,000 Californian public middle school and high school students found that 8.5% live in rural areas and 91.5% in urban areas.
+Further, 10% of students in rural areas and 10.5% of students in urban areas identified as Lesbian, Gay, Bisexual, Transgender, or Queer (LGBTQ).
+Consider one student from the study.
+
+**a)** : What’s the probability they identify as LGBTQ?
+
+Law of total probability $$P(\text{LGBTQ}) = P(\text{LGBTQ} | \text{Rural}) P(\text{Rural}) + P(\text{LGBTQ} | \text{Urban}) P(\text{Urban}) = 0.1 * 0.085 + 0.105 * 0.915$$
+
+```{r}
+0.1 * 0.085 + 0.105 * 0.915
+```
+
+**b)** : If they identify as LGBTQ, what’s the probability that they live in a rural area?
+
+Baye's rule!
+$$P(\text{Rural} | \text{LGBTQ}) = \frac{P(\text{Rural} \cap \text{LGBTQ})}{P(\text{LGBTQ})} = \frac{P(\text{LGBTQ} | \text{Rural}) P(\text{Rural})}{P(\text{LGBTQ})} = \frac{0.1 * 0.085}{0.104575}$$
+
+```{r}
+0.1 * 0.085 / 0.104575
+```
+
+**c)** : If they do not identify as LGBTQ, what’s the probability that they live in a rural area?
+
+$$P(\text{Rural} | \text{Not LGBTQ}) = \frac{P(\text{Not LGBTQ} | \text{Rural}) P(\text{Rural})}{P(\text{Not LGBTQ})} = \frac{(1 - 0.1) * 0.085}{1 - 0.104575}$$
+
+```{r}
+(1 - 0.1) * 0.085 / (1 - 0.104575)
+```
+
+## Exercise 2.11 (Internship)
+
+Muhammad applies for six equally competitive data science internships.
+He has the following prior model for his chances of getting into any given internship, $\pi$.
+
+| $\pi$    | 0.3  | 0.4  | 0.5  | Total |
+|----------|------|------|------|-------|
+| $f(\pi)$ | 0.25 | 0.60 | 0.15 | 1     |
+
+**a)**: Let Y be the number of internship offers that Muhammad gets.
+Specify the model for the dependence of Y on $\pi$ and the corresponding pmf, $f(y|\pi)$
+
+$$Y | \pi \sim Binomial(n = 6, \pi)$$ $$f(y | \pi) = {6 \choose y} \pi^y (1 - \pi)^{6 - y}$$
+
+**b)** : Muhammad got some pretty amazing news.
+He was offered four of the six internships!
+How likely would this be if $\pi = 0.3$?
+
+$$f(y = 4 | \pi = 0.3) = L(\pi = 0.3 | y = 4) = {6 \choose 4} 0.3^4 (1 - 0.3)^{6 - 4}$$
+
+```{r}
+choose(6, 4) * 0.3^4 * (1 - 0.3)^(6 - 4)
+```
+
+**c)** : Construct the posterior model of $\pi$ in light of Muhammad’s internship news
+
+$$f(\pi | y = 4) = \frac{f(\pi) L(\pi | y = 4)}{f(y = 4)}$$
+
+```{r}
+pi_df <- data.frame(
+  pi = c(0.3, 0.4, 0.5),
+  prior = c(0.25, 0.6, 0.15),
+  likelihood = c(
+    dbinom(4, size = 6, prob = 0.3),
+    dbinom(4, size = 6, prob = 0.4),
+    dbinom(4, size = 6, prob = 0.5)
+  ),
+  posterior = NA
+)
+```
+
+$f(y = 4) = f(y = 4 | \pi = 0.3)*f(\pi = 0.3) + f(y = 4 | \pi = 0.4)*f(\pi = 0.4) + f(y = 4 | \pi = 0.5)*f(\pi = 0.5)$
+
+```{r}
+(denominator <- dbinom(4, size = 6, prob = 0.3) * 0.25 + 
+  dbinom(4, size = 6, prob = 0.4) * 0.6 + 
+  dbinom(4, size = 6, prob = 0.5) * 0.15)
+```
+
+$$f(\pi = 0.3 | y = 4) = \frac{f(\pi = 0.3) L(\pi = 0.3 | y = 4)}{f(y=4)} = $$
+
+```{r}
+(pi_df$posterior[1] <- 0.25 * dbinom(4, size = 6, prob = 0.3) / denominator)
+```
+
+$$f(\pi = 0.4 | y = 4) = \frac{f(\pi = 0.4) L(\pi = 0.4 | y = 4)}{f(y=4)} = $$
+
+```{r}
+(pi_df$posterior[2] <- 0.6 * dbinom(4, size = 6, prob = 0.4) / denominator)
+```
+
+$$f(\pi = 0.5 | y = 4) = \frac{f(\pi = 0.5) L(\pi = 0.5 | y = 4)}{f(y=4)} = $$
+
+```{r}
+(pi_df$posterior[3] <- 0.15 * dbinom(4, size = 6, prob = 0.5) / denominator)
+```
+
+As a sanity check we know the sum of the posteriors should be 1,
+
+```{r}
+sum(pi_df$posterior)
+
+# Equal to doing
+0.25 * dbinom(4, size = 6, prob = 0.3) / denominator + 
+  0.6 * dbinom(4, size = 6, prob = 0.4) / denominator + 
+  0.15 * dbinom(4, size = 6, prob = 0.5) / denominator
+```
+
+```{r}
+# transpose to get it in the form we are used to
+t(pi_df)
+
+library(kableExtra)
+library(knitr)
+
+cbind(
+  c("$f(pi)$", "$L(pi | y)$", "$f(pi | y)$"),
+  t(pi_df)[-1, ]
+) |> 
+  kbl(
+    digits = 3,
+    col.names = c("$\\pi$", "0.3", "0.4", "0.5"),
+    row.names = FALSE
+  )
+```
+
+## Exercise 2.15 (Cuckoo birds)
+
+Cuckoo birds are brood parasites, meaning that they lay their eggs in the nests of other birds (hosts), so that the host birds will raise the cuckoo bird hatchlings.
+Lisa is an ornithologist studying the success rate, $\pi$, of cuckoo bird hatchlings that survive at least one week.
+She is taking over the project from a previous researcher who speculated in their notes the following prior model for $\pi$:
+
+| $\pi$    | 0.6 | 0.65 | 0.7 | 0.75 | Total |
+|----------|-----|------|-----|------|-------|
+| $f(\pi)$ | 0.3 | 0.4  | 0.2 | 0.1  | 1     |
+
+**a)** : If the previous researcher had been more sure that a hatchling would survive, how would the prior model be different?
+
+There would be more probability placed on larger values of $\pi$.
+
+**b)** : If the previous researcher had been less sure that a hatchling would survive, how would the prior model be different?
+
+There would be less probability placed on larger values of $\pi$.
+
+**c)** : Lisa collects some data.
+Among the 15 hatchlings she studied, 10 survived for at least one week.
+What is the posterior model for $\pi$?
+
+$$f(\pi | y = 10) = \frac{f(\pi) L(\pi | y = 10)}{f(y = 10)}$$
+
+**d)** : Lisa needs to explain the posterior model for $\pi$ in a research paper for ornithologists, and can’t assume they understand Bayesian statistics.
+Briefly summarize the posterior model in context.
+
+The four posterior probabilities would each be the probability of that success rate $\pi$, based on prior knowledge and data.

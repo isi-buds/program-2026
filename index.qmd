@@ -82,7 +82,7 @@ Make sure notifications are on.
 |:-----------------------|:-----------------------|
 | Intro to Probability | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day06-intro-prob/lecture_probability.html){target="_blank"} |
 | Lab 1 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day06-intro-prob/lab/2026-day06-lab.qmd){target="_blank"} |
-| Lab 1 Solutions | (will be uploaded later today) |
+| Lab 1 Solutions | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day06-intro-prob/lab/2026-day06-lab-solutions.qmd){target="_blank"} |
 | Research Pitch | | | 
 
 ## Day 7 - June 30, 2026
@@ -106,6 +106,7 @@ Make sure notifications are on.
 | The Beta-Binomial Model | |
 | Lab  |  |
 | Lab Solutions |  |
+| Research Pitch | | | 
 
 
 ## Day 9 - July 2, 2026
