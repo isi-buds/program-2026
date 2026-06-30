@@ -89,8 +89,7 @@ Make sure notifications are on.
 
 | Topic | Material |
 |:-----------------------|:-----------------------|
-| Monte Carlo Integration | |
-| Monte Carlo Inference | |
+| Monte Carlo Integration and Inference | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day07-monte-carlo/lecture_montecarlo.html){target="_blank"}|
 | Lab 1 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day07-monte-carlo/lab/2026-day07-lab-part1-mc.qmd){target="_blank"} |
 | Lab 2 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day07-monte-carlo/lab/2026-day07-lab-part2-mc.qmd){target="_blank"} |
 | Lab 1 Solutions |  |
