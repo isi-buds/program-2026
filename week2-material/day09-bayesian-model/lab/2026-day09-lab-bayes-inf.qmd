@@ -1,0 +1,90 @@
+---
+title: "Day 09 - Lab : Bayesian Inference Solutions"
+format: 
+  html:
+    toc: true
+    toc-expand: true
+    toc-depth: 2
+editor: visual
+embed-resources: true
+execute:
+  echo: fenced
+theme: cerulean
+---
+
+For this lab we will be working exercises from the Bayes Rules Book [Chapter 3](https://www.bayesrulesbook.com/chapter-3#exercises-2){target="_blank"} and [Chapter 8](https://www.bayesrulesbook.com/chapter-8#exercises-7){target="_blank"}.
+
+```{r}
+library(bayesrules)
+library(tidyverse)
+```
+
+## Exercise 3.9 (Interpreting priors)
+
+What do you call a sweet carbonated drink: pop, soda, coke, or something else? et $\pi$ be the proportion of U.S. residents that prefer the term “pop.” Two different beverage sales people from different regions of the country have different priors for $\pi$.
+
+- The first salesperson works in North Dakota and specifies a Beta(8,2) prior.
+
+- The second works in Louisiana and specifies a Beta(1,20) prior.
+
+  a\) Calculate the prior mean, median standard deviation of $\pi$ for both salespeople. Use the Monte Carlo method.
+
+  b\) Plot the prior pdfs for both salespeople.
+
+  c\) Compare, in words, the salespeople’s prior understandings about the proportion of U.S. residents that say “pop.”
+
+## Exercise **3.16 (Plotting the Beta-Binomial: Take I)**
+
+[Refer to the website of the textbook](https://www.bayesrulesbook.com/chapter-3#exercises-2) to see the output from `plot_beta_binomial()` function. (Exercise 3.16).
+
+**a)** Describe and compare both the prior model and likelihood function in words.
+
+**b)** Describe the posterior model in words. Does it more closely agree with the data (as reflected by the likelihood function) or the prior?
+
+**c)** Provide the specific `plot_beta_binomial()` code you would use to produce a similar plot. (Recall you can always use `?plot_beta_binomial` to get to the help page of the function).
+
+## Exercise 3.18 (More Beta-Binomial)
+
+**a**) Patrick has a Beta(3,3) prior for $\pi$, the probability that someone in their town attended a protest in June 2020. In their survey of 40 residents, 30 attended a protest. Summarize Patrick’s analysis using `summarize_beta_binomial()` and `plot_beta_binomial()`.
+
+**b)** Harold has the same prior as Patrick, but lives in a different town. In their survey, 15 out of 20 people attended a protest. Summarize Harold’s analysis using `summarize_beta_binomial()` and `plot_beta_binomial()`.
+
+**c)** How do Patrick and Harold’s posterior models compare? Briefly explain what causes these similarities and differences.
+
+## Exercise 8.6 (Credible intervals: Part I)
+
+For each situation, find the appropriate credible interval using the “middle” approach.
+
+1.  A 95% credible interval for $\pi$ with $\pi | y \sim Beta(4,5)$,
+2.  A 60% credible interval for $\pi$ with $\pi | y \sim Beta(4,5)$
+3.  A 95% credible interval for $\lambda$ with $\lambda|\gamma \sim Gamma(1,8)$
+
+## Exercise 8.9 (Hypothesis tests: Part I)
+
+For parameter $\pi$ , suppose you have a $Beta(1,0.8)$ prior model and a $Beta(4,3)$ posterior.
+
+You wish to test the null hypothesis that $\pi \leq 0.4$ versus the alternative that $\pi>0.4$ .
+
+Answer the following questions:
+
+**a)**: What is the posterior probability for the alternative hypothesis?
+
+**b)** Calculate and interpret the posterior odds.
+
+**c)** Calculate and interpret the prior odds.
+
+**d)** Calculate and interpret the Bayes Factor.
+
+**e)** Putting this together, explain your conclusion about these hypotheses to someone who is unfamiliar with Bayesian statistics.
+
+## Exercise 4.15 (One at the time)
+
+Let $\pi$ be the probability of success for some event of interest. You place a Beta(2, 3) prior on $\pi$ and are really impatient. Sequentially update your posterior for $\pi$ with each new observation below. Between each run you also update your prior.
+
+1.  First observation: Success
+
+2.  Second observation: Success
+
+3.  Third observation: Failure
+
+4.  Fourth observation: Success
