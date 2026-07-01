@@ -1,4 +1,4 @@
-# ISI-BUDS 2025 Research Project Descriptions
+# ISI-BUDS 2026 Research Project Descriptions
 
 ## Neuropsychiatric Symptoms in Down Syndrome: Assessing Risk for Cognitive Decline in the Alzheimer’s Disease Continuum
 
