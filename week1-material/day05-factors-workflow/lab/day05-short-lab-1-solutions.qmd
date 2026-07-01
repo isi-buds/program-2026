@@ -32,6 +32,8 @@ covid_data$patient_class <- addNA(covid_data$patient_class)
 
 covid_data |> 
   count(patient_class)
+
+glimpse(covid_data)
 ```
 
 ##
