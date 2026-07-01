@@ -210,20 +210,25 @@
 <li class="fragment"><p>We denote an observed <em>outcome</em> of <span class="math inline">\(Y\)</span> using lower case <span class="math inline">\(y\)</span>.</p></li>
 </ul>
 </section>
-<section>
-<section id="review-discrete-probability-models" class="title-slide slide level1 center">
-<h1>Review: Discrete probability models</h1>
+<section id="review-discrete-probability-models" class="slide level2">
+<h2>Review: Discrete probability models</h2>
 <p>Let <span class="math inline">\(Y\)</span> be a discrete random variable with probability mass function (pmf) <span class="math inline">\(f(y)\)</span>. Then the pmf defines the probability of any given <span class="math inline">\(y\)</span>, <span class="math inline">\(f(y) = P(Y = y)\)</span>, and has the following properties:</p>
 <p><span class="math inline">\(\sum_{\text{all } y} f(y) = 1\)</span></p>
 <p><span class="math inline">\(0 \le f(y) \le 1\)</span> for all values of <span class="math inline">\(y\)</span> in the range of <span class="math inline">\(Y\)</span></p>
 </section>
 <section id="phd-admissions" class="slide level2">
 <h2>PhD admissions</h2>
-<p>Let Y represent a random variable that represents the number of applicants admitted to a PhD program which has received applications from 5 prospective students. That is <span class="math inline">\(\Omega_Y = \{0, 1, 2, 3, 4, 5\}\)</span>. We are interested in the parameter <span class="math inline">\(\pi\)</span> which represents the probability of acceptance to this program. For demonstrative purposes, we will only consider three possible values of <span class="math inline">\(\pi\)</span> as 0.2, 0.4, and 0.8.</p>
+<p>Let Y represent a random variable that represents the number of applicants admitted to a PhD program which has received applications from 5 prospective students. That is <span class="math inline">\(\Omega_Y = \{0, 1, 2, 3, 4, 5\}\)</span>.</p>
+<div class="fragment">
+<p>We are interested in the parameter <span class="math inline">\(\pi\)</span> which represents the probability of acceptance to this program.</p>
+</div>
+<div class="fragment">
+<p>For demonstrative purposes, we will only consider three possible values of <span class="math inline">\(\pi\)</span> as 0.2, 0.4, and 0.8.</p>
+</div>
 </section>
 <section id="prior-model-for-pi" class="slide level2">
 <h2>Prior model for <span class="math inline">\(\pi\)</span></h2>
-<p>You are now a true Bayesian and decide to consult with an expert who knows the specific PhD program well and the following is the prior distribution the expert suggests you use in your analysis.</p>
+<p>We consult with an expert who knows the specific PhD program well. The following is the prior distribution the expert suggests we use in your analysis.</p>
 <table align="center">
 <tbody><tr>
 <th>
@@ -259,13 +264,25 @@ f(π)
 <section id="from-prior-to-posterior" class="slide level2">
 <h2>From prior to posterior</h2>
 <p>We have a prior model for <span class="math inline">\(\pi\)</span> that is <span class="math inline">\(f(\pi)\)</span>.</p>
+<div class="fragment">
 <p>In light of observed data <span class="math inline">\(y\)</span> we can update our ideas about <span class="math inline">\(\pi\)</span>.</p>
+</div>
+<div class="fragment">
 <p>We will call this the posterior model <span class="math inline">\(f(\pi|y)\)</span>.</p>
-<p>In order to do this update we will need data which we have not observed yet.</p>
+</div>
+<div class="fragment">
+<p>Bayesian statistics is a balancing act and we will take both the prior and the data to get to the posterior.</p>
+</div>
 </section>
 <section id="consider-data" class="slide level2">
 <h2>Consider data</h2>
-<p>For the two scenarios below fill out the table (twice). For now, it is OK to use your intuition to guesstimate.</p>
+<p>Consider the following two scenarios:</p>
+<ul>
+<li class="fragment"><p>Scenario 1: What if this program accepted five of the five applicants?</p></li>
+<li class="fragment"><p>Scenario 2: What if this program accepted none of the five applicants?</p></li>
+</ul>
+<div class="fragment">
+<p>For the two scenarios, fill out the table:</p>
 <table align="center">
 <tbody><tr>
 <th>
@@ -328,26 +345,11 @@ f(π|y)
 </td>
 </tr>
 </tbody></table>
-<p>Scenario 1: What if this program accepted five of the five applicants?</p>
-<p>Scenario 2: What if this program accepted none of the five applicants?</p>
-</section>
-<section id="intuition-vs.-reality" class="slide level2">
-<h2>Intuition vs.&nbsp;Reality</h2>
-<p>Your intuition may not be Bayesian if</p>
-<ul>
-<li class="fragment"><p>you have only relied on the prior model to decide on the posterior model.</p></li>
-<li class="fragment"><p>you have only relied on the data to decide on the posterior model.</p></li>
-</ul>
-<div class="fragment">
-<p>Bayesian statistics is a balancing act and we will take both the prior and the data to get to the posterior.</p>
-</div>
-<div class="fragment">
-<p>Don’t worry if your intuition was wrong. As we practice more, you will learn to think like a Bayesian.</p>
 </div>
 </section>
 <section id="likelihood" class="slide level2">
 <h2>Likelihood</h2>
-<p>We do not know <span class="math inline">\(\pi\)</span> but for now let’s consider one of the three possibilities for <span class="math inline">\(\pi = 0.2\)</span>.</p>
+<p>Let’s consider <span class="math inline">\(\pi = 0.2\)</span>.</p>
 <div class="fragment">
 <p>If <span class="math inline">\(\pi\)</span> were 0.2 what is the probability that we would observe 4 of the 5 applicants get admitted to the program?</p>
 </div>
@@ -369,12 +371,12 @@ f(π|y)
 <p><span class="math display">\[Y | \pi \sim \text{Bin}(n,\pi) \]</span></p>
 </div>
 </section>
-<section id="section" class="slide level2">
-<h2></h2>
+<section id="the-binomial-model-1" class="slide level2">
+<h2>The Binomial Model</h2>
 <p>The Binomial model is specified by a conditional pmf:</p>
 <p><span class="math display">\[f(y|\pi) = {n \choose y} \pi^y (1-\pi)^{n-y} \;\; \text{ for } y \in \{0,1,2,\ldots,n\}\]</span></p>
 </section>
-<section id="the-binomial-model-1" class="slide level2">
+<section id="the-binomial-model-2" class="slide level2">
 <h2>The Binomial Model</h2>
 <p><span class="math inline">\(f(y = 4 | \pi = 0.2) = {5 \choose 4} 0.2^40.8^1 = \frac{5!}{(5-4)! 4!} 0.2^40.8^1= 0.0064\)</span></p>
 <p>or using R</p>
@@ -385,9 +387,9 @@ f(π|y)
 </div>
 </div>
 </section>
-<section id="the-binomial-model-2" class="slide level2">
+<section id="the-binomial-model-3" class="slide level2">
 <h2>The Binomial Model</h2>
-<p>If <span class="math inline">\(\pi\)</span> were 0.2 what is the probability that we would observe 3 of the 5 applicants get admitted to the program?</p>
+<p>If <span class="math inline">\(\pi\)</span> were 0.2, what is the probability that we would observe 3 of the 5 applicants get admitted to the program?</p>
 <div class="fragment">
 <p>Would you expect this probability to be high or low?</p>
 </div>
@@ -402,7 +404,7 @@ f(π|y)
 </div>
 </div>
 </section>
-<section id="the-binomial-model-3" class="slide level2">
+<section id="the-binomial-model-4" class="slide level2">
 <h2>The Binomial Model</h2>
 <p>Rather than doing this one-by-one we can let R consider all different possible observations of y, 0 through 5.</p>
 <div class="cell">
@@ -813,19 +815,19 @@ f(π | y = 3)
 <p>1.Construct a <strong>prior model</strong> for your variable of interest, <span class="math inline">\(\pi\)</span>.<br>
 A prior model specifies two important pieces of information: the possible values of <span class="math inline">\(\pi\)</span> and the relative prior plausibility of each.</p>
 </section>
-<section id="section-1" class="slide level2">
+<section id="section" class="slide level2">
 <h2></h2>
 <p>2.Upon observing data <span class="math inline">\(Y = y\)</span>, define the <strong>likelihood function</strong> <span class="math inline">\(L(\pi|y)\)</span>.<br>
 As a first step, we summarize the dependence of <span class="math inline">\(Y\)</span> on <span class="math inline">\(\pi\)</span> via a <strong>conditional pmf</strong> <span class="math inline">\(f(y|\pi)\)</span>. The likelihood function is then defined by <span class="math inline">\(L(\pi; y) = f(y|\pi)\)</span> and can be used to compare the relative likelihood of different <span class="math inline">\(\pi\)</span> values in light of data <span class="math inline">\(Y = y\)</span>.</p>
 </section>
-<section id="section-2" class="slide level2">
+<section id="section-1" class="slide level2">
 <h2></h2>
 <p>3.Build the <strong>posterior model</strong> of <span class="math inline">\(\pi\)</span> via Bayes’ Rule.<br>
 By Bayes’ Rule, the posterior model is constructed by balancing the prior and likelihood:</p>
 <p><span class="math display">\[\text{posterior} = \frac{\text{prior} \cdot \text{likelihood}}{\text{normalizing constant}} \propto \text{prior} \cdot \text{likelihood}\]</span> More technically,</p>
 <p><span class="math display">\[f(\pi|y) = \frac{f(\pi)L(\pi; y)}{f(y)} \propto f(\pi)L(\pi; y)\]</span></p>
 
-</section></section>
+</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

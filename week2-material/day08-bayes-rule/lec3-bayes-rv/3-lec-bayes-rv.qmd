@@ -28,7 +28,7 @@ theme_set(theme_gray(base_size = 18))
 
 - We denote an observed _outcome_ of $Y$ using lower case $y$.  
 
-# Review: Discrete probability models
+## Review: Discrete probability models
 
 Let $Y$ be a discrete random variable with probability mass function (pmf) $f(y)$.  Then the pmf defines the probability of any given $y$, $f(y) = P(Y = y)$, and has the following properties:    
 
@@ -39,11 +39,19 @@ $0 \le f(y) \le 1$ for all values of $y$ in the range of $Y$
 
 ## PhD admissions
 
-Let Y represent a random variable that represents the number of applicants admitted to a PhD program which has received applications from 5 prospective students. That is $\Omega_Y = \{0, 1, 2, 3, 4, 5\}$. We are interested in the parameter $\pi$ which represents the probability of acceptance to this program. For demonstrative purposes, we will only consider three possible values of $\pi$ as 0.2, 0.4, and 0.8. 
+Let Y represent a random variable that represents the number of applicants admitted to a PhD program which has received applications from 5 prospective students. That is $\Omega_Y = \{0, 1, 2, 3, 4, 5\}$. 
+
+. . . 
+
+We are interested in the parameter $\pi$ which represents the probability of acceptance to this program. 
+
+. . . 
+
+For demonstrative purposes, we will only consider three possible values of $\pi$ as 0.2, 0.4, and 0.8. 
 
 ## Prior model for $\pi$
 
-You are now a true Bayesian and decide to consult with an expert who knows the specific PhD program well and the following is the prior distribution the expert suggests you use in your analysis. 
+We consult with an expert who knows the specific PhD program well. The following is the prior distribution the expert suggests we use in your analysis. 
 
 <table align = "center">
 <tr>
@@ -69,15 +77,29 @@ The expert thinks that this is quite a hard-to-get-into program.
 
 We have a prior model for $\pi$ that is $f(\pi)$. 
 
+. . . 
+
 In light of observed data $y$ we can update our ideas about $\pi$. 
+
+. . . 
 
 We will call this the posterior model $f(\pi|y)$.  
 
-In order to do this update we will need data which we have not observed yet. 
+. . . 
+
+Bayesian statistics is a balancing act and we will take both the prior and the data to get to the posterior. 
 
 ## Consider data
 
-For the two scenarios below fill out the table (twice). For now, it is OK to use your intuition to guesstimate. 
+Consider the following two scenarios:
+
+- Scenario 1: What if this program accepted five of the five applicants?
+
+- Scenario 2: What if this program accepted none of the five applicants?
+
+. . . 
+
+For the two scenarios, fill out the table:
 
 <table align = "center">
 <tr>
@@ -120,29 +142,11 @@ For the two scenarios below fill out the table (twice). For now, it is OK to use
 
 </table>
 
-Scenario 1: What if this program accepted five of the five applicants?
 
-Scenario 2: What if this program accepted none of the five applicants?
-
-## Intuition vs. Reality
-
-Your intuition may not be Bayesian if
-
-- you have only relied on the prior model to decide on the posterior model.
-
-- you have only relied on the data to decide on the posterior model.
-
-. . .
-
-Bayesian statistics is a balancing act and we will take both the prior and the data to get to the posterior. 
-
-. . .
-
-Don't worry if your intuition was wrong. As we practice more, you will learn to think like a Bayesian.
 
 ## Likelihood
 
-We do not know $\pi$ but for now let's consider one of the three possibilities for $\pi = 0.2$. 
+Let's consider $\pi = 0.2$. 
 
 . . .
 
@@ -172,7 +176,7 @@ Then the _dependence_ of $Y$ on $\pi$ can be modeled by the Binomial model with 
  
 $$Y | \pi \sim \text{Bin}(n,\pi) $$
 
-##
+## The Binomial Model
 
 The Binomial model is specified by a conditional pmf:    
 
@@ -190,7 +194,7 @@ dbinom(4, size = 5, prob = 0.2)
 
 ## The Binomial Model
 
-If $\pi$ were 0.2 what is the probability that we would observe 3 of the 5 applicants get admitted to the program? 
+If $\pi$ were 0.2, what is the probability that we would observe 3 of the 5 applicants get admitted to the program? 
 
 . . .
 
