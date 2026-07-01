@@ -92,8 +92,8 @@ Make sure notifications are on.
 | Monte Carlo Integration and Inference | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day07-monte-carlo/lecture_montecarlo.html){target="_blank"}|
 | Lab 1 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day07-monte-carlo/lab/2026-day07-lab-part1-mc.qmd){target="_blank"} |
 | Lab 2 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day07-monte-carlo/lab/2026-day07-lab-part2-mc.qmd){target="_blank"} |
-| Lab 1 Solutions |  |
-| Lab 2 Solutions |  |
+| Lab 1 Solutions | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day07-monte-carlo/lab/2026-day07-lab-part1-mc-solutions.qmd){target="_blank"} |
+| Lab 2 Solutions | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day07-monte-carlo/lab/2026-day07-lab-part2-mc-solutions.qmd){target="_blank"} |
 
 
 ## Day 8 - July 1, 2026
