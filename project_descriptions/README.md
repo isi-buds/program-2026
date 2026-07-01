@@ -1,13 +1,15 @@
-**Title**: Neuropsychiatric Symptoms in Down Syndrome: Assessing Risk for Cognitive Decline in the Alzheimer’s Disease Continuum
+# ISI-BUDS 2025 Research Project Descriptions
 
-**Mentoring Team**:  
+## Neuropsychiatric Symptoms in Down Syndrome: Assessing Risk for Cognitive Decline in the Alzheimer’s Disease Continuum
 
-David Sultzer, Clinical Core Lead at Alzheimer’s Disease Research Center, UCI  
-Daniel Gillen, Chancellor’s Professor of Statistics, UCI  
-Christy Hom, Associate Clinical Professor of Psychiatry, UCI  
-Sean Leader, Statistics PhD Student, UCI
+### Mentoring Team:  
 
-**Background**: 
+- David Sultzer, Clinical Core Lead at Alzheimer’s Disease Research Center, UCI  
+- Daniel Gillen, Chancellor’s Professor of Statistics, UCI  
+- Christy Hom, Associate Clinical Professor of Psychiatry, UCI  
+- Sean Leader, Statistics PhD Student, UCI
+
+### Background: 
 
 Alzheimer’s Disease (AD) has become a world-wide healthcare crisis characterized by abnormal amyloid protein plaques in the brain. With the advancing age of populations globally, the prevalence of AD is expected to increase dramatically, leading to enormous medical morbidity, family challenges, and healthcare costs. In typical sporadic cases of AD, memory impairment usually begins after age 70\. However, people with Down Syndrome (DS) are at a very high risk of developing AD early in adulthood due to the overexpression of amyloid precursor protein associated with triplication of chromosome 21\. Most individuals with DS will develop amyloid plaques by age 40 and experience progressive cognitive decline by age 50\.
 
@@ -15,7 +17,7 @@ Neuropsychiatric symptoms (NPS) such as depression, anxiety, irritability, apath
 
 Although NPS become increasingly frequent across cognitive stages (Cognitively Stable, Mild Cognitive Impairment (MCI), AD Dementia) among those with DS, it is currently unknown whether these symptoms are associated with a more rapid progression of cognitive decline among cognitively stable individuals. Furthermore, it remains unclear how NPS influence the transition from MCI to AD dementia, or how they relate to the continued worsening of cognitive deficits once AD dementia is established. Clarifying these relationships can confirm if NPS are fundamental expressions of AD pathology that accelerate cognitive decline, or if alternative non-amyloid processes are responsible. Furthermore, understanding the specific NPS in DS can help individuals, families, and clinicians recognize non-memory symptoms of cognitive decline, which improves differential diagnosis, reduces mental health stigma, and reveals opportunities for early targeted treatments.
 
-**Study Design and Data Description**:
+### Study Design and Data Description:
 
 This longitudinal cohort study will assess NPS and cognitive skills over time in individuals with DS. Data comes from the ABC-DS national cohort (Freeze 6), featuring up to six assessment cycles collected at roughly 16-month intervals. Participants with conditions such as Parkinsonism, traumatic brain injury, and drug or alcohol abuse will be excluded due to key clinical differences from the target population.
 
@@ -29,7 +31,7 @@ The sample consists of 542 individuals measured across 1,216 total observations.
 
 The primary analysis will use Neuropsychiatric Inventory (NPI) total and item scores, incorporating frequency and severity across 12 symptom domains (e.g. depression, irritability, appetite, etc.). To measure cognitive change, the study will analyze shifts in clinical diagnosis, cognition scores (such as the MoCA or DS Mental Status Exam), and measures of verbal memory and executive function. Statistical models will incorporate covariates and potential confounders, including demographics (e.g. age, sex, race, ethnicity, education) and available health data (e.g. sleep apnea, seizures, medication).
 
-**Objectives**: 
+## Objectives: 
 
 1. Replicate and validate the baseline *cross-sectional* association between NPS and cognitive diagnosis within the Down Syndrome cohort previously reported in Magaña-Ramirez et. al. (2025).  
 2. Quantify whether *longitudinal* changes in cognition are dependent on baseline NPS within the DS cohort. Change in cognition is measured in a few ways:  
@@ -38,7 +40,7 @@ The primary analysis will use Neuropsychiatric Inventory (NPI) total and item sc
    3. Change in composite measure of executive skills and verbal memory  
 3. (Optional) Evaluate the relationship between baseline NPS and AD biomarkers, and examine for interaction between baseline NPS and baseline amyloid level in the development of cognitive deficits over time.
 
-**References**:
+## References:
 
 1. Magana-Ramirez, C. M., Gillen, D. L., Hom, C. L., Jaimes, L., Jr, Chilukuri, S. S., McMahon, N., Lin, C., Kuhlman, R., Hu, T., Head, E., Lott, I. T., & Sultzer, D. L. (2025). Neuropsychiatric symptoms and emerging dementia in people with Down syndrome and older adults. Alzheimer's & dementia : the journal of the Alzheimer's Association, 21(11), e70871. [https://doi.org/10.1002/alz.70871](https://doi.org/10.1002/alz.70871)  
 2. Tampi, R. R., & Jeste, D. V. (2022). Dementia Is More Than Memory Loss: Neuropsychiatric Symptoms of Dementia and Their Nonpharmacological and Pharmacological Management. The American journal of psychiatry, 179(8), 528–543. [https://doi.org/10.1176/appi.ajp.20220508](https://doi.org/10.1176/appi.ajp.20220508)  
