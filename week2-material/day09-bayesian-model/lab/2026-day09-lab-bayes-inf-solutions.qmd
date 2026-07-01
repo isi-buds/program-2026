@@ -1,0 +1,340 @@
+---
+title: "Day 09 - Lab : Bayesian Inference Solutions"
+format: 
+  html:
+    toc: true
+    toc-expand: true
+    toc-depth: 2
+editor: visual
+embed-resources: true
+execute:
+  echo: fenced
+theme: cerulean
+---
+
+For this lab we will be working exercises from the Bayes Rules Book [Chapter 3](https://www.bayesrulesbook.com/chapter-3#exercises-2){target="_blank"} and [Chapter 8](https://www.bayesrulesbook.com/chapter-8#exercises-7){target="_blank"}.
+
+```{r}
+library(bayesrules)
+```
+
+## Exercise 3.9 (Interpreting priors)
+
+What do you call a sweet carbonated drink: pop, soda, coke, or something else?
+et $\pi$ be the proportion of U.S. residents that prefer the term “pop.” Two different beverage sales people from different regions of the country have different priors for $\pi$.
+
+-   The first salesperson works in North Dakota and specifies a Beta(8,2) prior.
+
+-   The second works in Louisiana and specifies a Beta(1,20) prior.
+
+-   Calculate the prior mean, median standard deviation of $\pi$ for both salespeople.
+
+Monte Carlo method
+
+```{r}
+library(tidyverse)
+# For the North Dakota salesperson
+
+nd_prior_samples <- rbeta(10000,8,2)
+la_samples <- rbeta(10000,1,20)
+
+
+prior_df <- data.frame(
+  ND = nd_prior_samples,
+  LA = la_samples
+) |> pivot_longer(cols = c(ND,LA),names_to="state")
+
+```
+
+```{r}
+prior_df |>
+  group_by(state) |>
+  summarize(
+    mean_dist = mean(value),
+    median_dist = median(value),
+    sd_dist = sd(value)
+  ) |> mutate(across(is.numeric,round,3))
+```
+
+-   Plot the prior pdfs for both salespeople.
+
+```{r}
+
+ggplot(prior_df) +
+  geom_density(aes(value,group=state,fill=state))+
+  scale_fill_discrete(name="Salesman Region") +
+  xlab("") +
+  ggtitle("Comparing the two priors") +
+  theme_bw()
+```
+
+-   Compare, in words, the salespeople’s prior understandings about the proportion of U.S. residents that say “pop.”
+
+Salesman from ND has a prior that places more mass on large pct of people using name pop.
+
+## Exercise **3.16 (Plotting the Beta-Binomial: Take I)**
+
+[Refer to the website of the textbook](https://www.bayesrulesbook.com/chapter-3#exercises-2) to see the output from `plot_beta_binomial()` function.
+(Exercise 3.16).
+
+**a)** Describe and compare both the prior model and likelihood function in words.
+
+**b)** Describe the posterior model in words.
+Does it more closely agree with the data (as reflected by the likelihood function) or the prior?
+
+**c)** Provide the specific `plot_beta_binomial()` code you would use to produce a similar plot.
+(Recall you can always use `?plot_beta_binomial` to get to the help page of the function).
+
+## Exercise 3.16 (Solutions)
+
+a\) Prior has more density closer to 1, and smaller variance.
+
+b\) Posterior has larger variance like the data (likelihood), but the center of the distribution is between the two.
+
+c\)
+
+```{r}
+plot_beta_binomial(
+  alpha=50,
+  beta=2,
+  y = 5,
+  n = 20
+) + theme_bw()
+```
+
+## Exercise 3.18 (More Beta-Binomial)
+
+**a**) Patrick has a Beta(3,3) prior for $\pi$, the probability that someone in their town attended a protest in June 2020.
+In their survey of 40 residents, 30 attended a protest.
+Summarize Patrick’s analysis using `summarize_beta_binomial()` and `plot_beta_binomial()`.
+
+**b)** Harold has the same prior as Patrick, but lives in a different town.
+In their survey, 15 out of 20 people attended a protest.
+Summarize Harold’s analysis using `summarize_beta_binomial()` and `plot_beta_binomial()`.
+
+**c)** How do Patrick and Harold’s posterior models compare?
+Briefly explain what causes these similarities and differences.
+
+## Exercise 3.18 (Solutions)
+
+$$\pi \sim Beta(3, 3)$$
+
+### a
+
+```{r}
+summarize_beta_binomial(
+  alpha = 3, 
+  beta = 3, 
+  y = 30, 
+  n = 40
+)
+
+plot_beta_binomial(
+  alpha = 3, 
+  beta = 3, 
+  y = 30, 
+  n = 40
+)
+```
+
+### 
+
+**b)**
+
+```{r}
+summarize_beta_binomial(
+  alpha = 3, 
+  beta = 3, 
+  y = 15, 
+  n = 20
+)
+
+plot_beta_binomial(
+  alpha = 3, 
+  beta = 3, 
+  y = 15, 
+  n = 20
+)
+```
+
+### 
+
+**c**) Patrick's and Harold's posteriors are similar, but Patrick's posterior is slightly more similar to the likelihood than the prior.
+This is because there was more data in Patrick's town so the posterior was pulled closer to the likelihood and is narrower than Harold's for this reason.
+
+## Exercise 8.6 (Credible intervals: Part I)
+
+For each situation, find the appropriate credible interval using the “middle” approach.
+
+1.  A 95% credible interval for $\pi$ with $\pi | y \sim Beta(4,5)$,
+
+```{r}
+qbeta(c(0.025,0.975),4,5)
+```
+
+2.  A 60% credible interval for $\pi$ with $\pi | y \sim Beta(4,5)$
+
+    ```{r}
+    qbeta(c(0.20,0.80),4,5)
+    ```
+
+3.  A 95% credible interval for $\lambda$ with $\lambda|\gamma \sim Gamma(1,8)$
+
+```{r}
+qgamma(c(0.025,0.975),1,8)
+```
+
+## Exercise 8.9 (Hypothesis tests: Part I)
+
+For parameter $\pi$ , suppose you have a $Beta(1,0.8)$ prior model and a $Beta(4,3)$ posterior.
+
+You wish to test the null hypothesis that $\pi \leq 0.4$ versus the alternative that $\pi>0.4$ .
+
+Answer the following questions:
+
+**a)**: What is the posterior probability for the alternative hypothesis?
+
+**b)** Calculate and interpret the posterior odds.
+**c)** Calculate and interpret the prior odds.
+**d)** Calculate and interpret the Bayes Factor.
+**e)** Putting this together, explain your conclusion about these hypotheses to someone who is unfamiliar with Bayesian statistics.
+
+## Exercise 8.9 Solutions
+
+$$\pi \sim Beta(1, 0.8), \pi | Y \sim(4, 3)$$
+
+$$H_0: \pi \leq 0.4, H_A: \pi > 0.4$$
+
+### 
+
+**a)**
+
+```{r}
+ggplot(data=data.frame(x=rbeta(100000,4,3))) + geom_density(aes(x=x),fill="forestgreen") + theme_bw() + geom_vline(xintercept = 0.4)
+```
+
+```{r}
+1 - pbeta(0.4, 4, 3)
+```
+
+### 
+
+**b)**
+
+```{r}
+posterior_odds <- (1 - pbeta(0.4, 4, 3)) / pbeta(0.4, 4, 3)
+posterior_odds
+```
+
+After having observed the data, the alternative hypothesis is 4.6 times more probable than the null hypothesis
+
+**c)**
+
+```{r}
+ggplot(data=data.frame(x=rbeta(100000,1,0.8))) + geom_density(aes(x=x),fill="forestgreen") + theme_bw() + geom_vline(xintercept = 0.4)
+```
+
+```{r}
+prior_odds <- (1 - pbeta(0.4, 1, 0.8)) / pbeta(0.4, 1, 0.8)
+
+prior_odds
+```
+
+Before observing the data, the alternative hypothesis is 1.98 times more probable than the null hypothesis.
+
+### 
+
+**d)**
+
+```{r}
+posterior_odds / prior_odds
+```
+
+The plausibility of the alternative hypothesis increased by a factor of 2.31 in light of the observed data.
+
+**e)** The Bayes Factor (BF) compares the posterior odds to the prior odds, and hence provides insight into just how much our understanding evolved upon observing our sample data: Since the Bayes factor is greater than 1, specifically 2.3, we conclude that our belief in $\pi > 0.4$ has more than doubled after having observed the data.
+
+## Exercise 4.15 (One at the time)
+
+Let $\pi$ be the probability of success for some event of interest.
+You place a Beta(2, 3) prior on $\pi$ and are really impatient.
+Sequentially update your posterior for $\pi$ with each new observation below.
+Between each run you also update your prior.
+
+1.  First observation: Success
+
+2.  Second observation: Success
+
+3.  Third observation: Failure
+
+4.  Fourth observation: Success
+
+## Exercise 4.15 Solutions
+
+First observation (success)
+
+```{r}
+(res1 <- summarize_beta_binomial(
+  alpha=2,
+  beta=3,
+  y = 1, 
+  n =1
+))
+plot_beta_binomial(
+  alpha=2,
+  beta=3,
+  y = 1, 
+  n =1
+)
+res1
+```
+
+Second observation (success)
+
+```{r}
+
+(res2 <- summarize_beta_binomial(
+  alpha=res1 |> filter(model=="posterior") |> pull(alpha),
+  beta= res1 |> filter(model=="posterior") |> pull(beta),
+  y=1, 
+  n=1
+))
+```
+
+Third observation: Failure
+
+```{r}
+
+(res3 <- summarize_beta_binomial( 
+  alpha=res2 |> filter(model=="posterior") |> pull(alpha),
+  beta=res2 |> filter(model=="posterior") |> pull(beta), 
+  y = 0, 
+  n =1 ))
+```
+
+Fourth observation: Success
+
+```{r}
+
+(res4 <- summarize_beta_binomial( 
+  alpha=res3 |> filter(model=="posterior") |> pull(alpha),
+  beta=res3 |> filter(model=="posterior") |> pull(beta), 
+  y = 1, n =1 )
+)
+
+plot_beta_binomial(
+  alpha=res3 |> filter(model=="posterior") |> pull(alpha),
+  beta = res3 |> filter(model=="posterior") |> pull(beta),
+  y=1,
+  n=1
+)
+```
+
+```{r}
+summarize_beta_binomial(
+  alpha=2,
+  beta=3,
+  y=3,
+  n=4
+)
+```

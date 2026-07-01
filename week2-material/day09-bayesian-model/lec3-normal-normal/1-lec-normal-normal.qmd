@@ -1,0 +1,401 @@
+---
+title: "The Normal-Normal Model"
+execute:
+  echo: true
+subtitle: "ISI-BUDS 2026"
+format: 
+  revealjs:
+    slide-number: true
+    incremental: true
+    theme: ["../slide-style.scss"]
+    title-slide-attributes: 
+      data-background-size: 12%
+      data-background-position: 50% 75%
+---
+
+```{r}
+#| echo: false
+library(tidyverse)
+library(bayesrules)
+theme_set(theme_gray(base_size = 18))
+```
+
+##
+The notes for this lecture are derived from  [Chapter 5 of the Bayes Rules! book](https://www.bayesrulesbook.com/chapter-5)
+
+
+
+## Data Context
+
+Among all people who have a history of concussions, we are interested in $\mu$  the average volume (in cubic centimeters) of a specific part of the brain: the hippocampus.
+
+. . .
+
+Let $(Y_1,Y_2,\ldots,Y_{25})$ denote the hippocampal volumes for volumes for the  $n = 25$ study subjects who played collegiate American football and who have been diagnosed with concussions.
+
+## Prior
+
+According to [Wikipedia](https://en.wikipedia.org/wiki/Hippocampus), among the general population of human adults, both halves of the hippocampus have a volume between 3.0 and 3.5 cubic centimeters.
+
+
+We’ll assume that the mean hippocampal volume among people with a history of concussions, $\mu$ is also somewhere between 6 and 7  $cm^3$ with an average of 6.5.
+
+
+## The Normal model
+
+Let $Y$ be a random variable which can take any value between $-\infty$ and $\infty$, ie. $Y \in (-\infty,\infty)$.  Then the variability in $Y$ might be well represented by a Normal model with __mean parameter__ $\mu \in (-\infty, \infty)$ and __standard deviation parameter__ $\sigma > 0$: 
+
+$$Y \sim N(\mu, \sigma^2)$$
+
+The Normal model is specified by continuous pdf
+
+\begin{equation}
+f(y) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\bigg[{-\frac{(y-\mu)^2}{2\sigma^2}}\bigg] \;\; \text{ for } y \in (-\infty,\infty)
+\end{equation}
+
+
+
+
+## Trends and variability of the Normal model
+
+$$\begin{split}
+E(Y) & = \text{ Mode}(Y) = \mu \\
+\text{Var}(Y) & = \sigma^2 \\
+\end{split}$$
+
+Further, $\sigma$ provides a sense of scale for $Y$. Roughly 95% of $Y$ values will be within 2 standard deviations of $\mu$:
+
+\begin{equation}
+\mu \pm 2\sigma \; .
+\end{equation}
+
+
+
+
+
+
+## Normal models
+
+
+```{r}
+#| echo: false
+# Set up gamma data
+mu <- c(2,2,4)
+sigma  <- c(.5,1,2)
+sigma.sq<-sigma^2
+normals <- data.frame(setting = factor(rep(1:3, each = 500)), 
+                    x = rep(seq(-2, 10, length = 500), 3),
+                    mu = rep(mu, each = 500), 
+                    sigma = rep(sigma, each = 500))
+normals <- normals %>% 
+    mutate(y = dnorm(x, mean = mu, sd = sigma))
+levels(normals$setting) <- paste0("N(",mu,",",sigma.sq,")")
+g <- ggplot(normals, aes(x = x, y = y)) + 
+  geom_line() + 
+  facet_wrap(~ setting) + 
+  labs(x = "y", y = "f(y)") + 
+  scale_y_continuous(breaks = c(0,2,4,6,8,10)) + 
+  lims(y = c(0,0.8)) 
+  
+g 
+``` 
+
+
+
+## Normal Likelihood
+
+$$L(\mu ; \vec{y})= \prod_{i=1}^{n}L(\mu | y_i) = \prod_{i=1}^{n}\frac{1}{\sqrt{2\pi\sigma^2}} \exp\bigg[{-\frac{(y_i-\mu)^2}{2\sigma^2}}\bigg].$$
+
+Simplifying this up to a _proportionality_ constant
+
+$$L(\mu ; \vec{y}) \propto \prod_{i=1}^{n} \exp\bigg[{-\frac{(y_i-\mu)^2}{2\sigma^2}}\bigg] =  \exp\bigg[{-\frac{\sum_{i=1}^n (y_i-\mu)^2}{2\sigma^2}}\bigg] \; .$$
+
+. . .
+
+\begin{equation}
+L(\mu ; \vec{y}) \propto \exp\bigg[{-\frac{(\bar{y}-\mu)^2}{2\sigma^2/n}}\bigg] \;\;\;\; \text{ for } \; \mu \in (-\infty, \infty).
+\end{equation}
+
+##
+
+$$L(\mu ; \vec{y}) \propto \exp\bigg[{-\frac{(5.735-\mu)^2}{2(0.593^2/25)}}\bigg] \;\;\;\; \text{ for } \; \mu \in (-\infty, \infty),$$ 
+
+
+```{r}
+#| echo: false
+mus <- data.frame(mu = seq(5.25, 6.22, by = 0.001)) %>% 
+  mutate(likelihood = dnorm(x = 5.735, mean = mu, sd = 0.593/sqrt(25)))
+# Likelihood function evaluated at each theta
+like_fun <- function(x){dnorm(x = 5.735, mean = x, sd = 0.593/sqrt(25))}
+ggplot(mus, aes(x = mu, y = likelihood)) + 
+    lims(x = c(5.25, 6.22)) + 
+    stat_function(fun = like_fun)  +
+    labs(x = expression(mu), y = expression(paste("L(",mu, "|", bar(y), "= 5.735)"))) 
+```
+
+
+
+## Normal prior
+
+$$\mu \sim N(\theta, \tau^2) \; , $$
+
+with prior pdf 
+
+\begin{equation}
+f(\mu) = \frac{1}{\sqrt{2\pi\tau^2}} \exp\bigg[{-\frac{(\mu - \theta)^2}{2\tau^2}}\bigg] \;\; \text{ for } \mu \in (-\infty,\infty) \; .
+\end{equation}
+
+
+. . .
+
+
+$$\mu \sim N(6.5, 0.4^2) \;.$$
+
+##
+
+```{r}
+plot_normal(mean = 6.5, sd = 0.4)
+```
+
+##
+
+__The Normal-Normal Bayesian model__
+
+Let $\mu \in (-\infty,\infty)$ be an unknown _mean_ parameter and $(Y_1,Y_2,\ldots,Y_n)$ be an independent $N(\mu,\sigma^2)$ sample where $\sigma$ is assumed to be _known_.
+The Normal-Normal Bayesian model complements the Normal structure of the data with a Normal prior on $\mu$:
+
+$$\begin{split}
+Y_i | \mu & \stackrel{ind}{\sim} N(\mu, \sigma^2) \\
+\mu & \sim N(\theta, \tau^2) \\
+\end{split}$$
+
+##
+
+Upon observing data $\vec{y} = (y_1,y_2,\ldots,y_n)$, the posterior model of $\mu$ is also a Normal with updated parameters:
+
+\begin{equation}
+\mu|\vec{y} \; \sim \;  N\bigg(\frac{\theta\sigma^2/n + \bar{y}\tau^2}{\tau^2+\sigma^2/n}, \; \frac{\tau^2\sigma^2/n}{\tau^2+\sigma^2/n}\bigg) \; .
+\end{equation}
+
+## Data
+
+```{r}
+# Load the data
+data(football)
+concussion_subjects <- football %>%
+  filter(group == "fb_concuss")
+```
+
+```{r}
+concussion_subjects %>%
+  summarize(mean(volume))
+```
+
+##
+
+
+- our Normal prior model of $\mu$ had mean $\theta = 6.5$ and standard deviation $\tau = 0.4$;
+- our $n = 25$ sample subjects had a sample mean volume $\bar{y}=5.735$;
+- we will assume a known standard deviation among individual hippocampal volumes of $\sigma = 0.5$.
+
+## 
+
+The posterior model of $\mu$ is:
+
+$$\mu | \vec{y} \; \sim \; N\bigg(6.5\cdot\frac{0.5^2}{25\cdot0.4^2+0.5^2} + 5.735\cdot\frac{25\cdot 0.4^2}{25 \cdot 0.4^2+0.5^2}, \;$$ 
+$$\frac{0.4^2\cdot0.5^2}{25\cdot0.4^2+0.5^2}\bigg).$$
+
+
+or, further simplified,
+
+$$\mu | \vec{y} \; \sim \; N\bigg(5.78, 0.009^2 \bigg)$$
+
+##
+
+```{r fig.width=9}
+plot_normal_normal(mean = 6.5, sd = 0.4, sigma = 0.5, 
+  y_bar = 5.735, n = 25)
+```
+
+##
+
+```{r}
+
+summarize_normal_normal(mean = 6.5, sd = 0.4, sigma = 0.5, 
+  y_bar = 5.735, n = 25)
+```
+
+## Critiques of conjugate family models
+
+A conjugate prior model isn’t always flexible enough to fit your prior understanding. For example, a Normal model is always unimodal and symmetric around the mean $\mu$. So if your prior understanding is not symmetric or is not unimodal, then the Normal prior might not be the best tool for the job.
+
+
+
+
+
+
+## Exponential family
+
+A large class of distributions, called \emph{exponential family}, have the following form:
+\begin{eqnarray*}
+P(y_i|\theta) = h(y_i)g(\theta)\exp(\phi(\theta)^{T}s(y_i))
+\end{eqnarray*}
+
+. . .
+
+Many widely used distributions such as normal, bernoulli, and Poisson belong to the exponential family. 
+
+. . .
+
+The joint distribution for a set of conditionally (given $\theta$) independent observations, $y = (y_1, y_2, ..., y_n)$ is
+\begin{eqnarray*}
+P(y|\theta) = \Big[\prod_i h(y_i) \Big]g(\theta)^{n}\exp(\phi(\theta)^{T}\sum_{i} s(y_i))
+\end{eqnarray*}  
+
+
+
+## Conjugate priors (formal definition)
+
+
+If for an exponential family we define our prior as 
+
+\begin{eqnarray*}
+P(\theta) \propto g(\theta)^{\eta} \exp(\phi(\theta)^T \nu)
+\end{eqnarray*}
+then the posterior would have a similar form:
+\begin{eqnarray*}
+P(\theta |y) \propto g(\theta)^{\eta +n}\exp(\phi(\theta)^T (\nu + t(y)))
+\end{eqnarray*}
+In this case, $P(\theta)$ is a conjugate prior.
+
+
+
+
+## Binomial model (revisited)
+
+Let's look at the binomial model again:
+\begin{eqnarray*}
+P(y|\theta, n) & = & \binom{n}{y} \theta^{y}(1-\theta)^{(n-y)} \\
+ & = & \binom{n}{y} \exp \big[ y \log (\frac{\theta}{1-\theta}) + n \log(1-\theta) \big] \\
+ & = & \binom{n}{y}(1-\theta)^n \exp[y \log (\frac{\theta}{1-\theta})] 
+\end{eqnarray*}
+
+
+
+
+## Binomial model (revisited)
+
+Therefore,
+\begin{eqnarray*}
+g(\theta) = (1-\theta)\\
+\phi(\theta) = \log (\frac{\theta}{1-\theta})
+\end{eqnarray*}
+
+## Binomial model (revisited)
+
+Recall that a conjugate prior is proportional to 
+\begin{eqnarray*}
+P(\theta) \propto g(\theta)^{\eta} \exp(\phi(\theta)^T \nu)
+\end{eqnarray*}
+
+. . .
+
+Therefore, the conjugate prior for the Binomial model has the following form:
+\begin{eqnarray*}
+P(\theta) \propto \theta^{\alpha-1}(1-\theta)^{\beta-1}
+\end{eqnarray*}
+
+This is a Beta($\alpha, \beta$) distribution. 
+
+
+
+
+
+
+## Poisson model (revisited)
+
+
+Poisson model is another member of exponential family and is commonly used for count data.
+
+. . .
+
+Assume we have observed $y = (y_1, y_2, ..., y_n)$:
+\begin{eqnarray*}
+P(y | \theta) & = & \prod_i \frac{\theta^{y_i}\exp(-\theta)}{y_i !}\\
+& \propto & \exp(-n\theta) \exp( \log(\theta) {\sum{y_i}} )
+\end{eqnarray*}
+
+
+## Poisson model (revisited)
+
+The conjugate prior would have the following form:
+ \begin{eqnarray*}
+P(\theta) & \propto & (\exp(-\theta))^{\eta} \exp( \nu \log(\theta) )\\
+& \propto & \exp(-\eta \theta) \theta^{\nu} 
+\end{eqnarray*}
+
+. . .
+
+Using $P(\theta) \propto \exp(-\beta \theta) \theta^{\alpha-1}$, which is a Gamma($\alpha, \beta$) distribution, as our prior, we obtain the following posterior:
+ \begin{eqnarray*}
+\theta | y & \sim & \textrm{Gamma}(\alpha+\sum_{i=1}^{n} y_i, \beta +n)
+\end{eqnarray*}
+
+
+
+
+
+
+
+## Univariate normal model (revisited)
+
+The normal distribution is also a member of exponential families.
+
+We first consider a situation where there is only one observation and the variance is known.
+\begin{eqnarray*}
+y &\sim& N(\theta, \sigma^2) \\
+P(y| \theta, \sigma) & = & \frac{1}{\sqrt{2\pi}\sigma}\exp(-\frac{\theta ^2}{2\sigma^2})\exp(-\frac{y^2}{2\sigma^2}+\frac{\theta y}{\sigma^2})
+\end{eqnarray*}
+
+
+## Univariate normal model (revisited)
+
+So the general form of a conjugate prior is
+\begin{eqnarray*}
+P(\theta) \propto \exp(a \theta ^2 + b \theta)
+\end{eqnarray*}
+which can be parameterized as 
+\begin{eqnarray*}
+P(\theta) \propto \exp( -\frac{1}{2\tau^{2}_{0}}(\theta- \mu_0)^2)
+\end{eqnarray*}
+which is a $N(\mu_0, \tau_{0}^{2})$ distribution.
+
+
+
+## Univariate normal model (revisited)
+
+As the result, the posterior distribution would be
+\begin{eqnarray*}
+P(\theta|\sigma, y) \propto \exp( -\frac{1}{2\sigma^{2}}(y- \theta)^2 - \frac{1}{2\tau^{2}_{0}}(\theta- \mu_0)^2)
+\end{eqnarray*}
+
+When you complete the square, the posterior would also become a normal distribution:
+\begin{eqnarray*}
+P(\theta |\sigma, y) \propto \exp(-\frac{1}{2\tau_{1}^{2}}(\theta-\mu_{1})^{2})
+\end{eqnarray*}
+
+## Univariate normal model (revisited)
+
+This is a $N(\mu_{1}, \tau_{1}^{2})$ distribution with
+\begin{eqnarray*}
+\mu_{1} = \frac{\frac{\mu_0}{\tau^{2}_{0}}+ \frac{y}{\sigma^2}}{\frac{1}{\tau^{2}_{0}}+\frac{1}{\sigma^2}} \qquad \frac{1}{\tau_{1}^{2}} = \frac{1}{\tau^{2}_{0}} + \frac{1}{\sigma^{2}}
+\end{eqnarray*}
+
+
+## Univariate normal model (revisited)
+
+For $n$ observations, we write the model for $\bar{y}$; therefore,
+\begin{eqnarray*}
+\mu_{n} = \frac{\frac{\mu_0}{\tau^{2}_{0}}+ \frac{n \bar y}{\sigma^2}}{\frac{1}{\tau^{2}_{0}}+\frac{n}{\sigma^2}} \qquad \frac{1}{\tau_{n}^{2}} = \frac{1}{\tau^{2}_{0}} + \frac{n}{\sigma^{2}}
+\end{eqnarray*}
+
