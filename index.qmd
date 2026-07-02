@@ -100,9 +100,9 @@ Make sure notifications are on.
 
 | Topic | Material |
 |:-----------------------|:-----------------------|
-| Bayes' Rule for Events | |
-| Bayesian Models for Random Variables | |
-| The Beta-Binomial Model | |
+| Introduction to Bayesian Statistics | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day08-bayes-rule/lec1-bayes-intro/1-lec-bayes-intro.html){target="_blank"} |
+| Baye's Rule for Events | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day08-bayes-rule/lec2-bayes-events/1-bayes-events.html){target="_blank"} |
+| Bayesian Models for Random Variables | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day08-bayes-rule/lec3-bayes-rv/3-lec-bayes-rv.html){target="_blank"} |
 | Lab  | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day08-bayes-rule/lab/2026-day08-lab-bayes-rule.qmd){target="_blank"} |
 | Lab Solutions | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day08-bayes-rule/lab/2026-day08-lab-bayes-rule-solutions.qmd){target="_blank"} |
 | Research Pitch | | | 
@@ -112,8 +112,10 @@ Make sure notifications are on.
 
 | Topic | Material |
 |:-----------------------|:-----------------------|
-| Balance and Sequentiality in Bayesian Analyses | |
-| Posterior Inference and Prediction | |
+| The Beta-Binomial Model | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day09-bayesian-model/lec1-beta-binomial/1-lec-beta-binomial.html){target="_blank"}|
+| The Gamma-Poisson Model | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day09-bayesian-model/lec2-gamma-poisson/1-lec-gamma-poisson.html){target="_blank"} | 
+| The Normal-Normal Model | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day09-bayesian-model/lec3-normal-normal/1-lec-normal-normal.html){target="_blank"} |
+| Markov Chain Monte Carlo (MCMC) | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day09-bayesian-model/lec4-mcmc/1-lec-mcmc.html){target="_blank"} |
 | Lab  | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day09-bayesian-model/lab/2026-day09-lab-bayes-inf.qmd){target="_blank"} |
 | Lab Solutions |  |
 
