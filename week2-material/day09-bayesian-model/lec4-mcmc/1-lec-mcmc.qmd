@@ -35,7 +35,7 @@ format:
 
 - If we can draw iid samples, $x^{(1)}, x^{(2)}, \ldots, x^{(m)}$ uniformly from
   $(a, b)$, we can approximate this integral as
-  $$\hat{I}_m = (b - a)\frac{1}{m}\bigl[h(x^{(1)}) + h(x^{(2)}) + \cdots + h(x^{(m)})\bigr]$$
+  $${\hat{I}}_m = (b - a)\frac{1}{m}\bigl[h(x^{(1)}) + h(x^{(2)}) + \cdots + h(x^{(m)})\bigr]$$
 
 ## Monte Carlo Methods: A General Framework
 
@@ -43,7 +43,7 @@ format:
   $$\lim_{m \to \infty} \hat{I}_m = I, \quad \text{with probability 1}$$
 
 - And based on the central limit theorem
-  $$\sqrt{m}(\hat{I}_m - I) \to N(0, \sigma^2), \qquad \sigma^2 = \mathrm{Var}(h(x))$$
+  $$\sqrt{m}({\hat{I}}_m - I) \to N(0, \sigma^2), \qquad \sigma^2 = \mathrm{Var}(h(x))$$
 
 
 ## Monte Carlo Method for Finite Expectation

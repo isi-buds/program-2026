@@ -202,10 +202,6 @@
 </div>
 
 </section>
-<section id="section" class="slide level2">
-<h2></h2>
-<p>The notes for this lecture are derived from <a href="https://www.bayesrulesbook.com/chapter-5">Chapter 5 of the Bayes Rules! book</a></p>
-</section>
 <section id="data-context" class="slide level2">
 <h2>Data Context</h2>
 <p>Among all people who have a history of concussions, we are interested in <span class="math inline">\(\mu\)</span> the average volume (in cubic centimeters) of a specific part of the brain: the hippocampus.</p>
@@ -253,7 +249,7 @@ L(\mu ; \vec{y}) \propto \exp\bigg[{-\frac{(\bar{y}-\mu)^2}{2\sigma^2/n}}\bigg] 
 \end{equation}\]</span></p>
 </div>
 </section>
-<section id="section-1" class="slide level2">
+<section id="section" class="slide level2">
 <h2></h2>
 <p><span class="math display">\[L(\mu ; \vec{y}) \propto \exp\bigg[{-\frac{(5.735-\mu)^2}{2(0.593^2/25)}}\bigg] \;\;\;\; \text{ for } \; \mu \in (-\infty, \infty),\]</span></p>
 
@@ -269,23 +265,22 @@ f(\mu) = \frac{1}{\sqrt{2\pi\tau^2}} \exp\bigg[{-\frac{(\mu - \theta)^2}{2\tau^2
 <p><span class="math display">\[\mu \sim N(6.5, 0.4^2) \;.\]</span></p>
 </div>
 </section>
-<section id="section-2" class="slide level2">
+<section id="section-1" class="slide level2">
 <h2></h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">plot_normal</span>(<span class="at">mean =</span> <span class="fl">6.5</span>, <span class="at">sd =</span> <span class="fl">0.4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
 <img data-src="1-lec-normal-normal_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section>
-<section id="section-3" class="slide level2">
-<h2></h2>
-<p><strong>The Normal-Normal Bayesian model</strong></p>
+<section id="the-normal-normal-bayesian-model" class="slide level2">
+<h2>The Normal-Normal Bayesian model</h2>
 <p>Let <span class="math inline">\(\mu \in (-\infty,\infty)\)</span> be an unknown <em>mean</em> parameter and <span class="math inline">\((Y_1,Y_2,\ldots,Y_n)\)</span> be an independent <span class="math inline">\(N(\mu,\sigma^2)\)</span> sample where <span class="math inline">\(\sigma\)</span> is assumed to be <em>known</em>. The Normal-Normal Bayesian model complements the Normal structure of the data with a Normal prior on <span class="math inline">\(\mu\)</span>:</p>
 <p><span class="math display">\[\begin{split}
 Y_i | \mu &amp; \stackrel{ind}{\sim} N(\mu, \sigma^2) \\
 \mu &amp; \sim N(\theta, \tau^2) \\
 \end{split}\]</span></p>
 </section>
-<section id="section-4" class="slide level2">
+<section id="section-2" class="slide level2">
 <h2></h2>
 <p>Upon observing data <span class="math inline">\(\vec{y} = (y_1,y_2,\ldots,y_n)\)</span>, the posterior model of <span class="math inline">\(\mu\)</span> is also a Normal with updated parameters:</p>
 <p><span class="math display">\[\begin{equation}
@@ -300,6 +295,9 @@ Y_i | \mu &amp; \stackrel{ind}{\sim} N(\mu, \sigma^2) \\
 <span id="cb2-3"><a href=""></a>concussion_subjects <span class="ot">&lt;-</span> football <span class="sc">%&gt;%</span></span>
 <span id="cb2-4"><a href=""></a>  <span class="fu">filter</span>(group <span class="sc">==</span> <span class="st">"fb_concuss"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+</section>
+<section id="section-3" class="slide level2">
+<h2></h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>concussion_subjects <span class="sc">%&gt;%</span></span>
 <span id="cb3-2"><a href=""></a>  <span class="fu">summarize</span>(<span class="fu">mean</span>(volume))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -307,36 +305,65 @@ Y_i | \mu &amp; \stackrel{ind}{\sim} N(\mu, \sigma^2) \\
 <pre><code>  mean(volume)
 1       5.7346</code></pre>
 </div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>concussion_subjects</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        group years volume
+1  fb_concuss    13  4.490
+2  fb_concuss    14  4.525
+3  fb_concuss    18  5.020
+4  fb_concuss    11  5.265
+5  fb_concuss     7  5.370
+6  fb_concuss    17  5.415
+7  fb_concuss    15  5.505
+8  fb_concuss    14  5.520
+9  fb_concuss    14  5.590
+10 fb_concuss    13  5.610
+11 fb_concuss    11  5.680
+12 fb_concuss    15  5.695
+13 fb_concuss    10  5.710
+14 fb_concuss    13  5.735
+15 fb_concuss    15  5.735
+16 fb_concuss    14  5.765
+17 fb_concuss    15  5.810
+18 fb_concuss    13  5.865
+19 fb_concuss    13  6.035
+20 fb_concuss    10  6.175
+21 fb_concuss    14  6.190
+22 fb_concuss    13  6.420
+23 fb_concuss    15  6.445
+24 fb_concuss     9  6.635
+25 fb_concuss    12  7.160</code></pre>
+</div>
 </div>
 </section>
-<section id="section-5" class="slide level2">
-<h2></h2>
+<section id="setup" class="slide level2">
+<h2>Setup</h2>
 <ul>
 <li class="fragment">our Normal prior model of <span class="math inline">\(\mu\)</span> had mean <span class="math inline">\(\theta = 6.5\)</span> and standard deviation <span class="math inline">\(\tau = 0.4\)</span>;</li>
 <li class="fragment">our <span class="math inline">\(n = 25\)</span> sample subjects had a sample mean volume <span class="math inline">\(\bar{y}=5.735\)</span>;</li>
 <li class="fragment">we will assume a known standard deviation among individual hippocampal volumes of <span class="math inline">\(\sigma = 0.5\)</span>.</li>
 </ul>
 </section>
-<section id="section-6" class="slide level2">
-<h2></h2>
+<section id="posterior" class="slide level2">
+<h2>Posterior</h2>
 <p>The posterior model of <span class="math inline">\(\mu\)</span> is:</p>
 <p><span class="math display">\[\mu | \vec{y} \; \sim \; N\bigg(6.5\cdot\frac{0.5^2}{25\cdot0.4^2+0.5^2} + 5.735\cdot\frac{25\cdot 0.4^2}{25 \cdot 0.4^2+0.5^2}, \;\]</span> <span class="math display">\[\frac{0.4^2\cdot0.5^2}{25\cdot0.4^2+0.5^2}\bigg).\]</span></p>
 <p>or, further simplified,</p>
 <p><span class="math display">\[\mu | \vec{y} \; \sim \; N\bigg(5.78, 0.009^2 \bigg)\]</span></p>
 </section>
-<section id="section-7" class="slide level2">
+<section id="section-4" class="slide level2">
 <h2></h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">plot_normal_normal</span>(<span class="at">mean =</span> <span class="fl">6.5</span>, <span class="at">sd =</span> <span class="fl">0.4</span>, <span class="at">sigma =</span> <span class="fl">0.5</span>, </span>
-<span id="cb5-2"><a href=""></a>  <span class="at">y_bar =</span> <span class="fl">5.735</span>, <span class="at">n =</span> <span class="dv">25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="fu">plot_normal_normal</span>(<span class="at">mean =</span> <span class="fl">6.5</span>, <span class="at">sd =</span> <span class="fl">0.4</span>, <span class="at">sigma =</span> <span class="fl">0.5</span>, </span>
+<span id="cb7-2"><a href=""></a>  <span class="at">y_bar =</span> <span class="fl">5.735</span>, <span class="at">n =</span> <span class="dv">25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
 <img data-src="1-lec-normal-normal_files/figure-revealjs/unnamed-chunk-7-1.png" width="864" class="r-stretch"></section>
-<section id="section-8" class="slide level2">
+<section id="section-5" class="slide level2">
 <h2></h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="fu">summarize_normal_normal</span>(<span class="at">mean =</span> <span class="fl">6.5</span>, <span class="at">sd =</span> <span class="fl">0.4</span>, <span class="at">sigma =</span> <span class="fl">0.5</span>, </span>
-<span id="cb6-2"><a href=""></a>  <span class="at">y_bar =</span> <span class="fl">5.735</span>, <span class="at">n =</span> <span class="dv">25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">summarize_normal_normal</span>(<span class="at">mean =</span> <span class="fl">6.5</span>, <span class="at">sd =</span> <span class="fl">0.4</span>, <span class="at">sigma =</span> <span class="fl">0.5</span>, </span>
+<span id="cb8-2"><a href=""></a>  <span class="at">y_bar =</span> <span class="fl">5.735</span>, <span class="at">n =</span> <span class="dv">25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      model mean mode         var         sd
 1     prior 6.50 6.50 0.160000000 0.40000000

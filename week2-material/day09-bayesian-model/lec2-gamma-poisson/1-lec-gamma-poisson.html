@@ -202,10 +202,6 @@
 </div>
 
 </section>
-<section id="section" class="slide level2">
-<h2></h2>
-<p>The notes for this lecture are derived from <a href="https://www.bayesrulesbook.com/chapter-5">Chapter 5 of the Bayes Rules! book</a></p>
-</section>
 <section id="choosing-a-prior" class="slide level2">
 <h2>Choosing a Prior</h2>
 <p>Prior distribution depends on our current information. When choosing a prior we may consider</p>
@@ -216,7 +212,10 @@
 </section>
 <section id="conjugate-prior" class="slide level2">
 <h2>Conjugate Prior</h2>
-<p>Let the prior model for parameter <span class="math inline">\(\theta\)</span> have pdf <span class="math inline">\(f(\theta)\)</span> and the model of data <span class="math inline">\(Y\)</span> conditioned on <span class="math inline">\(\theta\)</span> have likelihood function <span class="math inline">\(L(\theta|y)\)</span>. If the resulting posterior model with pdf <span class="math inline">\(f(\theta|y) \propto f(\theta)L(\theta|y)\)</span> is of the same model family as the prior, then we say this is a <strong>conjugate prior</strong>.</p>
+<p>Let the prior model for parameter <span class="math inline">\(\theta\)</span> have pdf <span class="math inline">\(f(\theta)\)</span> and the model of data <span class="math inline">\(Y\)</span> conditioned on <span class="math inline">\(\theta\)</span> have likelihood function <span class="math inline">\(L(\theta|y)\)</span>.</p>
+<div class="fragment">
+<p>If the resulting posterior model with pdf <span class="math inline">\(f(\theta|y) \propto f(\theta)L(\theta|y)\)</span> is of the same model family as the prior, then we say this is a <strong>conjugate prior</strong>.</p>
+</div>
 <div class="fragment">
 <p><strong>Examples</strong></p>
 <p>The Beta-Binomial Model - Beta is a conjugate prior for the Binomial Likelihood.</p>
@@ -230,15 +229,21 @@
 </section>
 <section id="the-question" class="slide level2">
 <h2>The Question</h2>
-<p>We are interested in modeling <span class="math inline">\(\lambda\)</span> the rate of fraud risk calls received per day. We plan on collecting data on the number of fraud risk phone calls received each day.</p>
+<p>We are interested in modeling <span class="math inline">\(\lambda\)</span> the rate of fraud risk calls received per day.</p>
+<div class="fragment">
+<p>We plan on collecting data on the number of fraud risk phone calls received each day.</p>
+</div>
 </section>
 <section id="the-poisson-model" class="slide level2">
 <h2>The Poisson model</h2>
-<p>Let random variable <span class="math inline">\(Y\)</span> be the <em>number of independent events</em> that occur in a fixed amount of time or space, where <span class="math inline">\(\lambda &gt; 0\)</span> is the rate at which these events occur. Then the <em>dependence</em> of <span class="math inline">\(Y\)</span> on <strong>parameter</strong> <span class="math inline">\(\lambda\)</span> can be modeled by the Poisson. In mathematical notation:</p>
+<p>Let random variable <span class="math inline">\(Y\)</span> be the <em>number of independent events</em> that occur in a fixed amount of time or space, where <span class="math inline">\(\lambda &gt; 0\)</span> is the rate at which these events occur.</p>
+<div class="fragment">
+<p>Then the <em>dependence</em> of <span class="math inline">\(Y\)</span> on <strong>parameter</strong> <span class="math inline">\(\lambda\)</span> can be modeled by the Poisson. In mathematical notation:</p>
 <p><span class="math display">\[Y | \lambda \sim \text{Pois}(\lambda) \]</span></p>
+</div>
 </section>
-<section id="section-1" class="slide level2">
-<h2></h2>
+<section id="the-poisson-model-1" class="slide level2">
+<h2>The Poisson model</h2>
 <p>The Poisson model is specified by a conditional pmf:</p>
 <p><span class="math display">\[\begin{equation}
 f(y|\lambda) =  \frac{\lambda^y e^{-\lambda}}{y!}\;\; \text{ for } y \in \{0,1,2,\ldots\}
@@ -279,7 +284,7 @@ L(\lambda | \vec{y})
 <p><span class="math display">\[L(\lambda | \vec{y}) = \frac{\lambda^{6 +2+2+1}e^{-4\lambda}}{6!\times2!\times2!\times1!} \propto \lambda^{11}e^{-4\lambda} \; .\]</span></p>
 </div>
 </section>
-<section id="section-2" class="slide level2">
+<section id="section" class="slide level2">
 <h2></h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">plot_poisson_likelihood</span>(<span class="at">y =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>), </span>
@@ -289,11 +294,14 @@ L(\lambda | \vec{y})
 <img data-src="1-lec-gamma-poisson_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch"></section>
 <section id="gamma-prior" class="slide level2">
 <h2>Gamma Prior</h2>
-<p>Let <span class="math inline">\(\lambda\)</span> be a random variable which can take any value between 0 and <span class="math inline">\(\infty\)</span>, ie. <span class="math inline">\(\lambda \in [0,\infty)\)</span>. Then the variability in <span class="math inline">\(\lambda\)</span> might be well modeled by a Gamma model with <strong>shape parameter</strong> <span class="math inline">\(s &gt; 0\)</span> and <strong>rate parameter</strong> <span class="math inline">\(r &gt; 0\)</span>:</p>
+<p>Let <span class="math inline">\(\lambda\)</span> be a random variable which can take any value between 0 and <span class="math inline">\(\infty\)</span>, ie. <span class="math inline">\(\lambda \in [0,\infty)\)</span>.</p>
+<div class="fragment">
+<p>Then the variability in <span class="math inline">\(\lambda\)</span> might be well modeled by a Gamma model with <strong>shape parameter</strong> <span class="math inline">\(s &gt; 0\)</span> and <strong>rate parameter</strong> <span class="math inline">\(r &gt; 0\)</span>:</p>
 <p><span class="math display">\[\lambda \sim \text{Gamma}(s, r)\]</span></p>
+</div>
 </section>
-<section id="section-3" class="slide level2">
-<h2></h2>
+<section id="gamma-prior-1" class="slide level2">
+<h2>Gamma Prior</h2>
 <p>The Gamma model is specified by continuous pdf</p>
 <p><span class="math display">\[\begin{equation}
 f(\lambda) = \frac{r^s}{\Gamma(s)} \lambda^{s-1} e^{-r\lambda} \;\; \text{ for } \lambda &gt; 0
@@ -305,7 +313,7 @@ f(\lambda) = \frac{r^s}{\Gamma(s)} \lambda^{s-1} e^{-r\lambda} \;\; \text{ for }
 <p><span class="math display">\[\lambda \sim \text{Exp}(r)\]</span></p>
 <p>is a special case of the Gamma with shape parameter <span class="math inline">\(s = 1\)</span>, <span class="math inline">\(\text{Gamma}(1,r)\)</span>.</p>
 </section>
-<section id="section-4" class="slide level2">
+<section id="section-1" class="slide level2">
 <h2></h2>
 
 <img data-src="1-lec-gamma-poisson_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
