@@ -114,7 +114,7 @@ Make sure notifications are on.
 |:-----------------------|:-----------------------|
 | Balance and Sequentiality in Bayesian Analyses | |
 | Posterior Inference and Prediction | |
-| Lab  |  |
+| Lab  | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day09-bayesian-model/lab/2026-day09-lab-bayes-inf.qmd){target="_blank"} |
 | Lab Solutions |  |
 
 
