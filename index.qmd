@@ -121,5 +121,25 @@ Make sure notifications are on.
 
 
 
+## Day 10 - July 6, 2026
 
+| Topic | Material |
+|:-----------------------|:-----------------------|
+| Linear Regression | | 
+| Logistic Regression | | 
+| Lab | | 
+| Lab Solutions | | 
+
+
+
+## Day 11 - July 7, 2026
+
+| Topic | Material |
+|:-----------------------|:-----------------------|
+| Generalized Linear Models | | 
+| Generalized Linear Mixed Models | | 
+| Lab 1 | | 
+| Lab 2 | | 
+| Lab 1 Solutions | |
+| Lab 2 Solutions | | 
 
