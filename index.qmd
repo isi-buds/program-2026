@@ -103,8 +103,8 @@ Make sure notifications are on.
 | Bayes' Rule for Events | |
 | Bayesian Models for Random Variables | |
 | The Beta-Binomial Model | |
-| Lab  |  |
-| Lab Solutions |  |
+| Lab  | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day08-bayes-rule/lab/2026-day08-lab-bayes-rule.qmd){target="_blank"} |
+| Lab Solutions | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week2-material/day08-bayes-rule/lab/2026-day08-lab-bayes-rule-solutions.qmd){target="_blank"} |
 | Research Pitch | | | 
 
 
