@@ -45,7 +45,7 @@ At the beginning, the car can be behind any of the three doors with equal probab
 
 . . .
 
-Therefore, our `prior` (probability distribution before observing any data) can be expressed as:
+Therefore, our **prior** (probability distribution before observing any data) can be expressed as:
 
 \begin{eqnarray*}
 P(D_1) = P(D_2) = P(D_3) = 1/3
@@ -55,12 +55,15 @@ P(D_1) = P(D_2) = P(D_3) = 1/3
 ## Monty Hall problem -- Likelihood
 
 
-Let's say we choose door number 1, and Monty opens door number 2. Now we have `data`. 
+Let's say we choose door number 1, and Monty opens door number 2. 
 
 . . .
 
+Now we have observed some **data**. 
 
-Now let's write down the conditional probability of opening door 2, $OD_2$, given different values for the unknown parameter: $D_1, D_2$, and $D_3$:
+. . .
+
+Let's write down the conditional probability of this observed data, $OD_2$, given different values for the unknown parameter: $D_1, D_2$, and $D_3$:
 
 \begin{eqnarray*}
 P(OD_2|D_1) & = & 1/2\\
@@ -70,7 +73,7 @@ P(OD_2|D_3) & = & 1
 
 . . .
 
-This is called the `likelihood function`.
+This is called the **likelihood function**.
 
 
 ## Monty Hall problem -- Likelihood
@@ -79,13 +82,13 @@ Note that the likelihood function is not a probability distribution -- it doesn'
 
 . . . 
 
-Therefore, it's common to write it as $L(D)$, or in general, $L(\theta)$.
+Therefore, it's common to write it as $L(\theta; D)$, or in general, $L(\theta)$.
 
 
 
 ## Marginal probability of observed data
 
-Recall that if $B = (B_1, B_2, ..., B_n)$ are a set of events that partition the sample space,  using the `law of total probability`, we have:
+Recall that if $B = (B_1, B_2, ..., B_n)$ are a set of events that partition the sample space,  using the **law of total probability**, we have:
 \begin{eqnarray*}
 P(A) & = & P(A|B_1)P(B_1)+...+P(A|B_n)P(B_n)
 \end{eqnarray*}
@@ -105,7 +108,7 @@ P(OD_2) & = & P(OD_2|D_1)P(D_1) + \\
 
 ## Bayes' theorem
 
-For two events, $A$ and $B$, `Bayes' theorem` can be simply presented as follows:
+For two events, $A$ and $B$, **Bayes' theorem** can be simply presented as follows:
 \begin{eqnarray*}
 P(B|A) & = & \frac{P(B)P(A|B)}{P(A)}
 \end{eqnarray*}
@@ -126,7 +129,7 @@ In the Bayesian framework:
 
 . . . 
 
-$P(B|A)$ is the `posterior` probability: our updated knowledge (or uncerntainty) about $B$ after observing $A$.
+$P(B|A)$ is the **posterior** probability: our updated knowledge (or uncerntainty) about $B$ after observing $A$.
 
 
 ## Monty Hall problem
@@ -161,7 +164,11 @@ You can try this using a penny and three cups.
 
 Priya, a data science student, notices that her college's email server is using a faulty spam filter.  
 
+. . . 
+
 Taking matters into her own hands, Priya decides to build her own spam filter.  
+
+. . . 
 
 As a first step, she manually examines all emails she received during the previous month and determines that 40% of these were spam.  
 
@@ -169,7 +176,7 @@ As a first step, she manually examines all emails she received during the previo
 
 ## Prior 
 
-Let event B represent an event of an email being spam.
+Let event $B$ represent an event of an email being spam.
 
 $P(B) = 0.40$
 
@@ -190,6 +197,8 @@ If Priya was to act on this prior what should she do about incoming emails?
 ## A possible solution
 
 Since most email is non-spam, sort all emails into the inbox.  
+
+. . . 
 
 This filter would certainly solve the problem of losing non-spam email in the spam folder, but at the cost of making a mess in Priya's inbox.  
 

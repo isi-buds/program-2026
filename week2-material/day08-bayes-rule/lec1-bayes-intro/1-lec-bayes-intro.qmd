@@ -70,11 +70,11 @@ We could of course attempt to minimize our reliance on prior information.
 
 . . . 
 
-Most frequentist methods adhere to this principle, leveraging domain knowledge to determine which population characteristics are relevant to the scientific problem at hand (e.g., excluding height as a risk factor for cancer). However, they typically avoid incorporating priors when making inferences. 
+Most frequentist methods adhere to this principle, leveraging domain knowledge to determine which population characteristics are relevant to the scientific problem at hand. 
 
 . . . 
 
-It is important to recognize that this does not imply frequentist methods are entirely objective.
+While frequentist methods typically avoid incorporating priors when making inferences, it is important to recognize that this does not imply frequentist methods are entirely objective.
 
 
 ## Easy to understand, hard to implement
@@ -84,22 +84,26 @@ Bayesian methods on the other hand provide a mathematical framework to incorpora
 
 . . . 
 
-This is based on the philosophy that if the prior is in fact informative, this should lead to more accurate inference and better decisions. Also, the way we incorporate our prior knowledge in the analysis should be explicit. 
+This is based on the philosophy that if the prior is in fact informative, this should lead to more accurate inference and better decisions. 
 
 . . . 
 
-While the underlying concept for Bayesian statistics is quite simple, implementing Bayesian methods might be more difficult compared to their frequentist counterparts.  
+Additionally, Bayesians believe that incorporating our prior knowledge in the analysis should be explicit. 
+
 
 
 ## Easy to understand, hard to implement
 
-Therefore, while Bayesian methods provide a coherent and robust framework for statistical inference, they require a careful specification of models and priors. 
+While Bayesian methods provide a coherent and robust framework for statistical inference, they require a careful specification of models and priors. 
 
 . . . 
 
 Additionally, you need strong computational skills to implement them. 
 
 
+. . . 
+
+Therefore, while the underlying concept for Bayesian statistics is quite simple, implementing Bayesian methods might be more difficult compared to their frequentist counterparts.  
 
 
 ## Probability: It's personal!
@@ -150,7 +154,7 @@ Bayesians feel comfortable to assign probabilities to events that are not repeat
 
 . . . 
 
-For example, I can show you a picture of a car and ask ``what is the probability that the price of this car is less than \$5,000?''. 
+For example: what is Cabo Verde's probability of winning the World Cup this year (their first-ever FIFA World Cup appearance). 
 
 
 
