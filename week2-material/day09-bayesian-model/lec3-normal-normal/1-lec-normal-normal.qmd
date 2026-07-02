@@ -20,9 +20,6 @@ library(bayesrules)
 theme_set(theme_gray(base_size = 18))
 ```
 
-##
-The notes for this lecture are derived from  [Chapter 5 of the Bayes Rules! book](https://www.bayesrulesbook.com/chapter-5)
-
 
 
 ## Data Context
@@ -157,9 +154,7 @@ $$\mu \sim N(6.5, 0.4^2) \;.$$
 plot_normal(mean = 6.5, sd = 0.4)
 ```
 
-##
-
-__The Normal-Normal Bayesian model__
+## The Normal-Normal Bayesian model
 
 Let $\mu \in (-\infty,\infty)$ be an unknown _mean_ parameter and $(Y_1,Y_2,\ldots,Y_n)$ be an independent $N(\mu,\sigma^2)$ sample where $\sigma$ is assumed to be _known_.
 The Normal-Normal Bayesian model complements the Normal structure of the data with a Normal prior on $\mu$:
@@ -186,19 +181,23 @@ concussion_subjects <- football %>%
   filter(group == "fb_concuss")
 ```
 
+##
+
 ```{r}
 concussion_subjects %>%
   summarize(mean(volume))
+
+concussion_subjects
 ```
 
-##
+## Setup 
 
 
 - our Normal prior model of $\mu$ had mean $\theta = 6.5$ and standard deviation $\tau = 0.4$;
 - our $n = 25$ sample subjects had a sample mean volume $\bar{y}=5.735$;
 - we will assume a known standard deviation among individual hippocampal volumes of $\sigma = 0.5$.
 
-## 
+## Posterior 
 
 The posterior model of $\mu$ is:
 

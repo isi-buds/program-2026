@@ -20,10 +20,6 @@ library(bayesrules)
 theme_set(theme_gray(base_size = 18))
 ```
 
-##
-The notes for this lecture are derived from  [Chapter 5 of the Bayes Rules! book](https://www.bayesrulesbook.com/chapter-5)
-
-
 
 ## Choosing a Prior
 
@@ -35,7 +31,11 @@ Prior distribution depends on our current information. When choosing a prior we 
 
 ## Conjugate Prior
 
-Let the prior model for parameter $\theta$ have pdf $f(\theta)$ and the model of data $Y$ conditioned on $\theta$ have likelihood function $L(\theta|y)$.  If the resulting posterior model with pdf $f(\theta|y) \propto f(\theta)L(\theta|y)$ is of the same model family as the prior, then we say this is a __conjugate prior__. 
+Let the prior model for parameter $\theta$ have pdf $f(\theta)$ and the model of data $Y$ conditioned on $\theta$ have likelihood function $L(\theta|y)$.  
+
+. . .
+
+If the resulting posterior model with pdf $f(\theta|y) \propto f(\theta)L(\theta|y)$ is of the same model family as the prior, then we say this is a __conjugate prior__. 
 
 . . .
 
@@ -56,15 +56,23 @@ The Normal-Normal Model
 
 ## The Question
 
-We are interested in modeling $\lambda$ the rate of fraud risk calls received per day. We plan on collecting data on the number of fraud risk phone calls received each day.
+We are interested in modeling $\lambda$ the rate of fraud risk calls received per day. 
+
+. . .
+
+We plan on collecting data on the number of fraud risk phone calls received each day.
 
 ## The Poisson model
 
-Let random variable $Y$ be the _number of independent events_ that occur in a fixed amount of time or space, where $\lambda > 0$ is the rate at which these events occur.  Then the _dependence_ of $Y$ on __parameter__ $\lambda$ can be modeled by the Poisson.  In mathematical notation:
+Let random variable $Y$ be the _number of independent events_ that occur in a fixed amount of time or space, where $\lambda > 0$ is the rate at which these events occur.  
+
+. . .
+
+Then the _dependence_ of $Y$ on __parameter__ $\lambda$ can be modeled by the Poisson.  In mathematical notation:
 
 $$Y | \lambda \sim \text{Pois}(\lambda) $$
 
-##
+## The Poisson model
 
 The Poisson model is specified by a conditional pmf:    
 
@@ -130,12 +138,16 @@ plot_poisson_likelihood(y = c(6, 2, 2, 1),
 ## Gamma Prior
 
 
-Let $\lambda$ be a random variable which can take any value between 0 and $\infty$, ie. $\lambda \in [0,\infty)$.  Then the variability in $\lambda$ might be well modeled by a Gamma model with __shape parameter__ $s > 0$ and __rate parameter__ 
+Let $\lambda$ be a random variable which can take any value between 0 and $\infty$, ie. $\lambda \in [0,\infty)$.  
+
+. . .
+
+Then the variability in $\lambda$ might be well modeled by a Gamma model with __shape parameter__ $s > 0$ and __rate parameter__ 
 $r > 0$: 
 
 $$\lambda \sim \text{Gamma}(s, r)$$
 
-##
+## Gamma Prior
 
 The Gamma model is specified by continuous pdf
 

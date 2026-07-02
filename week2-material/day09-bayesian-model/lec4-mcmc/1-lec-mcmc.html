@@ -149,14 +149,14 @@
 <h2>Monte Carlo Methods: A General Framework</h2>
 <ul>
 <li class="fragment"><p>Assume that we are interested in finding integrals of the form <span class="math inline">\(I = \int_a^b h(x)\,dx\)</span>.</p></li>
-<li class="fragment"><p>If we can draw iid samples, <span class="math inline">\(x^{(1)}, x^{(2)}, \ldots, x^{(m)}\)</span> uniformly from <span class="math inline">\((a, b)\)</span>, we can approximate this integral as <span class="math display">\[\hat{I}_m = (b - a)\frac{1}{m}\bigl[h(x^{(1)}) + h(x^{(2)}) + \cdots + h(x^{(m)})\bigr]\]</span></p></li>
+<li class="fragment"><p>If we can draw iid samples, <span class="math inline">\(x^{(1)}, x^{(2)}, \ldots, x^{(m)}\)</span> uniformly from <span class="math inline">\((a, b)\)</span>, we can approximate this integral as <span class="math display">\[{\hat{I}}_m = (b - a)\frac{1}{m}\bigl[h(x^{(1)}) + h(x^{(2)}) + \cdots + h(x^{(m)})\bigr]\]</span></p></li>
 </ul>
 </section>
 <section id="monte-carlo-methods-a-general-framework-1" class="slide level2">
 <h2>Monte Carlo Methods: A General Framework</h2>
 <ul>
 <li class="fragment"><p>Based on the law of large numbers, we know that <span class="math display">\[\lim_{m \to \infty} \hat{I}_m = I, \quad \text{with probability 1}\]</span></p></li>
-<li class="fragment"><p>And based on the central limit theorem <span class="math display">\[\sqrt{m}(\hat{I}_m - I) \to N(0, \sigma^2), \qquad \sigma^2 = \mathrm{Var}(h(x))\]</span></p></li>
+<li class="fragment"><p>And based on the central limit theorem <span class="math display">\[\sqrt{m}({\hat{I}}_m - I) \to N(0, \sigma^2), \qquad \sigma^2 = \mathrm{Var}(h(x))\]</span></p></li>
 </ul>
 </section>
 <section id="monte-carlo-method-for-finite-expectation" class="slide level2">

@@ -21,10 +21,6 @@ theme_set(theme_gray(base_size = 18))
 ```
 
 
-# Beta prior
-
-The notes for this lecture are derived from  [Section 3.1 of the Bayes Rules! book](https://www.bayesrulesbook.com/chapter-3#ch3-prior)
-
 
 ## Back to Graduate School Applications
 
@@ -40,7 +36,7 @@ This time we will let $\pi \in [0,1]$.
 
 ##
 
-**Continuous probability models**    
+## Continuous probability models
  
 Let $\pi$ be a continuous random variable with pdf $f(\pi)$.
 Then $f(\pi)$ has the following properties:    
@@ -61,13 +57,23 @@ $f(\pi)$ can be used to _compare_ the plausibility of two different values of $\
 
 For each of the student's prior ideas for $\pi$ plot the pdf of the prior. Your plot will not be exact since no exact values are given.  
 
+. . . 
+
 Morteza thinks that it is extremely difficult to get into this program.
+
+. . . 
 
 Jared thinks that it is difficult to get into this program. 
 
+. . . 
+
 Erin does not have any strong opinions whether it is difficult or easy to get into this program. 
 
+. . . 
+
 Xuan thinks that it is easy to get into this program.
+
+. . . 
 
 Beyoncé thinks that it is extremely easy to get into this program.
 
@@ -143,7 +149,7 @@ Then the variability in $\pi$ might be well modeled by a Beta model with __shape
 
 $$\pi \sim \text{Beta}(\alpha, \beta)$$
 
-##
+## Beta Prior model
 
 The Beta model is specified by continuous pdf
 \begin{equation}
@@ -308,9 +314,6 @@ Use the `summarize_beta()` function in the `bayesrules` package to find the mean
 summarize_beta(alpha = 5, beta = 7)
 ```
 
-# The Beta-Binomial Model
-
-The notes for this lecture are derived from  [Chapter 3 of the Bayes Rules! book](https://www.bayesrulesbook.com/chapter-3)
 
 
 ## Bike ownership
@@ -438,8 +441,6 @@ What is the descriptive measures (expected value, mode, and variance) of the pos
 ```{r}
 summarize_beta_binomial(5, 35, y = 25, n = 50)
 ```
-
-# Simulating the Beta-Binomial Model 
 
 
 ## Data Context

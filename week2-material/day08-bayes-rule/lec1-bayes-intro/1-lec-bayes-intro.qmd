@@ -132,11 +132,11 @@ In this view, all that matters is uncertainty, and all uncertainties are express
 ## Probability: It's personal!
 
 
-Consider the well-known coin tossing example. What is the probability of heads in one toss? 
+Consider the well-known coin-tossing example. What is the probability of obtaining heads in a single toss?
 
 . . . 
 
-There are only two possibilities for the outcome: heads and tails. Assuming symmetry (i.e., a fair coin), heads and tails equal probability 1/2.
+There are only two possible outcomes: heads and tails. By symmetry, if the coin is fair, the two outcomes are equally likely. Therefore, the probability of obtaining heads is 1/2.
 
 . . . 
 
