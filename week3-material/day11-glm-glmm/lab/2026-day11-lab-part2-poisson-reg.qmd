@@ -1,0 +1,85 @@
+---
+title: "Day 11 Lab: Poisson Regression"
+format: 
+  html:
+    toc: true
+    toc-expand: true
+    toc-depth: 2
+embed-resources: true
+editor: visual
+execute:
+  echo: fenced
+theme: cerulean
+---
+
+The Florida Museum of Natural History maintains the International Shark Attack File, a record of unprovoked shark attacks (and resultant fatalities) worldwide. Patterns in Florida are particularly interesting since the peninsular nature of the state means that almost all Florida residents and visitors are within 90 minutes of the Atlantic Ocean or Gulf of Mexico. Further, since population figures for Florida are available, it is possible to account for changes in coastal population by examining patterns in attack rates, rather than simply attack counts.
+
+The shark data can be found in Simonoff's book [*Analyzing Categorical Data*](https://pages.stern.nyu.edu/~jsimonof/AnalCatData/). For our purposes we will assume that the observations are independent.
+
+```{r}
+library(tidyverse)
+```
+
+*Previously we've been working with data stored in csv format. There are different ways to store data, and there are corresponding functions to read in the data.*
+
+```{r}
+shark_data <- readxl::read_xls("data/floridashark.xls")
+```
+
+# Poisson regression for counts
+
+## Question 1
+
+Examine the data and plot the number of attacks by year.
+
+## Question 2
+
+Shark attacks are a rare event and Poisson regression seems like it may be appropriate to model these counts. If the following model were fit $$\log(E[Attacks_i]) = \beta_0 + \beta_1 Year_i,$$ the intercept would not have a meaningful interpretation. Instead let's make it have a meaningful interpretation by adjusting for the baseline year $$\log(E[Attacks_i]) = \beta_0 + \beta_1 I(Year_i - 1946).$$
+
+Fit this model and interpret $\beta_0$ and $\beta_1$ in context.
+
+## Question 3
+
+The direct interpretations from question 3 are less understandable since they are on the log scale. Luckily, for Poisson regression we can, and should in most cases, exponentiate our coefficients to talk about a change in factor of counts. Compute $exp(\beta_0)$ and $exp(\beta_1)$, their corresponding 95% confidence intervals, and their interpretations in context. *If you get the difference from 1, i.e.* $exp(\beta_1) -1$, and multiply by 100% you can talk about a percent change, which is often more understandable than just $exp(\beta_1)$.
+
+# Poisson Regression for rates (Exposure)
+
+Notice the population is steadily increasing each year, so comparing counts across years does appear to be the best idea.
+
+```{r}
+shark_data$pop_per_100k <- shark_data$Population / 100000
+
+ggplot(data = shark_data, aes(x = Year, y = pop_per_100k)) +
+  geom_point() +
+  labs(
+    y = "Attack rate per 100,000 in population"
+  )
+```
+
+## Question 4
+
+We want to instead compare shark attack rate, since that is comparable across different years with different populations.
+
+$$\log(Attacks_i) = \log(Population per 100,000 people) + \beta_0 + \beta_1 * I(Year_i - 1964)$$
+
+Fit the model, and provide an estimate and 95% confidence interval for the % change in *attack rate* associated with a one year difference. *You can add the offset by adding `offset(log(pop_per_100k))` to the regression equation on the right side of the \~*.
+
+## Question 5
+
+Provide an estimate and 95% confidence interval for the % change in *attack rate* associated with a *ten* year difference.
+
+## Question 6
+
+Instead of using the Poisson regression model, what if we had just created a new column in our data set $log(attack)$ and fit a linear regression?
+
+```{r}
+shark_data$log_attacks <- log(shark_data$Attacks + 0.0000001)
+```
+
+*Why did I add a small number to `Attacks` inside of the log?*
+
+Write out the linear model for $log(Attack_i)$ as the response and write out the Poisson model for $Attack_i$ as the response, with the log link.
+
+## Question 7
+
+Fit the linear model and compare to your Poisson model from question 2. Are you estimating the same thing?
