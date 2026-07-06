@@ -143,3 +143,31 @@ Make sure notifications are on.
 | Lab 1 Solutions | |
 | Lab 2 Solutions | | 
 
+
+## Day 12 - July 8, 2026
+
+| Topic | Material |
+|:-----------------------|:-----------------------|
+| The Role of Statistics | | 
+| Lab  | | 
+| Lab  Solutions | |
+
+
+
+
+## Day 13 - July 9, 2026
+
+| Topic | Material |
+|:-----------------------|:-----------------------|
+| Directed Acyclic Graph & Confounding  | | 
+| Lab  | | 
+| Lab  Solutions | |
+
+
+## Day 14 - July 10, 2026
+
+| Topic | Material |
+|:-----------------------|:-----------------------|
+| Prediction | | 
+| Lab  | | 
+| Lab  Solutions | |
