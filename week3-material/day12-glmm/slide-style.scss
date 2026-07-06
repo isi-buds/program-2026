@@ -37,21 +37,3 @@ $linkColorHover: darken( $linkColor, 20% );
   float: right;
   width: 50%;
 }
-
-.reveal {
-  font-size: 85%;
-}
-
-.reveal section.section-divider {
-  display: flex !important;
-  flex-direction: column;
-  justify-content: center !important;
-  align-items: center !important;
-  text-align: center !important;
-}
-
-.reveal section.section-divider h1,
-.reveal section.section-divider h2 {
-  margin: 0;
-  text-align: center !important;
-}
