@@ -6,8 +6,8 @@
 <script src="glm_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="glm_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="glm_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="glm_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+<link href="glm_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
 
   <title>Generalized Linear Models</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -153,23 +153,17 @@ Y &amp; = &amp; \alpha + \beta_{1} X_{1} + \cdots + \beta_{p} X_{p} + \epsilon
 <section id="introduction-1" class="slide level2">
 <h2>Introduction</h2>
 <ul>
+<li class="fragment"><p>Denote the mean of the response variable, <span class="math inline">\(Y\)</span> as <span class="math inline">\(\mu\)</span>.</p></li>
 <li class="fragment"><p>The systematic component gives the expected value (mean) of the response variable, <span class="math display">\[\begin{eqnarray*}
 \mu_X = \alpha + \beta_{1} X_{1} + \cdots + \beta_{p} X_{p}
 \end{eqnarray*}\]</span></p></li>
 <li class="fragment"><p>Note that the mean is modeled as a function of predictors so it changes as the values of predictors change. (We usually drop the index <span class="math inline">\(X\)</span> for simplicity.)</p></li>
-<li class="fragment"><p>The values of response variable are normally distributed around this mean with a constant variance (i.e., the variance does not change with <span class="math inline">\(X\)</span>).</p></li>
+<li class="fragment"><p>The values of response variable are normally distributed around this mean with a constant variance (i.e., the variance does not change with <span class="math inline">\(X\)</span>): <span class="math display">\[\begin{eqnarray*}
+Y | X \sim N(\mu_x, \sigma^2)
+\end{eqnarray*}\]</span></p></li>
 </ul>
 </section>
 <section id="introduction-2" class="slide level2">
-<h2>Introduction</h2>
-<ul>
-<li class="fragment"><p>Using a sample of <span class="math inline">\(n\)</span> observations from the population, we can estimate the regression parameters and find the estimated value of <span class="math inline">\(\mu\)</span> (i.e., mean of the response variable) as follows: <span class="math display">\[\begin{eqnarray*}
-\hat{\mu} &amp; = &amp; a + b_{1} x_{1} + \cdots + b_{p} x_{p}
-\end{eqnarray*}\]</span></p></li>
-<li class="fragment"><p>We interpret <span class="math inline">\(\hat{\mu}\)</span> as our estimate for the expected (mean) of the response variable for subjects with values <span class="math inline">\(x_{1}, \ldots, x_{p}\)</span>.</p></li>
-</ul>
-</section>
-<section id="introduction-3" class="slide level2">
 <h2>Introduction</h2>
 <ul>
 <li class="fragment"><p>The regression model has therefore two components:</p>
@@ -180,6 +174,15 @@ Y &amp; = &amp; \alpha + \beta_{1} X_{1} + \cdots + \beta_{p} X_{p} + \epsilon
 <li class="fragment"><p>And the regression model connects the mean of the random component to the systematic component, <span class="math display">\[\begin{eqnarray*}
 \mu_X = \alpha + \beta_{1} X_{1} + \cdots + \beta_{p} X_{p}
 \end{eqnarray*}\]</span></p></li>
+</ul>
+</section>
+<section id="introduction-3" class="slide level2">
+<h2>Introduction</h2>
+<ul>
+<li class="fragment"><p>Using a sample of <span class="math inline">\(n\)</span> observations from the population, we can estimate the regression parameters and find the estimated value of <span class="math inline">\(\mu\)</span> (i.e., mean of the response variable) as follows: <span class="math display">\[\begin{eqnarray*}
+\hat{\mu} &amp; = &amp; a + b_{1} x_{1} + \cdots + b_{p} x_{p}
+\end{eqnarray*}\]</span></p></li>
+<li class="fragment"><p>We interpret <span class="math inline">\(\hat{\mu}\)</span> as our estimate for the expected (mean) of the response variable for subjects with values <span class="math inline">\(x_{1}, \ldots, x_{p}\)</span>.</p></li>
 </ul>
 </section>
 <section id="generalized-linear-models" class="slide level2">
@@ -205,6 +208,22 @@ Y &amp; = &amp; \alpha + \beta_{1} X_{1} + \cdots + \beta_{p} X_{p} + \epsilon
 <h2>Generalized Linear Models</h2>
 <ul>
 <li class="fragment"><p>Also, instead of simply setting the mean of the response variable to the systematic component, we set some appropriate transformations of the mean equal to the systematic component.</p></li>
+<li class="fragment"><p>For binary response variables with a Bernoulli distribution, it is common to use the <strong>logit</strong> (i.e., log-odds) transformation as the link function, <span class="math display">\[\begin{eqnarray*}
+\log(\frac{\mu}{1-\mu}) = \alpha + \beta_{1} X_{1} + \cdots + \beta_{p} X_{p}
+\end{eqnarray*}\]</span></p></li>
+</ul>
+</section>
+<section id="generalized-linear-models-3" class="slide level2">
+<h2>Generalized Linear Models</h2>
+<ul>
+<li class="fragment"><p>Note that binary variable <span class="math inline">\(\mu = P(Y=1|X)\)</span>; that is, <span class="math inline">\(\mu\)</span> is the probability of the outcome of interest (denoted as 1) given the explanatory variables.</p></li>
+<li class="fragment"><p>Although <span class="math inline">\(\mu\)</span> is a real number between 0 and 1, its logit transformation can be any real number between <span class="math inline">\(-\infty\)</span> to <span class="math inline">\(+\infty\)</span>.</p></li>
+<li class="fragment"><p>The resulting models are called <strong>logistic regression models</strong>.</p></li>
+</ul>
+</section>
+<section id="generalized-linear-models-4" class="slide level2">
+<h2>Generalized Linear Models</h2>
+<ul>
 <li class="fragment"><p>For count response variables with a Poisson distribution, we usually use the log transformation, <span class="math display">\[\begin{eqnarray*}
 \log(\mu) = \alpha + \beta_{1} X_{1} + \cdots + \beta_{p} X_{p}
 \end{eqnarray*}\]</span></p></li>
@@ -213,18 +232,7 @@ Y &amp; = &amp; \alpha + \beta_{1} X_{1} + \cdots + \beta_{p} X_{p} + \epsilon
 <li class="fragment"><p>The resulting models are called <strong>Poisson regression model</strong>.</p></li>
 </ul>
 </section>
-<section id="generalized-linear-models-3" class="slide level2">
-<h2>Generalized Linear Models</h2>
-<ul>
-<li class="fragment"><p>For binary response variables with a Bernoulli distribution, it is common to use the <strong>logit</strong> (i.e., log-odds) transformation as the link function, <span class="math display">\[\begin{eqnarray*}
-\log(\frac{\mu}{1-\mu}) = \alpha + \beta_{1} X_{1} + \cdots + \beta_{p} X_{p}
-\end{eqnarray*}\]</span></p></li>
-<li class="fragment"><p>Note that binary variable <span class="math inline">\(\mu = P(Y=1|X)\)</span>; that is, <span class="math inline">\(\mu\)</span> is the probability of the outcome of interest (denoted as 1) given the explanatory variables.</p></li>
-<li class="fragment"><p>Although <span class="math inline">\(\mu\)</span> is a real number between 0 and 1, its logit transformation can be any real number between <span class="math inline">\(-\infty\)</span> to <span class="math inline">\(+\infty\)</span>.</p></li>
-<li class="fragment"><p>The resulting models are called <strong>logistic regression models</strong>.</p></li>
-</ul>
-</section>
-<section id="generalized-linear-models-4" class="slide level2">
+<section id="generalized-linear-models-5" class="slide level2">
 <h2>Generalized Linear Models</h2>
 <ul>
 <li class="fragment"><p>For linear regression models, we used the least-squares method to estimate model parameters.</p></li>
@@ -236,7 +244,6 @@ Y &amp; = &amp; \alpha + \beta_{1} X_{1} + \cdots + \beta_{p} X_{p} + \epsilon
 <section id="likelihood-function" class="slide level2">
 <h2>Likelihood Function</h2>
 <ul>
-<li class="fragment"><p>A common approach to estimating the parameters of generalized linear models involves maximizing the <strong>likelihood function</strong>.</p></li>
 <li class="fragment"><p>To find the likelihood function, we first need to assume a probability distribution for the data, i.e., <span class="math inline">\(P(y | \theta)\)</span>, where <span class="math inline">\(\theta\)</span> are unknown parameters.</p></li>
 <li class="fragment"><p>This distribution reflects our assumptions about the mechanism that generates the data.</p></li>
 <li class="fragment"><p>The likelihood function is defined by plugging-in the observed data in the probability distribution and expressing it as a function of model parameters, i.e., <span class="math inline">\(f(\theta; y)\)</span>.</p></li>
@@ -300,37 +307,6 @@ p(y | \beta) &amp; \propto &amp; \prod_{i=1}^{n}  \Big( \frac{\exp(x_i \beta)}{1
 \end{eqnarray*}\]</span></li>
 </ul>
 </section>
-<section id="likelihood-function-multinomial-logistic-regression" class="slide level2">
-<h2>Likelihood Function – Multinomial Logistic Regression</h2>
-<ul>
-<li class="fragment"><p>This is a generalization of logistic regression when the outcome could have multiple values (i.e., could belong to one of <span class="math inline">\(K\)</span> classes). <span class="math display">\[\begin{eqnarray*}
-y_{i} | n_i, \mu_{i1}, ..., \mu_{iK} \sim \textrm{multinomial}(n_i, \mu_{i1}, ..., \mu_{iK})
-\end{eqnarray*}\]</span> where <span class="math inline">\(\mu_{ik}\)</span> is the probability of class <span class="math inline">\(k\)</span> for observation <span class="math inline">\(i\)</span> such that <span class="math inline">\(\sum_{k = 1}^{K}{\mu_{ik}} = 1\)</span>.</p></li>
-<li class="fragment"><p><span class="math inline">\(y_{i}\)</span> is also a vector of <span class="math inline">\(K\)</span> elements with <span class="math inline">\(\sum_{k = 1}^{K}{y_{ik}} = n_i\)</span>.</p></li>
-<li class="fragment"><p>The systematic part is now a vector <span class="math inline">\(x_{i} \boldsymbol{\beta}\)</span>, where <span class="math inline">\(\boldsymbol{\beta}\)</span> is a matrix of size <span class="math inline">\((p+1) \times K\)</span>.</p></li>
-</ul>
-</section>
-<section id="likelihood-function-multinomial-logistic-regression-1" class="slide level2">
-<h2>Likelihood Function – Multinomial Logistic Regression</h2>
-<ul>
-<li class="fragment"><p>Each column <span class="math inline">\(k\)</span> (where <span class="math inline">\(k = 1, ..., K\)</span>) corresponds to a set of <span class="math inline">\(p+1\)</span> parameters associated with class <span class="math inline">\(k\)</span>.</p></li>
-<li class="fragment"><p>This representation is redundant and results in nonidentifiability, since one of the <span class="math inline">\({\beta}_k\)</span>’s (where <span class="math inline">\(k = 1, ..., J\)</span>) can be set to zero without changing the set of relationships expressible with the model.</p></li>
-<li class="fragment"><p>Usually, either the parameters for <span class="math inline">\(k=1\)</span> (the first column) or for <span class="math inline">\(k=K\)</span> (the last column) would be set to zero.</p></li>
-</ul>
-</section>
-<section id="likelihood-function-multinomial-logistic-regression-2" class="slide level2">
-<h2>Likelihood Function – Multinomial Logistic Regression</h2>
-<ul>
-<li class="fragment"><p>For the multinomial logistic model, we use a generalization of the link function we used for the binary logistic regression <span class="math display">\[\begin{eqnarray*}
-\mu_{ik} =  \frac{\exp( x_i\boldsymbol{ \beta}_k)}{\sum_{k'=1}^{K} \exp(x_i \boldsymbol{ \beta}_{k'})}
-\end{eqnarray*}\]</span></p></li>
-<li class="fragment"><p>The likelihood in terms of <span class="math inline">\(\beta\)</span> is as follows: <span class="math display">\[\begin{eqnarray*}
-p(y | \mu ) &amp; \propto &amp; \prod_{i=1}^{n} \prod_{k=2}^{K }\mu_{ik}^{y_{ik}}\\
-P(y|x, \boldsymbol{\beta}) &amp; \propto &amp; \prod_{i=1}^{n} \prod_{k=1}^{K } \Big( \frac{\exp( x\boldsymbol{ \beta}_k)}{\sum_{k'=1}^{K} \exp(x\boldsymbol{ \beta}_{k'})} \Big)^{y_{ik}}
-\end{eqnarray*}\]</span></p></li>
-<li class="fragment"><p>Here <span class="math inline">\(\boldsymbol{\beta}_k\)</span> is a column vector of <span class="math inline">\(p+1\)</span> parameters corresponding to class <span class="math inline">\(k\)</span>.</p></li>
-</ul>
-</section>
 <section id="likelihood-function-poisson-regression" class="slide level2">
 <h2>Likelihood Function – Poisson Regression</h2>
 <ul>
@@ -380,7 +356,7 @@ L(\beta) &amp; = &amp; -{\sum_{i=1}^{n} (y_{i} - x_{i} \beta)^{2}}
 <ul>
 <li class="fragment"><p>Now we can simply set the first derivative to zero (likelihood equation) to obtain the maximum likelihood estimate <span class="math display">\[\begin{eqnarray*}
 \frac{\partial L(\beta)}{\partial \beta} &amp; = &amp; 2{\sum_{i=1}^{n} x_{i} (y_{i} - x_{i} \beta)} = 0 \\
-\hat{\beta} &amp; =  &amp;(x'x)^{-1}x'y
+\hat{\beta} &amp; =  &amp;(x^{\top}x)^{-1}x^{\top}y
 \end{eqnarray*}\]</span></p></li>
 <li class="fragment"><p>In this case, MLE is the same as the least squares estimate.</p></li>
 </ul>
@@ -432,9 +408,14 @@ L(\beta) &amp; \simeq &amp; L(\beta^{(n)}) + L'(\beta^{(n)})(\beta - \beta^{(n)}
 o(\beta^{(n)}) &amp; = &amp; -L''(\beta^{(n)})
 \end{eqnarray*}\]</span></p></li>
 <li class="fragment"><p><span class="math inline">\(o(\beta)\)</span> is called the <strong>observed information</strong>, and its expectation <span class="math inline">\(i(\beta) = E[-L''(\beta)]\)</span> is called the <strong>Fisher information</strong>.</p></li>
-<li class="fragment"><p>Using Fisher information instead of the observed information leads to the <strong>Fisher Scoring Algorithm</strong>: <span class="math display">\[\begin{eqnarray*}
+</ul>
+</section>
+<section id="fisher-scoring-algorithm-1" class="slide level2">
+<h2>Fisher Scoring Algorithm</h2>
+<ul>
+<li class="fragment">Using Fisher information instead of the observed information leads to the <strong>Fisher Scoring Algorithm</strong>: <span class="math display">\[\begin{eqnarray*}
 \beta^{(n+1)} &amp; = &amp; \beta^{(n)} + \frac{u(\beta^{(n)})}{i(\beta^{(n)})}
-\end{eqnarray*}\]</span></p></li>
+\end{eqnarray*}\]</span></li>
 </ul>
 </section>
 <section id="wald-score-and-likelihood-ratio-tests" class="slide level2">

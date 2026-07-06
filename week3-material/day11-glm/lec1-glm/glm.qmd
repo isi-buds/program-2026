@@ -51,6 +51,8 @@ Y & = & \alpha + \beta_{1} X_{1} + \cdots + \beta_{p} X_{p} + \epsilon
 
 ## Introduction
 
+- Denote the mean of the response variable, $Y$ as $\mu$.
+
 - The systematic component gives the expected value (mean) of the response variable,
 \begin{eqnarray*}
 \mu_X = \alpha + \beta_{1} X_{1} + \cdots + \beta_{p} X_{p}
@@ -58,17 +60,10 @@ Y & = & \alpha + \beta_{1} X_{1} + \cdots + \beta_{p} X_{p} + \epsilon
 
 - Note that the mean is modeled as a function of predictors so it changes as the values of predictors change. (We usually drop the index $X$ for simplicity.)
 
-- The values of response variable are normally distributed around this mean with a constant variance (i.e., the variance does not change with $X$).
-
-## Introduction
-
-- Using a sample of $n$ observations from the population, we can estimate the regression parameters and find the estimated value of $\mu$ (i.e., mean of the response variable) as follows:
+- The values of response variable are normally distributed around this mean with a constant variance (i.e., the variance does not change with $X$):
 \begin{eqnarray*}
-\hat{\mu} & = & a + b_{1} x_{1} + \cdots + b_{p} x_{p} 
+Y | X \sim N(\mu_x, \sigma^2)
 \end{eqnarray*}
-
-- We interpret $\hat{\mu}$ as our estimate for the expected (mean) of the response variable for subjects with values $x_{1}, \ldots, x_{p}$.
-
 
 
 ## Introduction
@@ -83,6 +78,16 @@ Y & = & \alpha + \beta_{1} X_{1} + \cdots + \beta_{p} X_{p} + \epsilon
 \begin{eqnarray*}
 \mu_X = \alpha + \beta_{1} X_{1} + \cdots + \beta_{p} X_{p}
 \end{eqnarray*}
+
+
+## Introduction
+
+- Using a sample of $n$ observations from the population, we can estimate the regression parameters and find the estimated value of $\mu$ (i.e., mean of the response variable) as follows:
+\begin{eqnarray*}
+\hat{\mu} & = & a + b_{1} x_{1} + \cdots + b_{p} x_{p} 
+\end{eqnarray*}
+
+- We interpret $\hat{\mu}$ as our estimate for the expected (mean) of the response variable for subjects with values $x_{1}, \ldots, x_{p}$.
 
 
 ## Generalized Linear Models
@@ -116,6 +121,26 @@ Y & = & \alpha + \beta_{1} X_{1} + \cdots + \beta_{p} X_{p} + \epsilon
  
 - Also, instead of simply setting the mean of the response variable to the systematic component, we set some appropriate transformations of the mean equal to the systematic component.
 
+
+- For binary response variables with a Bernoulli distribution, it is common to use the **logit** (i.e., log-odds) transformation as the link function,
+\begin{eqnarray*}
+\log(\frac{\mu}{1-\mu}) = \alpha + \beta_{1} X_{1} + \cdots + \beta_{p} X_{p}
+\end{eqnarray*}
+
+## Generalized Linear Models
+
+- Note that binary variable $\mu = P(Y=1|X)$; that is, $\mu$ is the probability of the outcome of interest (denoted as 1) given the explanatory variables.
+
+- Although $\mu$ is a real number between 0 and 1, its logit transformation can be any real number between $-\infty$ to $+\infty$.
+
+- The resulting models are called **logistic regression models**.
+
+
+
+
+## Generalized Linear Models
+
+
 - For count response variables with a Poisson distribution, we usually use the log transformation,
 \begin{eqnarray*}
 \log(\mu) = \alpha + \beta_{1} X_{1} + \cdots + \beta_{p} X_{p}
@@ -126,25 +151,6 @@ Y & = & \alpha + \beta_{1} X_{1} + \cdots + \beta_{p} X_{p} + \epsilon
 - Note that although $\mu$ here can take positive values only, $\log(\mu)$ can be both positive and negative. 
 
 - The resulting models are called **Poisson regression model**.
-
-
-
-
-## Generalized Linear Models
-
- 
-- For binary response variables with a Bernoulli distribution, it is common to use the **logit** (i.e., log-odds) transformation as the link function,
-\begin{eqnarray*}
-\log(\frac{\mu}{1-\mu}) = \alpha + \beta_{1} X_{1} + \cdots + \beta_{p} X_{p}
-\end{eqnarray*}
-
-- Note that binary variable $\mu = P(Y=1|X)$; that is, $\mu$ is the probability of the outcome of interest (denoted as 1) given the explanatory variables.
-
-- Although $\mu$ is a real number between 0 and 1, its logit transformation can be any real number between $-\infty$ to $+\infty$.
-
-- The resulting models are called **logistic regression models**.
-
-
 
 
 ## Generalized Linear Models
@@ -161,8 +167,6 @@ Y & = & \alpha + \beta_{1} X_{1} + \cdots + \beta_{p} X_{p} + \epsilon
 
 
 ## Likelihood Function
-
-- A common approach to estimating the parameters of generalized linear models involves maximizing the **likelihood function**.
 
 - To find the likelihood function, we first need to assume a probability distribution for the data, i.e., $P(y | \theta)$, where $\theta$ are unknown parameters. 
 
@@ -236,43 +240,6 @@ p(y | \beta) & \propto & \prod_{i=1}^{n}  \Big( \frac{\exp(x_i \beta)}{1+ \exp(x
 \end{eqnarray*}
 
 
-## Likelihood Function -- Multinomial Logistic Regression
-
-- This is a generalization of logistic regression when the outcome could have multiple values (i.e., could belong to one of $K$ classes).
-\begin{eqnarray*}
-y_{i} | n_i, \mu_{i1}, ..., \mu_{iK} \sim \textrm{multinomial}(n_i, \mu_{i1}, ..., \mu_{iK})
-\end{eqnarray*}
-where $\mu_{ik}$ is the probability of class $k$ for observation $i$ such that $\sum_{k = 1}^{K}{\mu_{ik}} = 1$. 
-
-- $y_{i}$ is also a vector of $K$ elements with $\sum_{k = 1}^{K}{y_{ik}} = n_i$.
-
-- The systematic part is now a vector $x_{i} \boldsymbol{\beta}$, where $\boldsymbol{\beta}$ is a matrix of size $(p+1) \times K$.  
-
-## Likelihood Function -- Multinomial Logistic Regression
-
-- Each column $k$ (where $k = 1, ..., K$) corresponds to a set of $p+1$ parameters associated with class $k$. 
-
-- This representation is redundant and results in nonidentifiability, since one of the ${\beta}_k$'s (where $k = 1, ..., J$) can be set to zero without changing the set of relationships expressible with the model.
- 
-- Usually, either the parameters for $k=1$ (the first column) or for $k=K$ (the last column) would be set to zero.
-
-
-## Likelihood Function -- Multinomial Logistic Regression
-
-- For the multinomial logistic model, we use a generalization of the link function we used for the binary logistic regression
-\begin{eqnarray*}
-\mu_{ik} =  \frac{\exp( x_i\boldsymbol{ \beta}_k)}{\sum_{k'=1}^{K} \exp(x_i \boldsymbol{ \beta}_{k'})} 
-\end{eqnarray*}
-
-- The likelihood in terms of $\beta$ is as follows:
-\begin{eqnarray*}
-p(y | \mu ) & \propto & \prod_{i=1}^{n} \prod_{k=2}^{K }\mu_{ik}^{y_{ik}}\\
-P(y|x, \boldsymbol{\beta}) & \propto & \prod_{i=1}^{n} \prod_{k=1}^{K } \Big( \frac{\exp( x\boldsymbol{ \beta}_k)}{\sum_{k'=1}^{K} \exp(x\boldsymbol{ \beta}_{k'})} \Big)^{y_{ik}}
-\end{eqnarray*}
-
-- Here $\boldsymbol{\beta}_k$ is a column vector of $p+1$ parameters corresponding to class $k$. 
-
-
 
 ## Likelihood Function -- Poisson Regression
 
@@ -337,7 +304,7 @@ L(\beta) & = & -{\sum_{i=1}^{n} (y_{i} - x_{i} \beta)^{2}}
 - Now we can simply set the first derivative to zero (likelihood equation) to obtain the maximum likelihood estimate 
 \begin{eqnarray*}
 \frac{\partial L(\beta)}{\partial \beta} & = & 2{\sum_{i=1}^{n} x_{i} (y_{i} - x_{i} \beta)} = 0 \\
-\hat{\beta} & =  &(x'x)^{-1}x'y
+\hat{\beta} & =  &(x^{\top}x)^{-1}x^{\top}y
 \end{eqnarray*}
 
 - In this case, MLE is the same as the least squares estimate.
@@ -401,6 +368,8 @@ o(\beta^{(n)}) & = & -L''(\beta^{(n)})
 \end{eqnarray*}
  
 - $o(\beta)$ is called the **observed information**, and its expectation $i(\beta) = E[-L''(\beta)]$ is called the **Fisher information**. 
+
+## Fisher Scoring Algorithm
 
 - Using Fisher information instead of the observed information leads to the **Fisher Scoring Algorithm**:
 \begin{eqnarray*}
