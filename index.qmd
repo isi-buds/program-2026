@@ -128,7 +128,7 @@ Make sure notifications are on.
 | Linear Regression | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day10-regression/lec1-linear-regression/linear_regression.html){target="_blank"}| 
 | Logistic Regression |[`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day10-regression/lec2-logistic-regression/logistic_regression.html){target="_blank"} | 
 | Lab | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day10-regression/lab/2026-day10-lab-linear-reg.qmd){target="_blank"}| 
-| Lab Solutions | | 
+| Lab Solutions |[`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day10-regression/lab/2026-day10-lab-linear-reg-solutions.qmd){target="_blank"} | 
 
 
 
