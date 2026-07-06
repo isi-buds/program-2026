@@ -1,0 +1,49 @@
+---
+title: "Day 11 Lab: Logistic Regression"
+format: 
+  html:
+    toc: true
+    toc-expand: true
+    toc-depth: 2
+embed-resources: true
+editor: visual
+execute:
+  echo: fenced
+theme: cerulean
+---
+
+Suzuki et al. (2006) measured sand grain size on 28 beaches in Japan and observed the presence or absence of the burrowing wolf spider *Lycosa ishikariana* on each beach. One goal of this study was to determine whether there was a relationship between sand grain size (mm) and the presence or absence of the species, in hopes of understanding more about the biology of the spiders. If there is a relationship between the two variables, it would be sand grain size affecting spiders, not the presence of spiders affecting the sand. Because this species is endangered, another goal would be to find an equation that would predict the probability of a wolf spider population surviving on a beach with a particular sand grain size, to help determine which beaches to reintroduce the spider to[^1].
+
+[^1]: [McDonald, J.H. 2014. Handbook of Biological Statistics (3rd ed.). Sparky House Publishing, Baltimore, Maryland.](https://www.biostathandbook.com/simplelogistic.html)
+
+```{r}
+library(tidyverse)
+set.seed(630)
+```
+
+## Question 1
+
+Write out an appropriate regression equation to investigate the association between spider presence and sand grain size.
+
+## Question 2
+
+Read in the spider data. We need the response variable to be coded as 0's and 1's. Run the chunk below to make a new variable recording spider presence.
+
+```{r}
+spider_data <- read_csv("data/spider-data.csv")
+spider_data$present <- ifelse(spider_data$spiders == "present", yes = 1, no = 0)
+```
+
+Fit the regression equation you specified in question 1 and write out the estimated regression equation.
+
+## Question 3
+
+Solve your estimate regression equation for $\hat{p}_i$.
+
+## Question 4
+
+Compute 95% confidence intervals for both coefficients and interpret your estimates of $\beta_0$ and $\beta_1$ in context.
+
+## Question 5
+
+Compute 95% confidence intervals for both $exp(\beta_0)$ and $exp(\beta_1)$ and interpret your estimates in context.

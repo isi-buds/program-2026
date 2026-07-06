@@ -1,0 +1,122 @@
+---
+title: "Day 11 Lab: Logistic Regression Solutions"
+format: 
+  html:
+    toc: true
+    toc-expand: true
+    toc-depth: 2
+embed-resources: true
+editor: visual
+execute:
+  echo: fenced
+theme: cerulean
+---
+
+Suzuki et al. (2006) measured sand grain size on 28 beaches in Japan and observed the presence or absence of the burrowing wolf spider *Lycosa ishikariana* on each beach.
+One goal of this study was to determine whether there was a relationship between sand grain size (mm) and the presence or absence of the species, in hopes of understanding more about the biology of the spiders.
+If there is a relationship between the two variables, it would be sand grain size affecting spiders, not the presence of spiders affecting the sand.
+Because this species is endangered, another goal would be to find an equation that would predict the probability of a wolf spider population surviving on a beach with a particular sand grain size, to help determine which beaches to reintroduce the spider to[^1].
+
+[^1]: [McDonald, J.H. 2014. Handbook of Biological Statistics (3rd ed.). Sparky House Publishing, Baltimore, Maryland.](https://www.biostathandbook.com/simplelogistic.html)
+
+```{r}
+library(tidyverse)
+set.seed(630)
+```
+
+## Question 1
+
+Write out an appropriate regression equation to investigate the association between spider presence and sand grain size.
+
+## Question 1 Solution
+
+$$\log(\frac{p_i}{1 - p_i}) = \beta_0 + \beta_1 \text{Grain Size}_i,$$ where $p_i = E[\text{Spider Presence}_i | \text{Grain Size}_i]$.
+
+## Question 2
+
+Read in the spider data.
+We need the response variable to be coded as 0's and 1's.
+Run the chunk below to make a new variable recording spider presence.
+
+```{r}
+spider_data <- read_csv("data/spider-data.csv")
+spider_data$present <- ifelse(spider_data$spiders == "present", yes = 1, no = 0)
+```
+
+Fit the regression equation you specified in question 1 and write out the estimated regression equation.
+
+## Question 2 Solution
+
+```{r}
+spider_model <- glm(
+  present ~ grain_size,
+  data = spider_data,
+  family = binomial
+)
+
+(spider_model_sum <- summary(spider_model))
+```
+
+$$\log(\frac{\hat{p}_i}{1 - \hat{p}_i}) = -1.65 + 5.12 * \text{Grain Size}_i,$$
+
+## Question 3
+
+Solve your estimate regression equation for $\hat{p}_i$.
+
+## Question 3 Solution
+
+$$\log(\frac{\hat{p}_i}{1 - \hat{p}_i}) = -1.65 + 5.12 * \text{Grain Size}_i$$ $$\frac{\hat{p}_i}{1 - \hat{p}_i} = exp(-1.65 + 5.12 * \text{Grain Size}_i)$$ $$\hat{p}_i = exp(-1.65 + 5.12 * \text{Grain Size}_i) - \hat{p}_i \times exp(-1.65 + 5.12 * \text{Grain Size}_i)$$ $$\hat{p}_i(1 + exp(-1.65 + 5.12 * \text{Grain Size}_i)) = exp(-1.65 + 5.12 * \text{Grain Size}_i)$$ $$\hat{p}_i = \frac{exp(-1.65 + 5.12 * \text{Grain Size}_i)}{(1 + exp(-1.65 + 5.12 * \text{Grain Size}_i))}.$$
+
+## Question 4
+
+Compute 95% confidence intervals for both coefficients and interpret your estimates of $\beta_0$ and $\beta_1$ in context.
+
+## Question 4 Solution
+
+```{r}
+beta0 <- spider_model_sum$coefficients["(Intercept)", "Estimate"]
+beta0_se <-  spider_model_sum$coefficients["(Intercept)", "Std. Error"]
+
+beta1 <- spider_model_sum$coefficients["grain_size", "Estimate"]
+beta1_se <- spider_model_sum$coefficients["grain_size", "Std. Error"]
+
+beta0_95ci <- beta0 + c(-1, 1) * qnorm(1 - 0.05 / 2) * beta0_se
+beta1_95ci <- beta1 + c(-1, 1) * qnorm(1 - 0.05 / 2) * beta1_se
+```
+
+We estimate the log odds of spider presence for beaches with sand grain size of zero to be `r round(beta0, 2)` (95% CI (`r round(beta0_95ci[1], 2)`, `r round(beta0_95ci[2], 2)`)).
+
+We estimate a difference in log odds of spider presence of `r round(beta1, 2)` (95% CI (`r round(beta1_95ci[1], 2)`, `r round(beta1_95ci[2], 2)`)), associated with a one millimeter increase in sand grain size.
+
+## Question 5
+
+Compute 95% confidence intervals for both $exp(\beta_0)$ and $exp(\beta_1)$ and interpret your estimates in context.
+
+## Question 5 Solution
+
+```{r}
+exp_beta0 <- exp(beta0)
+exp_beta0_95ci <- exp(beta0_95ci)
+
+exp_beta1 <- exp(beta1)
+exp_beta1_95ci <- exp(beta1_95ci)
+```
+
+We estimate the odds of spider presence for beaches with sand grain size of zero to be `r round(exp_beta0, 2)` (95% CI (`r round(exp_beta0_95ci[1], 2)`, `r round(exp_beta0_95ci[2], 2)`)).
+
+We estimate an odds ratio of spider presence of `r round(exp_beta1, 2)` (95% CI (`r round(exp_beta1_95ci[1], 2)`, `r round(exp_beta1_95ci[2], 2)`)), associated with a one millimeter increase in sand grain size.
+
+# Wald vs LRT test 
+
+Checking how to compute these confidence intervals in R...
+
+```{r}
+# LRT test
+confint(spider_model)
+confint(spider_model,test = "LRT")
+```
+
+```{r}
+# Wald test
+confint.default(spider_model)
+```
