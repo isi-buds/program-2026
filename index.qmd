@@ -141,7 +141,7 @@ Make sure notifications are on.
 | Generalized Linear Mixed Models | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day11-glm-glmm/glmm/lec1-glmm/glmm.html){target="_blank"} | 
 | Lab 1 |  [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day11-glm-glmm/lab/2026-day11-lab-part1-logistic-regression.qmd){target="_blank"}| 
 | Lab 2 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day11-glm-glmm/lab/2026-day11-lab-part2-poisson-reg.qmd){target="_blank"}| 
-| Lab 1 Solutions |[`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day11-glm-glmm/lab/2026-day11-lab-part1-logistic-regression-soultions.qmd){target="_blank"} |
+| Lab 1 Solutions |[`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day11-glm-glmm/lab/2026-day11-lab-part1-logistic-regression-solutions.qmd){target="_blank"} |
 | Lab 2 Solutions | | 
 
 
