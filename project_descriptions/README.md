@@ -130,3 +130,41 @@ The objective is to characterize day-to-day and longitudinal associations among 
 2. Nusraty, S., Navarathna, N., Novi, S., Bortfeld, H., Mitchell, R. B., & Isaiah, A. (2026). Polysomnographic versus parent-reported predictors of executive function in children with sleep disordered breathing. International journal of pediatric otorhinolaryngology, 203, 112766\.
 
 3. Leow, B. H. W., Tan, C. J. W., Yeo, B. S. Y., Ng, N. N. E., Low, S. C. Y., Ng, A. C. W., ... & Tay, E. G. H. (2026). Association between Attention Deficit Hyperactivity Disorder and Obstructive Sleep Apnea in Children: A Systematic Review and Meta-Analysis. Journal of Attention Disorders, 30(6), 822-832.
+
+## Chemical Weapon-Induced Skin Injury Studied with Spatial Transcriptomics
+
+### Mentoring Team   
+- Bogi Andersen, Professor, Department of Biological Chemistry  
+- Babak Shahbaba, Professor, Department of Statistics  
+- Ulisses Rizo, PhD Student, Department of Statistics
+
+### Background   
+
+The overall goal of this project is to understand at a single cell level how chemical weapons referred to as vesicants cause skin damage. We reason that if we can understand at a cellular and molecular level how vesicants damage skin, we can use that information to develop drugs that counter the damage. 
+
+Sulfur mustard, also known as mustard gas, has been used in warfare since World War I, most recently in the Iraq and Syrian conflicts. Within a day of skin contact, irritant signs develop that progress to large blisters, inflammation, and deep wounds that heal slower than burn wounds, leading to chronic skin changes (1). Sulfur mustard also has systemic effects with toxicity to internal organs (2). Sulfur mustard alkylates DNA (causing DNA damage), proteins, and lipids (3). 
+
+Organoarsenic compounds, including lewisite, were also used in World Wars I and II. Similar to sulfur mustard, lewisite causes skin erythema, edema, inflammation, blisters, and wounds leading to chronic skin changes in humans (1). However, in contrast to mustards, the symptoms of lewisite are immediate, evident within 15-30 min. Lewisite also has marked systemic effects, with low doses causing kidney, lung, and other organ injuries. Arsenicals have multiple effects (4, 5), including reaction with sulfhydryl groups on glutathione and proteins, thus affecting enzyme activity.
+
+Although mustards and organoarsenicals act through different molecular mechanisms, the overall progression of skin damage is remarkably similar in both types of exposure, including formation of blisters due to separation of the epidermis from the dermis along the basal lamina. This similarity may be because both compounds lead to oxidative stress and a strong inflammatory response, which mediate skin damage. 
+
+Despite extensive research, we still don’t have effective countermeasures against vesicant-induced skin injury. Yet, there are existing stockpiles and mustards and arsenicals are easy to produce. Hence, vesicants still pose risk in warfare, terrorism, and through accidental exposure, and there is pressing need for the development of new countermeasures. 
+
+### Study Design and Data Description  
+
+To study the effect of vesicants we apply them to the backs of mice. Previous work in mice has used SKH-1 hairless and C57BL/6 mice, with mustards and arsenicals applied to the ear or back skin. Because the use of mustard gas and lewisite is restricted to specialized government-linked facilities, we are using less toxic compounds in the same classes. Nitrogen mustard is less toxic than sulfur mustard but exhibits similar pathogenic mechanisms and clinical features. It is frequently used to model sulfur mustard-induced injury (3). The lewisite analog phenylarsine oxide has been used as a prototype arsenical in vesicant skin injury; although less toxic than lewisite, phenylarsine oxide’s mechanisms of action are similar to those of lewisite. 
+
+In this study of the initiation of vesicant-induced skin injury, mice were studied using a 2×2 design: two active vesicants (Nitrogen Mustard and Phenylarsine Oxide) and two solvent vehicle controls (Acetone, Ethanol), applied topically to the back skin. Vesicant-treated mice were sampled at five post-exposure timepoints (1, 3, 6, 12, and 24 hours), with three biological replicates per agent per timepoint (n=30 samples). Vehicle controls were sampled at three of these timepoints (1, 6, and 12 hours), with one replicate per condition per timepoint (n=6 samples), for a combined total of 36 tissue sections. All samples were profiled using the 10x Genomics Xenium 5K spatial transcriptomics platform, which captures gene expression across 5,104 targeted genes together with the physical (x, y) location of every cell within the tissue. After quality control, the merged dataset comprises approximately 765,000+ individual cells, annotated into 40 skin cell subtypes. Students will have access to raw and normalized gene expression, spatial coordinates, and cell type annotations for this full integrated dataset. With this data, one can observe changes in a)  cell types and their location across time and b) gene expression in individual cells and in the context of space across time.
+
+### Objectives  
+
+The main objective of the study is to understand the actions of mustards and arsenicals in skin and to use that information to predict possible counteragents that target pathogenetic mechanisms that have not yet been discovered. Furthermore, the differences and similarities in the actions of mustards and arsenicals can be defined. Since these agents could be used together in chemical warfare, there is an advantage of identifying targetable common mechanisms. 
+
+The data is also suitable for developing improved methods for the fledging field of spatial transcriptomics, including better cell segmentation and annotations methods. Since we have 3 replicates per condition, there is also an opportunity to develop principled statistical methods to increase the rigor of how spatial transcriptomics data is analyzed. 
+
+### References  
+1. Davis, J. (1944) Dermatologic aspects of vesicant war gases J. Am. Med. Assoc. 126, 209–213  
+2.	Evison, D., Hinsley, D., and Rice, P. (2002) Chemical weapons BMJ 324, 332–335  
+3.	Sawyer, T. W., McNeely, K., Louis, K., Lecavalier, P., Song, Y., Villanueva, M. et al. (2017) Comparative toxicity of mono- and bifunctional alkylating homologues of sulphur mustard in human skin keratinocytes Toxicology 382, 36–46  
+4.	Muzaffar, S., Khan, J., Srivastava, R., Gorbatyuk, M. S., and Athar, M. (2023) Mechanistic understanding of the toxic effects of arsenic and warfare arsenicals on human health and environment Cell Biol Toxicol 39, 85–110  
+5.	Shen, S., Li, X. F., Cullen, W. R., Weinfeld, M., and Le, X. C. (2013) Arsenic binding to proteins Chem Rev 113, 7769–7792
