@@ -148,7 +148,7 @@ Make sure notifications are on.
 
 | Topic | Material |
 |:-----------------------|:-----------------------|
-| The Role of Statistics | | 
+| The Role of Statistics | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day12-role-of-stats/lecture1_RoleOfStatistics.pdf){target="_blank"}| 
 | Lab  | | 
 | Lab  Solutions | |
 
@@ -159,15 +159,16 @@ Make sure notifications are on.
 
 | Topic | Material |
 |:-----------------------|:-----------------------|
-| Directed Acyclic Graph & Confounding  | | 
+| Directed Acyclic Graph & Confounding  | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day13-confounding/lecture2_adjustment.pdf){target="_blank"}| 
 | Lab  | | 
 | Lab  Solutions | |
+
 
 
 ## Day 14 - July 10, 2026
 
 | Topic | Material |
 |:-----------------------|:-----------------------|
-| Prediction | | 
+| Prediction | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day14-prediction/lecture3_Prediction_Pt1.pdf){target="_blank"}| 
 | Lab  | | 
 | Lab  Solutions | |
