@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="glmm_files/libs/clipboard/clipboard.min.js"></script>
+<script src="glmm_files/libs/quarto-html/tabby.min.js"></script>
+<script src="glmm_files/libs/quarto-html/popper.min.js"></script>
+<script src="glmm_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="glmm_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="glmm_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="glmm_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
+
+  <title>Generalized Linear Mixed Models</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="glmm_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="glmm_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="glmm_files/libs/revealjs/dist/theme/quarto-5de8172cf71ca609c2e175cde40b2aa9.css">
+  <link href="glmm_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="glmm_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="glmm_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="glmm_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-position="50% 75%" data-background-size="12%" class="quarto-title-block center">
+  <h1 class="title">Generalized Linear Mixed Models</h1>
+  <p class="subtitle">ISI-BUDS 2026</p>
+
+<div class="quarto-title-authors">
+</div>
+
+</section>
+<section id="clustered-data" class="slide level2">
+<h2>Clustered data</h2>
+<ul>
+<li class="fragment"><p>In linear regression models, we assumed the observations were independent without any underlying structure connecting the subjects.</p></li>
+<li class="fragment"><p>This is not a realistic assumption in many data analysis problems.</p></li>
+<li class="fragment"><p>In many problems, data are clustered (i.e., dependent).</p></li>
+<li class="fragment"><p>In such cases, observations are collected on related subjects, or there are multiple observations (possibly over time) on the same subject.</p></li>
+</ul>
+</section>
+<section id="clustered-data-1" class="slide level2">
+<h2>Clustered data</h2>
+<ul>
+<li class="fragment"><p>Clustered data could come from group randomized trials where group of individuals (e.g., siblings), as opposed to individual themselves, are assigned to different treatments.</p></li>
+<li class="fragment"><p>We might also have observational clustered data, where data are collected from related individuals such as families, geographical regions, or in general multiple sources.</p></li>
+<li class="fragment"><p>Data are also clustered when we obtain multiple observations over time from the same individuals. In this case, we refer to the data as longitudinal data.</p></li>
+</ul>
+</section>
+<section id="clustered-data-2" class="slide level2">
+<h2>Clustered data</h2>
+<ul>
+<li class="fragment"><p>When dealing with clustered data, we expect measurements within a cluster to be more similar compared to measurements in different clusters.</p></li>
+<li class="fragment"><p>That is, the structure of the data introduces correlation among measurements within a cluster.</p></li>
+<li class="fragment"><p>This violates the independence assumption used in linear regression models.</p></li>
+</ul>
+</section>
+<section id="example" class="slide level2">
+<h2>Example</h2>
+<ul>
+<li class="fragment"><p>For example, consider the <strong>radon</strong> example discussed in Gelman and Hill (2007).</p></li>
+<li class="fragment"><p>Radon is a carcinogen responsible for several thousand lung cancer deaths per year in the US.</p></li>
+<li class="fragment"><p>The concentration of radon varies in US homes. EPA has started a project to collect radon measurements from a random sample.</p></li>
+</ul>
+</section>
+<section id="example-1" class="slide level2">
+<h2>Example</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 12,777
+Columns: 25
+$ idnum    &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18…
+$ state    &lt;chr&gt; "AZ", "AZ", "AZ", "AZ", "AZ", "AZ", "AZ", "AZ", "AZ", "AZ", "…
+$ state2   &lt;chr&gt; "AZ", "AZ", "AZ", "AZ", "AZ", "AZ", "AZ", "AZ", "AZ", "AZ", "…
+$ stfips   &lt;int&gt; 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4…
+$ zip      &lt;int&gt; 85920, 85920, 85924, 85925, 85932, 85936, 85936, 85936, 85938…
+$ region   &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 3…
+$ typebldg &lt;int&gt; 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 5, 1, 0, 0, 1, 1, 1…
+$ floor    &lt;int&gt; 1, 9, 1, 1, 1, 1, 9, 1, 9, 1, 1, 1, 0, 1, 1, 1, 1, 9, 1, 1, 0…
+$ room     &lt;int&gt; 2, 0, 3, 3, 1, 1, 0, 1, 0, 3, 1, 2, 2, 1, 5, 1, 1, 0, 7, 1, 1…
+$ basement &lt;chr&gt; "N", " ", "N", "N", "N", "N", " ", "N", " ", " ", "N", " ", "…
+$ windoor  &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ rep      &lt;chr&gt; " 2", " 1", " 4", " 2", " 2", " 5", " 1", " 2", " 2", " 5", "…
+$ stratum  &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2…
+$ wave     &lt;chr&gt; " 30", "117", "122", "  3", "118", " 29", " 42", "  8", " 47"…
+$ starttm  &lt;int&gt; 1100, 600, 1145, 1900, 800, 935, 1400, 2045, 930, 1630, 600, …
+$ stoptm   &lt;int&gt; 1100, 700, 1145, 1900, 900, 930, 1400, 2055, 940, 1830, 600, …
+$ startdt  &lt;int&gt; 112987, 70788, 70788, 52088, 70788, 121287, 10188, 50588, 118…
+$ stopdt   &lt;int&gt; 120287, 71188, 70788, 52288, 70788, 121487, 10188, 50588, 120…
+$ activity &lt;dbl&gt; 0.3, 0.6, 0.5, 0.6, 0.3, 1.2, 5.0, 3.5, 1.2, 0.6, 1.3, 0.4, 4…
+$ pcterr   &lt;dbl&gt; 0.0, 33.3, 0.0, 97.2, 0.0, 22.7, 8.5, 9.2, 14.9, 40.8, 15.8, …
+$ adjwt    &lt;dbl&gt; 136.0610, 128.7850, 150.2451, 136.0610, 136.0610, 120.3414, 1…
+$ dupflag  &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ zipflag  &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ cntyfips &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 3…
+$ county   &lt;chr&gt; "APACHE              ", "APACHE              ", "APACHE      …</code></pre>
+</div>
+</div>
+</section>
+<section id="example-2" class="slide level2">
+<h2>Example</h2>
+<ul>
+<li class="fragment"><p>We could assume these observations are independent. However, a more realistic assumption is that measurements within a county tend to be more similar compared to measurements from different counties.</p></li>
+<li class="fragment"><p>That is, we expect the measurements to form clusters within each county, and the overall radon level varies from one county to another.</p></li>
+<li class="fragment"><p>In this example, the data have a hierarchical structure: houses within counties.</p></li>
+<li class="fragment"><p>In general, we could have more than two levels: we could divide counties among states, and we could have multiple observations (i.e., repeated measurements) from each house.</p></li>
+<li class="fragment"><p>Clustered data are not always nested (i.e., hierarchical). For example, we can obtain radon measurements over several years. In this case, <em>years</em> and <em>counties</em> are not nested.</p></li>
+</ul>
+</section>
+<section id="to-pool-or-not-to-pool" class="slide level2">
+<h2>To pool or not to pool!</h2>
+<ul>
+<li class="fragment"><p>To model such data, we could ignore the underlying structure and <em>pool</em> all counties together and fit a single model to the whole data. We refer to this approach as <em>complete pooling</em>.</p></li>
+<li class="fragment"><p>This method, of course, ignores variation between counties.</p></li>
+<li class="fragment"><p>Alternatively, we could fit a separate model to data from each county. We refer to this approach as <em>no pooling</em>.</p></li>
+<li class="fragment"><p>This is an inefficient approach that fits many models (<span class="math inline">\(\sim\)</span> 3000 in the radon example), where the estimated parameters in most of them are based on a small sample size, which results in large standard errors.</p></li>
+<li class="fragment"><p>A reasonable compromise between complete pooling and no pooling is provided by <em>multilevel models</em> that perform <em>partial pooling</em>.</p></li>
+<li class="fragment"><p>These methods take the underlying structure of the data into account, and they tend to provide more reasonable estimates.</p></li>
+</ul>
+</section>
+<section id="multilevel-models" class="slide level2">
+<h2>Multilevel models</h2>
+<ul>
+<li class="fragment"><p>Multilevel models allow us to investigate how some effects vary by group; this is analogues to including interaction terms (here, between covariates and the group indicator) in classical models.</p></li>
+<li class="fragment"><p>These models provide a reasonable compromise between complete pooling, which is very restricted, and no pooling, which is overly flexible.</p></li>
+<li class="fragment"><p>Multilevel models could lead to better inference by capturing the overall trend while taking the group effect into account.</p></li>
+<li class="fragment"><p>Using multilevel models, we can model higher level data (e.g., radon level in counties) using their own specific covariates. For the radon problem, we can use, for example, a measurement of soil uranium, which is available at the county level only.</p></li>
+</ul>
+</section>
+<section id="two-stage-models" class="slide level2">
+<h2>Two-stage models</h2>
+<ul>
+<li class="fragment"><p>Consider the radon data. We would like to estimate the effect of the <em>floor</em> variable, which indicates the floor of measurement (basement is coded as 0, first floor as 1, <span class="math inline">\(\ldots\)</span>).</p></li>
+<li class="fragment"><p>To fit a multilevel model, we can use a two-step model for the two levels of the data.</p></li>
+<li class="fragment"><p>We use the following model for observations within each county: <span class="math display">\[\begin{eqnarray*}
+y_{ij} &amp; = &amp; \alpha_{i} + \beta x_{ij} + \epsilon_{ij}
+\end{eqnarray*}\]</span> where <span class="math inline">\(y_{ij}\)</span> is the measurement for the <span class="math inline">\(j^{th}\)</span> house in the <span class="math inline">\(i^{th}\)</span> county, and <span class="math inline">\(x_{ij}\)</span> is the first-floor indicator.</p></li>
+<li class="fragment"><p>Note that in this model, we are assuming that the overall radon level varies from one county to another. However, the floor effect remains the same for all counties. This is a <em>random-intercept</em> model.</p></li>
+</ul>
+</section>
+<section id="two-stage-models-1" class="slide level2">
+<h2>Two-stage models</h2>
+<ul>
+<li class="fragment"><p>Next, we model the variation of intercepts among counties as follows: <span class="math display">\[\begin{eqnarray*}
+\alpha_{i} &amp; = &amp; \mu_{\alpha} + \eta_{i}
+\end{eqnarray*}\]</span></p></li>
+<li class="fragment"><p>The model at the higher level can itself depend on some covariates. For example, our model for random intercepts can depend on <span class="math inline">\(z_{i}\)</span>, county level measurements of soil uranium: <span class="math display">\[\begin{eqnarray*}
+\alpha_{i} &amp; = &amp; \mu_{\alpha} + \gamma z_{i} + \eta_{i}
+\end{eqnarray*}\]</span></p></li>
+</ul>
+</section>
+<section id="mixed-effect-models" class="slide level2">
+<h2>Mixed effect models</h2>
+<ul>
+<li class="fragment"><p>Alternatively, we can combine the above two model and write the result as a mixed-effect model <span class="math display">\[\begin{eqnarray*}
+y_{ij} | \alpha_{i} &amp; \sim &amp; N(\alpha_{i} + \beta x_{ij}, \sigma^{2}_{y})\\
+\alpha_{i} &amp; \sim &amp; N(\mu_{\alpha}, \sigma^{2}_{\alpha})
+\end{eqnarray*}\]</span></p></li>
+<li class="fragment"><p>The assumed distribution for <span class="math inline">\(\alpha_{i}\)</span> shrinks the random intercepts towards their overall mean, <span class="math inline">\(\mu_{\alpha}\)</span>.</p></li>
+<li class="fragment"><p>If our model for random intercepts depend on a higher level covariate, <span class="math inline">\(z_{i}\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+\alpha_{i} &amp; \sim &amp; N( \mu_{\alpha} + \gamma z_{i}, \sigma^{2}_{\alpha})
+\end{eqnarray*}\]</span></p></li>
+</ul>
+</section>
+<section id="mixed-effect-models-1" class="slide level2">
+<h2>Mixed effect models</h2>
+<ul>
+<li class="fragment"><p>It is now easy to see how multilevel models can be considered as a compromise between complete pooling and no pooling.</p></li>
+<li class="fragment"><p>As <span class="math inline">\(\sigma^{2}_{\alpha} \to 0\)</span>, the estimates for <span class="math inline">\(\alpha_{i}\)</span> shrink all the way to <span class="math inline">\(\mu_{\alpha}\)</span>. Therefore, in limit, as <span class="math inline">\(\sigma^{2}_{\alpha} \to 0\)</span>, the multilevel model becomes equivalent to the model with complete pooling.</p></li>
+<li class="fragment"><p>On the other hand, as <span class="math inline">\(\sigma^{2}_{\alpha} \to \infty\)</span>, the multilevel model converges to the model with no pooling.</p></li>
+</ul>
+</section>
+<section id="radon-example" class="slide level2">
+<h2>Radon example</h2>
+<ul>
+<li class="fragment"><p>We now discuss the application of mixed effects models for analyzing the radon data.</p></li>
+<li class="fragment"><p>We focus on the counties in Minnesota.</p></li>
+<li class="fragment"><p>First, we fit a model without any predictor. Next, we include the variable <em>floor</em> as a predictor in our model.</p></li>
+<li class="fragment"><p>To fit mixed effects models, we use the function <strong>lmer</strong> from the <strong>lme4</strong> package.</p></li>
+<li class="fragment"><p>Alternatively, we can use the <strong>lme</strong> function from the <strong>nlme</strong> package.</p></li>
+</ul>
+</section>
+<section id="radon-example-1" class="slide level2">
+<h2>Radon example</h2>
+<p>Random intercept model without covariates</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>M0 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(y <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> county), <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-2"><a href=""></a><span class="fu">summary</span> (M0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by maximum likelihood  ['lmerMod']
+Formula: y ~ 1 + (1 | county)
+
+      AIC       BIC    logLik -2*log(L)  df.resid 
+   2261.2    2275.7   -1127.6    2255.2       916 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-4.4668 -0.5757  0.0432  0.6460  3.3508 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ county   (Intercept) 0.0934   0.3056  
+ Residual             0.6366   0.7979  
+Number of obs: 919, groups:  county, 85
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept)  1.31226    0.04857   27.02</code></pre>
+</div>
+</div>
+</section>
+<section id="radon-example-2" class="slide level2">
+<h2>Radon example</h2>
+<div class="v-center">
+<p><img data-src="radonPlot1.png" style="width:50.0%"></p>
+</div>
+</section>
+<section id="radon-example-3" class="slide level2">
+<h2>Radon example</h2>
+<p>Random intercept and a fixed coefficient for <em>floor</em></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>M1 <span class="ot">&lt;-</span> <span class="fu">lmer</span> (y <span class="sc">~</span> x <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> county), <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-2"><a href=""></a><span class="fu">summary</span> (M1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by maximum likelihood  ['lmerMod']
+Formula: y ~ x + (1 | county)
+
+      AIC       BIC    logLik -2*log(L)  df.resid 
+   2171.7    2190.9   -1081.8    2163.7       915 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-4.4071 -0.6164  0.0056  0.6398  3.4288 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ county   (Intercept) 0.1053   0.3245  
+ Residual             0.5703   0.7552  
+Number of obs: 919, groups:  county, 85
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept)  1.46116    0.05124  28.516
+x           -0.69264    0.07036  -9.844
+
+Correlation of Fixed Effects:
+  (Intr)
+x -0.290</code></pre>
+</div>
+</div>
+</section>
+<section id="radon-example-4" class="slide level2">
+<h2>Radon example</h2>
+<p>dashed line: complete pooling; solid thin line: no pooling; solid thick line: partial pooling</p>
+<div class="v-center">
+<p><img data-src="radonPlot2.png" style="width:50.0%"></p>
+</div>
+</section>
+<section id="radon-example-5" class="slide level2">
+<h2>Radon example</h2>
+<p>Random intercept and a random covariate</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>M2 <span class="ot">&lt;-</span> <span class="fu">lmer</span> (y <span class="sc">~</span> x <span class="sc">+</span> (x <span class="sc">|</span> county), <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb6-2"><a href=""></a><span class="fu">summary</span> (M2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by maximum likelihood  ['lmerMod']
+Formula: y ~ x + (x | county)
+
+      AIC       BIC    logLik -2*log(L)  df.resid 
+   2173.1    2202.0   -1080.6    2161.1       913 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-4.4108 -0.6218  0.0153  0.6127  3.5592 
+
+Random effects:
+ Groups   Name        Variance Std.Dev. Corr  
+ county   (Intercept) 0.1185   0.3443         
+          x           0.1078   0.3283   -0.34 
+ Residual             0.5570   0.7463         
+Number of obs: 919, groups:  county, 85
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept)  1.46244    0.05346  27.354
+x           -0.68246    0.08635  -7.903
+
+Correlation of Fixed Effects:
+  (Intr)
+x -0.382</code></pre>
+</div>
+</div>
+</section>
+<section id="radon-example-6" class="slide level2">
+<h2>Radon example</h2>
+<p>dashed line: complete pooling; solid thin line: no pooling; solid thick line: partial pooling</p>
+<div class="v-center">
+<p><img data-src="radonPlot3.png" style="width:50.0%"></p>
+</div>
+</section>
+<section id="a-general-form" class="slide level2">
+<h2>A general form</h2>
+<ul>
+<li class="fragment"><p>Consider the following mixed effects model <span class="math display">\[\begin{eqnarray*}
+y = x\beta + z\gamma + \epsilon
+\end{eqnarray*}\]</span> where <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\gamma\)</span> are vectors of fixed and random effects respectively.</p></li>
+<li class="fragment"><p>In this course, we assume normal distributions for <span class="math inline">\(\gamma\)</span> and <span class="math inline">\(\epsilon\)</span>, and write the above model as follows: <span class="math display">\[\begin{eqnarray*}
+y | \gamma &amp; \sim &amp; N(x\beta + z \gamma, \Sigma)\\
+\gamma &amp; \sim &amp; N(0, \Lambda)
+\end{eqnarray*}\]</span></p></li>
+</ul>
+</section>
+<section id="a-general-form-1" class="slide level2">
+<h2>A general form</h2>
+<ul>
+<li class="fragment"><p>The mean and covariance matrix of <span class="math inline">\(y\)</span> are <span class="math display">\[\begin{eqnarray*}
+E(y) &amp; = &amp; E(E(y|\gamma))\\
+&amp; = &amp; E(x\beta + z\gamma)\\
+&amp; = &amp; x\beta \\ \\
+Cov(y) &amp; = &amp; E(Cov(y|\gamma)) + Cov(E(y|\gamma))\\
+&amp; = &amp; \Sigma + Cov(x\beta + z\gamma)\\
+&amp; = &amp; \Sigma + Cov(z\gamma)\\
+&amp; = &amp; \Sigma + z \Lambda z^{T}
+\end{eqnarray*}\]</span></p></li>
+<li class="fragment"><p>This leads to the following <strong>marginal model</strong>: <span class="math display">\[\begin{eqnarray*}
+y  &amp; \sim &amp; N(x\beta, V) \textrm{ with} \quad V =  \Sigma + z \Lambda z^{T}
+\end{eqnarray*}\]</span></p></li>
+</ul>
+</section>
+<section id="statistical-inference-for-lme-models" class="slide level2">
+<h2>Statistical inference for LME models</h2>
+<ul>
+<li class="fragment"><p>Using the above marginal model, we can write down the likelihood function and find the maximum likelihood estimates for model parameters. <span class="math display">\[\begin{eqnarray*}
+f(y) = \frac{1}{(2\pi)^{n/2}|V|^{1/2}}\exp\Big[-\frac{1}{2}(y - x\beta)^{T}V^{-1}(y - x\beta) \Big]
+\end{eqnarray*}\]</span></p></li>
+<li class="fragment"><p>The log-likelihood (up to a constant) can be written as <span class="math display">\[\begin{eqnarray*}
+L(\beta, \theta) = -\frac{1}{2} \log(|V|) -\frac{1}{2}(y - x\beta)^{T}V^{-1}(y - x\beta)
+\end{eqnarray*}\]</span> where <span class="math inline">\(\theta\)</span> represents the set of parameters for the covariance part of the model.</p></li>
+</ul>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="glmm_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="glmm_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="glmm_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="glmm_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="glmm_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="glmm_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="glmm_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="glmm_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="glmm_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="glmm_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
