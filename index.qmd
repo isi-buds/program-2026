@@ -125,9 +125,9 @@ Make sure notifications are on.
 
 | Topic | Material |
 |:-----------------------|:-----------------------|
-| Linear Regression | | 
-| Logistic Regression | | 
-| Lab | | 
+| Linear Regression | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day10-regression/lec1-linear-regression/linear_regression.html){target="_blank"}| 
+| Logistic Regression |[`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day10-regression/lec2-logistic-regression/logistic_regression.html){target="_blank"} | 
+| Lab | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day10-regression/lab/2026-day10-lab-linear-reg.qmd){target="_blank"}| 
 | Lab Solutions | | 
 
 
@@ -136,10 +136,11 @@ Make sure notifications are on.
 
 | Topic | Material |
 |:-----------------------|:-----------------------|
-| Generalized Linear Models | | 
-| Generalized Linear Mixed Models | | 
-| Lab 1 | | 
-| Lab 2 | | 
+| Generalized Linear Models | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day11-glm-glmm/lec1-glm/glm.html){target="_blank"}|
+| Bayesian Generalized Linear Models | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day11-glm-glmm/lec2-bayesian-glm/bayesian-regression.html){target="_blank"}|
+| Generalized Linear Mixed Models | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day11-glm-glmm/glmm/lec1-glmm/glmm.html){target="_blank"} | 
+| Lab 1 |  [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day11-glm-glmm/lab/2026-day11-lab-part1-logistic-regression.qmd){target="_blank"}| 
+| Lab 2 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day11-glm-glmm/lab/2026-day11-lab-part2-poisson-reg.qmd){target="_blank"}| 
 | Lab 1 Solutions | |
 | Lab 2 Solutions | | 
 
