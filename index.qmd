@@ -138,17 +138,17 @@ Make sure notifications are on.
 |:-----------------------|:-----------------------|
 | Generalized Linear Models | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day11-glm-glmm/lec1-glm/glm.html){target="_blank"}|
 | Bayesian Generalized Linear Models | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day11-glm-glmm/lec2-bayesian-glm/bayesian-regression.html){target="_blank"}|
-| Generalized Linear Mixed Models | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day11-glm-glmm/glmm/lec1-glmm/glmm.html){target="_blank"} | 
 | Lab 1 |  [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day11-glm-glmm/lab/2026-day11-lab-part1-logistic-regression.qmd){target="_blank"}| 
 | Lab 2 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day11-glm-glmm/lab/2026-day11-lab-part2-poisson-reg.qmd){target="_blank"}| 
 | Lab 1 Solutions |[`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day11-glm-glmm/lab/2026-day11-lab-part1-logistic-regression-solutions.qmd){target="_blank"} |
-| Lab 2 Solutions | | 
+| Lab 2 Solutions | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day11-glm-glmm/lab/2026-day11-lab-part2-poisson-reg-solutions.qmd){target="_blank"}| 
 
 
 ## Day 12 - July 8, 2026
 
 | Topic | Material |
 |:-----------------------|:-----------------------|
+| Generalized Linear Mixed Models | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day12-glmm/lec1-glmm/glmm.html){target="_blank"} | 
 | The Role of Statistics | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day12-role-of-stats/lecture1_RoleOfStatistics.pdf){target="_blank"}| 
 | Lab  | | 
 | Lab  Solutions | |
