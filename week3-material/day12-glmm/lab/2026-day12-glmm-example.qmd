@@ -1,0 +1,235 @@
+---
+title: "Linear mixed effects model: R example"
+format: html
+editor: visual
+embed-resources: true
+---
+
+## When to use mixed effects models:
+
+- Independence assumptions will sometimes (often!) break down.
+
+  - Think for instance of being interested in relationship between rain and malaria, and collecting data at village levels.
+  - Or think of asssessing success of a treatment and collecting data at hospital level.
+
+- We use mixed effects models to allow us to correctly estimate the uncertainty in our model when independence does not hold.
+
+- Remember that in this your "true" sample size is smaller, so uncertainty will be larger.
+
+- Mixed effects models let you control for the variables of interested without coding each one as a categorical variable (what would be the issue with doing that?)
+
+- We can specify both a model with **random slope** or **random intercept** (or both).
+
+### Fixed vs Random Effects :
+
+**Fixed Effect** :\
+- the variables we want to answer research questions about
+
+\- variables that researchers would care about if we were to collect data to replicate the study in a new location/group.
+
+**Random effects** :
+
+\- less related to the scientific question of interest , but we must account for them to address the relationship of interest
+
+\- effects where we do not include all levels of the category.
+
+## Interpretation
+
+You can interpret the slopes as :
+
+1\) Changes in population average.
+
+2\) Changes for "typical" individuals, i.e. $\beta_1$ is the expected change in the response for subpopulations that differ by 1 unit for individuals for which the $b_1=0$.
+
+(Similar for the intercept)
+
+## Generalizing from linear model..
+
+- You can also fit mixed effects models with a non-linear link - so fit GLMs with random effects to adjust for break down of independence assumption.
+- However, interpretation here because more difficult, as we are always looking at the conditional effects (individual specific).
+
+### Alternatives?
+
+Another type of model that can be appropriate for correlated data are Generalized Estimating Equation Models (GEE).
+
+## R example
+
+```{r}
+library(tidyverse)
+library(lme4)
+```
+
+## data {#data}
+
+```{r}
+chart_dat <- read_csv("data/chart_wide_condense.csv")
+head(chart_dat)
+dim(chart_dat)
+```
+
+## Question
+
+1.  Do we see an average increase in the average Math Average Score between the years 2008 and 2010 for sixth grade students?
+2.  Is such an increase different for charter vs non-charter school
+
+### Data Organization
+
+Key variables in `chart_wide_condense.csv` which we will examine to address the research question above are:
+
+- `schoolid` = includes district type, district number, and school number
+- `schoolName` = name of school
+- `urban` = is the school in an urban (1) or rural (0) location?
+- `charter` = is the school a charter school (1) or a non-charter public school (0)?
+- `schPctnonw` = proportion of non-white students in a school (based on 2010 figures)
+- `schPctsped` = proportion of special education students in a school (based on 2010 figures)
+- `schPctfree` = proportion of students who receive free or reduced lunches in a school (based on 2010 figures). This serves as a measure of poverty among school families.
+- `MathAvgScore.0` = average MCA-II math score for all sixth grade students in a school in 2008
+- `MathAvgScore.1` = average MCA-II math score for all sixth grade students in a school in 2009
+- `MathAvgScore.2` = average MCA-II math score for all sixth grade students in a school in 2010
+
+This data is stored in WIDE format, with one row per school, as illustrated in Table \@ref(tab:table1chp9).
+
+(Data and some code sourced from Beyond Multiple Linear Regression, data originally from Minnesota Department of Education (2018))
+
+```{r, include=FALSE, warning=FALSE}
+chart_long <- chart_dat %>%
+  gather(key = "key", value = "MathAvgScore",
+         MathAvgScore.0:MathAvgScore.2) %>%
+  separate(key, into = c("name", "year08"), sep = "\\.") %>%
+  dplyr::select(-c("name")) %>%
+  arrange(schoolid, year08) %>%
+  mutate(year08 = as.numeric(year08))
+
+head(chart_long)
+dim(chart_long)
+```
+
+## Fitting a simple model of time with a random intercept for school
+
+Writing out the equation for this model:
+
+For Year $i$ and School $j$:
+
+$$MathAvgScore_{ij} | Year_{ij} = \beta_0 + b_{0j} + \beta_1 Year_i  + \epsilon_{ij}$$
+
+```{r}
+model1 <- lmer(MathAvgScore ~ year08 + (1|schoolid), 
+  REML=T, 
+  data= chart_long)
+summary(model1)
+```
+
+# plot the fitted values
+
+Lets look at the predicted values fro three schools:
+
+```{r}
+
+
+predict_dat = chart_long %>%
+              filter(schoolid %in% c(
+                                     "Dtype 7 Dnum 4008 Snum 10",
+                                     "Dtype 1 Dnum 23 Snum 10",
+                                     "Dtype 1 Dnum 2134 Snum 10")) 
+predict_vals = predict(model1, 
+                       predict_dat %>% dplyr::select(schoolid, year08))
+
+predict_dat = cbind(predict_dat, predict_vals)  
+plot_fit = predict_dat %>% 
+            ggplot(aes(x = year08, y = predict_vals, color = schoolid)) +
+            geom_line() +
+            geom_point(aes(x = year08, y = MathAvgScore, color = schoolid)) +
+            xlab("Years from 2008") +
+            theme_bw()
+            
+plot_fit
+```
+
+## Fitting a model of time with a random intercept and random slope for school
+
+Writing the equation for this model:
+
+For Year $i$ and School $j$:
+
+$$MathAvgScore_{ij} | Year_{ij} = \beta_0 + b_{0j} + \beta_1 Year_i + b_{1j} Year_i + \epsilon_{ij}$$
+
+```{r}
+model2 <- lmer(MathAvgScore~ year08 + (1 + year08|schoolid), 
+  REML=T, data= chart_long)
+summary(model2)
+```
+
+## Visualizing fitted values
+
+```{r}
+
+predict_dat2 = chart_long %>%
+              filter(schoolid %in% c(
+                                     "Dtype 7 Dnum 4008 Snum 10",
+                                     "Dtype 1 Dnum 23 Snum 10",
+                                     "Dtype 1 Dnum 2134 Snum 10")) 
+
+predict_vals2 = predict(model2, predict_dat2 %>% dplyr::select(schoolid, year08))
+
+predict_dat2 = cbind(predict_dat2, predict_vals2)  
+plot_fit2 = predict_dat2 %>% 
+            ggplot(aes(x = year08, y = predict_vals2, color = schoolid)) +
+            geom_line() +
+            geom_point(aes(x = year08, y = MathAvgScore, color = schoolid))+
+            theme_bw()
+            
+plot_fit2
+
+```
+
+## Adding in charter school as a covariate
+
+And interaction between `charter` and year.
+
+For Year $i$ and School $j$:
+
+$$MathAvgScore_{ij} | Year_{ij} = \beta_0 + b_{0j} + \beta_1 Year_i + b_{1j} Year_i + \beta_2 \mathbb{1}(Charter_{j}) +  \beta_3\mathbb{1}(Charter_{j})\times Year_i + \epsilon_{ij}$$
+
+```{r}
+model3 <- lmer(MathAvgScore~ charter*year08  + (year08|schoolid), 
+  REML=T, data=chart_long)
+summary(model3)
+```
+
+## Visualizing fitted values
+
+```{r}
+
+predict_dat3 = chart_long %>%
+              filter(schoolid %in% c(
+                                     "Dtype 7 Dnum 4008 Snum 10",
+                                     "Dtype 1 Dnum 23 Snum 10",
+                                     "Dtype 1 Dnum 2134 Snum 10",
+                                     "Dtype 1 Dnum 500 Snum 50",
+                                     "Dtype 7 Dnum 4188 Snum 10")) 
+
+predict_vals3 = predict(model3, predict_dat3 %>% dplyr::select(schoolid, charter,year08))
+
+predict_dat3 = cbind(predict_dat3, predict_vals3)  
+plot_fit3 = predict_dat3 %>% 
+            ggplot(aes(x = year08, y = predict_vals3, color = schoolid)) +
+            geom_line(aes(linetype=as.factor(charter))) +
+            geom_point(aes(x = year08, y = MathAvgScore, color = schoolid))+
+            scale_linetype_discrete(name="Charter School:")+
+            theme_bw()
+            
+plot_fit3
+
+```
+
+## How to get estimates for $b_{0j}$ and $b_{1j}$?
+
+Each row for the specific `schoolid` :
+
+```{r}
+school_random_effects <- ranef(model3)
+head(school_random_effects)
+
+```
+
+Remember that to get the specific intercept or slope for a certain school you will need to add these two $\beta_0$ and $\beta_1$.

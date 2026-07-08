@@ -1,0 +1,361 @@
+---
+title: "Day 11 Lab: Linear Mixed Effects Model Solutions"
+format: 
+  html:
+    toc: true
+    toc-expand: true
+    toc-depth: 2
+editor: visual
+embed-resources: true
+execute:
+  echo: fenced
+theme: cerulean
+---
+
+In this chapter, we'll be working with some real data from a study looking at the effects of sleep deprivation on psychomotor performance (Belenky et al., 2003)\[\^1\].
+Data from this study is included as the built-in dataset `sleepstudy` in the `lme4` package for `R`.
+
+# Understanding your data
+
+## Question 1
+
+First we need to load in the data.
+
+```{r}
+set.seed(72024)
+
+library(tidyverse)
+library(lme4)
+
+# Use data() to load a data set from a package into your environment
+data("sleepstudy")
+```
+
+Examine your data.
+Use `?sleepstudy` to look at the documentation for this dataset.
+
+## Question 2
+
+Notice the documentation says "days 0-1 were adaptation and training (T1/T2), day 2 was baseline (B); sleep deprivation started after day 2".
+For our purposes we don't care about the days they were training participants, we want to look at the days they were sleep deprived.
+
+Run the code below to make a new variable `days_since_baseline` and remove observations from days 0 and 1.
+Notice we are making a new data frame instead of overwriting the one from the package.
+
+```{r}
+sleep_study_data <- sleepstudy |> 
+  mutate(days_since_baseline = Days - 2) |> 
+  filter(Days >= 2)
+```
+
+Now let's look at the data for a single subject to better understand our data.
+
+```{r}
+subject308_data <- filter(sleep_study_data, Subject == "308")
+
+ggplot(subject308_data, aes(x = days_since_baseline, y = Reaction)) +
+  geom_point() +
+  geom_line(linetype = "dashed") +
+  theme_bw()
+```
+
+Notice there are only 18 people in this study (can run `unique(sleep_study_data$Subject)`).
+We can reasonably plot all of this data at once.
+
+```{r}
+ggplot(sleep_study_data, aes(x = days_since_baseline, y = Reaction)) +
+  geom_point() +
+  geom_line(linetype = "dashed") +
+  theme_bw() +
+  facet_wrap(~Subject)
+```
+
+What general patter(s) do you see in the data?
+Would it be reasonable to assume independence between data points?
+
+## Question 2 Solution
+
+There appears to be a positive linear association between reaction time and days since baseline, for each person.
+No, it would not be reasonable to assume independence because there are repeat measurements on each person, and in the plots we can see correlation within individuals.
+
+# Modeling
+
+For our data exploration purposes let's consider three different models:
+
+1.  linear model (we know this is incorrect because it breaks the independence assumption, but let's see what happens...)
+2.  linear mixed effects models with subject-specific intercepts
+3.  linear mixed effects models with subject-specific intercepts and slopes
+
+## Question 3
+
+Write out the theoretical regression equation for each proposed model.
+
+## Question 3 Solution
+
+1.  $$Reaction_i | Days_i = \beta_0 + \beta_1 Days_i + \epsilon_i,$$ for day $i$.
+
+2.  $$Reaction_{ij} | Days_{ij} = \beta_0 + b_j +\beta_1 Days_i + \epsilon_{ij},$$ for day $i$ subject $j$.
+
+3.  $$Reaction_{ij} | Days_{ij} = \beta_0 + b_{0j} + \beta_1 Days_i + b_{1j} Days_i + \epsilon_{ij},$$ for day $i$ subject $j$.
+
+## Question 4
+
+Fit model 1 and save it into an object called `model1`.
+
+After the model is fit use the following code to examine how well our linear regression equation represents the data.
+Does it do a good job?
+
+```{r}
+#| eval: false
+
+ggplot(sleep_study_data, aes(x = days_since_baseline, y = Reaction)) +
+  geom_abline(
+    intercept = model1$coefficients["(Intercept)"],
+    slope = model1$coefficients["days_since_baseline"],
+    color = 'blue'
+  ) +
+  geom_point() +
+  scale_x_continuous(breaks = 0:7) +
+  facet_wrap(~ Subject) +
+  labs(y = "Reaction Time", x = "Days deprived of sleep (0 = baseline)")
+```
+
+## Question 4 Solution
+
+```{r}
+model1 <- lm(Reaction ~ days_since_baseline, sleep_study_data)
+
+summary(model1)
+```
+
+```{r}
+ggplot(sleep_study_data, aes(x = days_since_baseline, y = Reaction)) +
+  geom_abline(
+    intercept = model1$coefficients["(Intercept)"],
+    slope = model1$coefficients["days_since_baseline"],
+    color = 'blue'
+  ) +
+  geom_point() +
+  scale_x_continuous(breaks = 0:7) +
+  facet_wrap(~ Subject) +
+  labs(y = "Reaction Time", x = "Days deprived of sleep (0 = baseline)")
+```
+
+The regression line only looks appropriate for a few of the subjects, but definitely not the majority.
+
+## Question 5
+
+Fit proposed model 2 and save it into an object called `model2`.
+
+After the model is fit use the following code to examine how well our linear regression equation represents the data.
+Does it do a good job?
+
+```{r}
+#| eval: false
+
+# Make new data frame with predictors
+model2_prediction_data <- crossing(
+  Subject = sleep_study_data %>% pull(Subject) %>% levels() %>% factor(),
+  days_since_baseline = 0:7
+) 
+
+# Add column of predicted values
+model2_prediction_data <- mutate(
+  model2_prediction_data,
+  Reaction = predict(model2, model2_prediction_data)
+)
+
+# Plot our regression lines for all participants
+ggplot(sleep_study_data, aes(x = days_since_baseline, y = Reaction)) +
+  geom_line(
+    data = model2_prediction_data,
+    color = 'blue'
+  ) +
+  geom_point() +
+  scale_x_continuous(breaks = 0:7) +
+  facet_wrap(~ Subject) +
+  labs(y = "Reaction Time", x = "Days deprived of sleep (0 = baseline)")
+```
+
+## Question 5 Solution
+
+```{r}
+model2 <- lmer(
+  Reaction ~ days_since_baseline + (1 | Subject), 
+  data = sleep_study_data,
+  REML = TRUE
+)
+
+summary(model2)
+```
+
+```{r}
+# Make new data frame with predictors
+model2_prediction_data <- crossing(
+  Subject = sleep_study_data %>% pull(Subject) %>% levels() %>% factor(),
+  days_since_baseline = 0:7
+) 
+
+# Add column of predicted values
+model2_prediction_data <- mutate(
+  model2_prediction_data,
+  Reaction = predict(model2, model2_prediction_data)
+)
+
+# Plot our regression lines for all participants
+ggplot(sleep_study_data, aes(x = days_since_baseline, y = Reaction)) +
+  geom_line(
+    data = model2_prediction_data,
+    color = 'blue'
+  ) +
+  geom_point() +
+  scale_x_continuous(breaks = 0:7) +
+  facet_wrap(~ Subject) +
+  labs(y = "Reaction Time", x = "Days deprived of sleep (0 = baseline)")
+```
+
+This model does fit better generally, but still doesn't represent the some subjects data well.
+
+## Question 6
+
+Fit proposed model 2 and save it into an object called `model2`.
+
+After the model is fit use the following code to examine how well our linear regression equation represents the data.
+Does it do a good job?
+
+```{r}
+#| eval: false
+
+# Make new data frame with predictors
+model3_prediction_data <- crossing(
+  Subject = sleep_study_data %>% pull(Subject) %>% levels() %>% factor(),
+  days_since_baseline = 0:7
+) 
+
+# Add column of predicted values
+model3_prediction_data <- mutate(
+  model3_prediction_data,
+  Reaction = predict(model3, model3_prediction_data)
+)
+
+# Plot our regression lines for all participants
+ggplot(sleep_study_data, aes(x = days_since_baseline, y = Reaction)) +
+  geom_line(
+    data = model3_prediction_data,
+    color = 'blue'
+  ) +
+  geom_point() +
+  scale_x_continuous(breaks = 0:7) +
+  facet_wrap(~ Subject) +
+  labs(y = "Reaction Time", x = "Days deprived of sleep (0 = baseline)")
+```
+
+## Question 6 Solution
+
+```{r}
+model3 <- lmer(
+  Reaction ~ days_since_baseline + (1 + days_since_baseline | Subject), 
+  data = sleep_study_data,
+  REML = TRUE
+)
+
+summary(model3)
+```
+
+```{r}
+# Make new data frame with predictors
+model3_prediction_data <- crossing(
+  Subject = sleep_study_data %>% pull(Subject) %>% levels() %>% factor(),
+  days_since_baseline = 0:7
+) 
+
+# Add column of predicted values
+model3_prediction_data <- mutate(
+  model3_prediction_data,
+  Reaction = predict(model3, model3_prediction_data)
+)
+
+# Plot our regression lines for all participants
+ggplot(sleep_study_data, aes(x = days_since_baseline, y = Reaction)) +
+  geom_line(
+    data = model3_prediction_data,
+    color = 'blue'
+  ) +
+  geom_point() +
+  scale_x_continuous(breaks = 0:7) +
+  facet_wrap(~ Subject) +
+  labs(y = "Reaction Time", x = "Days deprived of sleep (0 = baseline)")
+```
+
+This model best represents each individual's data.
+
+# Interpretation
+
+Ultimately, we want to investigate the linear relationship between reaction time and sleep deprivation.
+Hopefully at this point you have found the model with random intercepts and slopes to best represent the data.
+
+Let's look at the fixed effect for sleep deprivation days (`days_since_baseline`).
+
+For all the three models, what is the estimate of the association between sleep deprivation and reaction time?
+
+```{r}
+summarize_ci_lr <- function(model,name_var,level=0.95){
+  est <- summary(model)$coefficients[name_var,"Estimate"]
+  lb <- confint(model, level=level)[name_var, 1]
+  ub <- confint(model,level=level)[name_var, 2]
+  
+  lb_name <- paste((1-level)/2*100, "%")
+  ub_name <- paste((1-(1-level)/2)*100, "%")
+  est_ci <- c(est,lb,ub)
+  names(est_ci) <- c("Estimate",lb_name, ub_name)
+  return(est_ci)
+}
+
+summarize_ci_mixed_effects <- function(model,name_var, level=0.95){
+  est <- fixef(model)[name_var]
+  lb <- confint(model, level=level,quiet=T)[name_var, 1]
+  ub <- confint(model,level=level,quiet=T)[name_var, 2]
+  
+  lb_name <- paste((1-level)/2*100, "%")
+  ub_name <- paste((1-(1-level)/2)*100, "%")
+  est_ci <- c(est,lb,ub)
+  names(est_ci) <- c("Estimate",lb_name, ub_name)
+  return(est_ci)
+  
+}
+
+```
+
+Summary for model 1
+
+```{r}
+summarize_ci_lr(model1,"days_since_baseline")
+```
+
+```{r}
+summarize_ci_mixed_effects(model2,"days_since_baseline")
+
+```
+
+```{r}
+summarize_ci_mixed_effects(model3,"days_since_baseline")
+```
+
+*For the average individual*, we estimate an increase in average reaction time of `r fixef(model3)[2]`ms to be associated with a 1 day increase in sleep deprivation.
+
+Working with the `lme4` objects...
+to get random effects and fixed effects use:
+
+```{r}
+
+ranef(model3)
+fixef(model3)
+
+
+```
+
+[^1][Belenky, G., Wesensten, N. J., Thorne, D. R., Thomas, M. L., Sing, H. C., Redmond, D. P., Russo, M. B., & Balkin, T. J. (2003). Patterns of performance degradation and restoration during sleep restriction and subsequent recovery: A sleep dose-response study. Journal of Sleep Research, 12(1), 1–12.](https://onlinelibrary.wiley.com/doi/full/10.1046/j.1365-2869.2003.00337.x)
+
+[^1]: 1
+
+<!-- Exercises derived from : <https://psyteachr.github.io/stat-models-v1/introducing-linear-mixed-effects-models.html> -->
