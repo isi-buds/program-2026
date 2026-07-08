@@ -85,14 +85,13 @@ for (i in 1:J){
 
 - For example, consider the **radon** example discussed in Gelman and Hill (2007).
 
-- Radon is a carcinogen responsible for several thousand lung cancer deaths per year in the US. 
+- Radon is a colorless, odorless, and tasteless radioactive gas that occurs naturally from the decay of uranium in soil, rock, and water. It is the second-leading cause of lung cancer globally and can build up to dangerous concentrations inside homes and buildings
 
 - The concentration of radon varies in US homes. EPA has started a project to collect radon measurements from a random sample.
 
 ## Example
 
 ```{r}
-#| echo: false
 glimpse(data)
 ```
 
