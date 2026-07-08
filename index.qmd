@@ -150,11 +150,10 @@ Make sure notifications are on.
 |:-----------------------|:-----------------------|
 | Generalized Linear Mixed Models | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day12-glmm/lec1-glmm/glmm.html){target="_blank"} | 
 | The Role of Statistics | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day12-role-of-stats/lecture1_RoleOfStatistics.pdf){target="_blank"}| 
-| Lab 1 | | 
+| GLMM R Example |  [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day12-glmm/lab/2026-day12-glmm-example.qmd){target="_blank"} |
+| Lab 1 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day12-glmm/lab/2026-day12-lab-linear-mixed-effects.qmd){target="_blank"} | 
 | Lab 1 Solutions | |
-| Lab 2 | | 
-| Lab 2 Solutions | |
-
+| Lab 2 |[`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day12-glmm/lab/salary_questions.pdf){target="_blank"} | 
 
 
 
