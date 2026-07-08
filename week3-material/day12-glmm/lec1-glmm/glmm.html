@@ -6,8 +6,8 @@
 <script src="glmm_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="glmm_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="glmm_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="glmm_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+<link href="glmm_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
 
   <title>Generalized Linear Mixed Models</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -97,7 +97,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="glmm_files/libs/revealjs/dist/theme/quarto-5de8172cf71ca609c2e175cde40b2aa9.css">
+  <link rel="stylesheet" href="glmm_files/libs/revealjs/dist/theme/quarto-2caf2a14b0607625057fba37a8460065.css">
   <link href="glmm_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="glmm_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="glmm_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -231,13 +231,14 @@
 <h2>Example</h2>
 <ul>
 <li class="fragment"><p>For example, consider the <strong>radon</strong> example discussed in Gelman and Hill (2007).</p></li>
-<li class="fragment"><p>Radon is a carcinogen responsible for several thousand lung cancer deaths per year in the US.</p></li>
+<li class="fragment"><p>Radon is a colorless, odorless, and tasteless radioactive gas that occurs naturally from the decay of uranium in soil, rock, and water. It is the second-leading cause of lung cancer globally and can build up to dangerous concentrations inside homes and buildings</p></li>
 <li class="fragment"><p>The concentration of radon varies in US homes. EPA has started a project to collect radon measurements from a random sample.</p></li>
 </ul>
 </section>
 <section id="example-1" class="slide level2">
 <h2>Example</h2>
 <div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">glimpse</span>(data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 12,777
 Columns: 25
@@ -356,8 +357,8 @@ y_{ij} | \alpha_{i} &amp; \sim &amp; N(\alpha_{i} + \beta x_{ij}, \sigma^{2}_{y}
 <h2>Radon example</h2>
 <p>Random intercept model without covariates</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>M0 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(y <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> county), <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb2-2"><a href=""></a><span class="fu">summary</span> (M0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>M0 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(y <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> county), <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-2"><a href=""></a><span class="fu">summary</span> (M0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by maximum likelihood  ['lmerMod']
 Formula: y ~ 1 + (1 | county)
@@ -391,8 +392,8 @@ Fixed effects:
 <h2>Radon example</h2>
 <p>Random intercept and a fixed coefficient for <em>floor</em></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>M1 <span class="ot">&lt;-</span> <span class="fu">lmer</span> (y <span class="sc">~</span> x <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> county), <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb4-2"><a href=""></a><span class="fu">summary</span> (M1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>M1 <span class="ot">&lt;-</span> <span class="fu">lmer</span> (y <span class="sc">~</span> x <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> county), <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-2"><a href=""></a><span class="fu">summary</span> (M1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by maximum likelihood  ['lmerMod']
 Formula: y ~ x + (1 | county)
@@ -432,8 +433,8 @@ x -0.290</code></pre>
 <h2>Radon example</h2>
 <p>Random intercept and a random covariate</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>M2 <span class="ot">&lt;-</span> <span class="fu">lmer</span> (y <span class="sc">~</span> x <span class="sc">+</span> (x <span class="sc">|</span> county), <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb6-2"><a href=""></a><span class="fu">summary</span> (M2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>M2 <span class="ot">&lt;-</span> <span class="fu">lmer</span> (y <span class="sc">~</span> x <span class="sc">+</span> (x <span class="sc">|</span> county), <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-2"><a href=""></a><span class="fu">summary</span> (M2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by maximum likelihood  ['lmerMod']
 Formula: y ~ x + (x | county)
