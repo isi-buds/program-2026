@@ -152,7 +152,7 @@ Make sure notifications are on.
 | The Role of Statistics | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day12-role-of-stats/lecture1_RoleOfStatistics.pdf){target="_blank"}| 
 | GLMM R Example |  [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day12-glmm/lab/2026-day12-glmm-example.qmd){target="_blank"} |
 | Lab 1 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day12-glmm/lab/2026-day12-lab-linear-mixed-effects.qmd){target="_blank"} | 
-| Lab 1 Solutions | |
+| Lab 1 Solutions | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day12-glmm/lab/2026-day12-lab-linear-mixed-effects-solutions.qmd){target="_blank"}|
 | Lab 2 |[`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day12-glmm/lab/salary_questions.pdf){target="_blank"} | 
 
 
@@ -162,8 +162,7 @@ Make sure notifications are on.
 | Topic | Material |
 |:-----------------------|:-----------------------|
 | Directed Acyclic Graph & Confounding  | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day13-confounding/lecture2_adjustment.pdf){target="_blank"}| 
-| Lab  | | 
-| Lab  Solutions | |
+| Lab  |[`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day12-glmm/lab/salary_questions.pdf){target="_blank"} | 
 
 
 
