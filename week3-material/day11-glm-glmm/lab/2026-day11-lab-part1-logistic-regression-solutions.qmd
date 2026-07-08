@@ -12,10 +12,7 @@ execute:
 theme: cerulean
 ---
 
-Suzuki et al. (2006) measured sand grain size on 28 beaches in Japan and observed the presence or absence of the burrowing wolf spider *Lycosa ishikariana* on each beach.
-One goal of this study was to determine whether there was a relationship between sand grain size (mm) and the presence or absence of the species, in hopes of understanding more about the biology of the spiders.
-If there is a relationship between the two variables, it would be sand grain size affecting spiders, not the presence of spiders affecting the sand.
-Because this species is endangered, another goal would be to find an equation that would predict the probability of a wolf spider population surviving on a beach with a particular sand grain size, to help determine which beaches to reintroduce the spider to[^1].
+Suzuki et al. (2006) measured sand grain size on 28 beaches in Japan and observed the presence or absence of the burrowing wolf spider *Lycosa ishikariana* on each beach. One goal of this study was to determine whether there was a relationship between sand grain size (mm) and the presence or absence of the species, in hopes of understanding more about the biology of the spiders. If there is a relationship between the two variables, it would be sand grain size affecting spiders, not the presence of spiders affecting the sand. Because this species is endangered, another goal would be to find an equation that would predict the probability of a wolf spider population surviving on a beach with a particular sand grain size, to help determine which beaches to reintroduce the spider to[^1].
 
 [^1]: [McDonald, J.H. 2014. Handbook of Biological Statistics (3rd ed.). Sparky House Publishing, Baltimore, Maryland.](https://www.biostathandbook.com/simplelogistic.html)
 
@@ -34,9 +31,7 @@ $$\log(\frac{p_i}{1 - p_i}) = \beta_0 + \beta_1 \text{Grain Size}_i,$$ where $p_
 
 ## Question 2
 
-Read in the spider data.
-We need the response variable to be coded as 0's and 1's.
-Run the chunk below to make a new variable recording spider presence.
+Read in the spider data. We need the response variable to be coded as 0's and 1's. Run the chunk below to make a new variable recording spider presence.
 
 ```{r}
 spider_data <- read_csv("data/spider-data.csv")
@@ -106,7 +101,7 @@ We estimate the odds of spider presence for beaches with sand grain size of zero
 
 We estimate an odds ratio of spider presence of `r round(exp_beta1, 2)` (95% CI (`r round(exp_beta1_95ci[1], 2)`, `r round(exp_beta1_95ci[2], 2)`)), associated with a one millimeter increase in sand grain size.
 
-# Wald vs LRT test 
+# Wald vs LRT test
 
 Checking how to compute these confidence intervals in R...
 
