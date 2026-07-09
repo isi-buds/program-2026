@@ -1,0 +1,80 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{float}
+
+\title{ISI-BUDS Lab Day 14}
+\date{July 10th 2026}
+
+\begin{document}
+
+\maketitle
+
+Unadjusted Model: $E[Y] = \beta_0 + \beta_1 X$
+
+\vspace{2pt}
+
+Adjusted Model: $E[Y] = \gamma_0 + \gamma_1 X + \gamma_2 W$
+
+\vspace{5pt}
+
+Proposition 1: 
+$$E[\hat{\beta}_1] = \gamma_1 + r_{XW} \sqrt{\frac{\text{Var}(W)}{\text{Var}(X)}} \gamma_2$$
+
+Proposition 2: 
+$$\text{Var}(\hat{\gamma}_1) = \frac{\sigma^2_{Y|X} - \gamma_2^2 \text{Var}(W|X)}{n \text{Var}(X) (1 - r_{WX}^2)}$$
+
+$$\text{Var}(\hat{\beta}_1) = \frac{\sigma^2_{Y|X}}{n \text{Var}(X)}$$
+
+
+
+
+In this lab you will conduct a simulation study to confirm Propositions 1 \& 2 in order to investigate the impact of omitting confounders or important predictors of response on inference regarding some predictor of interest in linear regression. Let $X \sim N(0, \sigma_X^2)$ be the predictor of interest, $W \sim N(0, \sigma_W^2)$ with $\text{corr}(X, W) = \rho$ be the confounder or the nonconfounding important predictor. Note that $W$ will tend to be a confounder when $\rho \neq 0$ and $\gamma_2 \neq 0$, and it will tend to be a nonconfounding predictor of interest (precision variable) when $\rho = 0$ and $\gamma_2 \neq 0$. Let $Y_i \sim N(\mu_i, \sigma^2)$ be the response such that
+$$ \mu_i = \gamma_0 + \gamma_1X_i + \gamma_2W_i, \quad i = 1, \dots, n. $$
+
+For each of the cases listed below, we will simulate datasets (at least 1000) and perform linear regressions of $Y$ on $X$ alone and of $Y$ on $X$ and $W$. For each case given below, compare the results from the two regression models with respect to (1) the probability of rejecting $H_0: \gamma_1 = 0$, (2) the bias of $\hat{\gamma}_1$, and (3) the standard errors of $\hat{\gamma}_1$.
+
+Write a simulation study to complete the tables below for the case when we regress $Y$ on $X$ alone and when we regress $Y$ on $X$ and $W$. For your simulation, take $\sigma_X^2 = 1.25$ and $\sigma_W^2 = 2$. Note that the package \texttt{mvtnorm} may be useful if you are writing your simulation in R. Comment on your results in terms of how they agree with Propositions 1 \& 2 and the relevance to choosing adjustment variables in practice.
+\begin{table}[H]
+\caption{Unadjusted Model Results}
+\begin{tabular}{ccccccc}
+\hline \\ 
+Scenario & $\gamma_1$ & $\gamma_2$ & $\rho = \text{corr}(X, W)$ & $\text{Pr}[\text{Reject } H_0: \gamma_1 = 0]$ & Bias of $\hat{\gamma}_1$ & $\text{SE}[\hat{\gamma}_1]$ \\[10pt]
+\hline \\
+1 & $\gamma_1 = 0$ & $\gamma_2 = 0$ & $\rho = 0$ & & & \\[10pt]
+2 & $\gamma_1 = 0$ & $\gamma_2 = 0$ & $\rho = 0.7$ & & & \\[10pt]
+3 & $\gamma_1 = 0$ & $\gamma_2 = 2$ & $\rho = 0$ & & & \\[10pt]
+4 & $\gamma_1 = 0$ & $\gamma_2 = 2$ & $\rho = 0.7$ & & & \\[10pt]
+5 & $\gamma_1 = 1$ & $\gamma_2 = 0$ & $\rho = 0$ & & & \\[10pt]
+6 & $\gamma_1 = 1$ & $\gamma_2 = 0$ & $\rho = 0.7$ & & & \\[10pt]
+7 & $\gamma_1 = 1$ & $\gamma_2 = 2$ & $\rho = 0$ & & & \\[10pt]
+8 & $\gamma_1 = 1$ & $\gamma_2 = 2$ & $\rho = 0.7$ & & & \\[10pt]
+\hline
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}[H]
+\caption{Adjusted Model Results}
+\begin{tabular}{ccccccc}
+\hline \\ 
+Scenario & $\gamma_1$ & $\gamma_2$ & $\rho = \text{corr}(X, W)$ & $\text{Pr}[\text{Reject } H_0: \gamma_1 = 0]$ & Bias of $\hat{\gamma}_1$ & $\text{SE}[\hat{\gamma}_1]$ \\[10pt]
+\hline \\
+1 & $\gamma_1 = 0$ & $\gamma_2 = 0$ & $\rho = 0$ & & & \\[10pt]
+2 & $\gamma_1 = 0$ & $\gamma_2 = 0$ & $\rho = 0.7$ & & & \\[10pt]
+3 & $\gamma_1 = 0$ & $\gamma_2 = 2$ & $\rho = 0$ & & & \\[10pt]
+4 & $\gamma_1 = 0$ & $\gamma_2 = 2$ & $\rho = 0.7$ & & & \\[10pt]
+5 & $\gamma_1 = 1$ & $\gamma_2 = 0$ & $\rho = 0$ & & & \\[10pt]
+6 & $\gamma_1 = 1$ & $\gamma_2 = 0$ & $\rho = 0.7$ & & & \\[10pt]
+7 & $\gamma_1 = 1$ & $\gamma_2 = 2$ & $\rho = 0$ & & & \\[10pt]
+8 & $\gamma_1 = 1$ & $\gamma_2 = 2$ & $\rho = 0.7$ & & & \\[10pt]
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+Comment below on your results in terms of how they agree with Propositions 1 \& 2 and the relevance to choosing adjustment variables in practice.
+
+\end{document}
