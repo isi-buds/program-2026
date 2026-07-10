@@ -153,7 +153,6 @@ Make sure notifications are on.
 | GLMM R Example |  [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day12-glmm/lab/2026-day12-glmm-example.qmd){target="_blank"} |
 | Lab 1 | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day12-glmm/lab/2026-day12-lab-linear-mixed-effects.qmd){target="_blank"} | 
 | Lab 1 Solutions | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day12-glmm/lab/2026-day12-lab-linear-mixed-effects-solutions.qmd){target="_blank"}|
-| Lab 2 |[`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day12-glmm/lab/salary_questions.pdf){target="_blank"} | 
 
 
 
@@ -163,6 +162,7 @@ Make sure notifications are on.
 |:-----------------------|:-----------------------|
 | Directed Acyclic Graph & Confounding  | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day13-confounding/lecture2_adjustment.pdf){target="_blank"}| 
 | Lab  |[`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day12-glmm/lab/salary_questions.pdf){target="_blank"} | 
+| Lab Solutions | [`r fa(name = "desktop")`](https://isi-buds.github.io/program-2026/week3-material/day12-glmm/lab/SalaryAnalysisResults.pdf){target="_blank"} | 
 
 
 
