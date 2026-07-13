@@ -10,6 +10,7 @@
 // Background of the presentation 
 $backgroundColor: whitesmoke; // #fcfbf9;
 
+$presentation-font-size-root: 32px;
 
 // Text elements
 $fontsize: 30px;
@@ -36,22 +37,4 @@ $linkColorHover: darken( $linkColor, 20% );
 .pull-right {
   float: right;
   width: 50%;
-}
-
-.reveal {
-  font-size: 85%;
-}
-
-.reveal section.section-divider {
-  display: flex !important;
-  flex-direction: column;
-  justify-content: center !important;
-  align-items: center !important;
-  text-align: center !important;
-}
-
-.reveal section.section-divider h1,
-.reveal section.section-divider h2 {
-  margin: 0;
-  text-align: center !important;
 }
