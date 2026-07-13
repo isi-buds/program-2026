@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="1-lec-normal-normal_files/libs/clipboard/clipboard.min.js"></script>
-<script src="1-lec-normal-normal_files/libs/quarto-html/tabby.min.js"></script>
-<script src="1-lec-normal-normal_files/libs/quarto-html/popper.min.js"></script>
-<script src="1-lec-normal-normal_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="1-lec-normal-normal_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="1-lec-normal-normal_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="1-lec-normal-normal_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+<script src="lec-normal-normal_files/libs/clipboard/clipboard.min.js"></script>
+<script src="lec-normal-normal_files/libs/quarto-html/tabby.min.js"></script>
+<script src="lec-normal-normal_files/libs/quarto-html/popper.min.js"></script>
+<script src="lec-normal-normal_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="lec-normal-normal_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="lec-normal-normal_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="lec-normal-normal_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
 
   <title>The Normal-Normal Model</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="1-lec-normal-normal_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="1-lec-normal-normal_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="lec-normal-normal_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="lec-normal-normal_files/libs/revealjs/dist/reveal.css">
   <style>
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -97,11 +97,11 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="1-lec-normal-normal_files/libs/revealjs/dist/theme/quarto-5de8172cf71ca609c2e175cde40b2aa9.css">
-  <link href="1-lec-normal-normal_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="1-lec-normal-normal_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="1-lec-normal-normal_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="1-lec-normal-normal_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link rel="stylesheet" href="lec-normal-normal_files/libs/revealjs/dist/theme/quarto-5de8172cf71ca609c2e175cde40b2aa9.css">
+  <link href="lec-normal-normal_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="lec-normal-normal_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="lec-normal-normal_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="lec-normal-normal_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -237,7 +237,7 @@ E(Y) &amp; = \text{ Mode}(Y) = \mu \\
 <section id="normal-models" class="slide level2">
 <h2>Normal models</h2>
 
-<img data-src="1-lec-normal-normal_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch"></section>
+<img data-src="lec-normal-normal_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch"></section>
 <section id="normal-likelihood" class="slide level2">
 <h2>Normal Likelihood</h2>
 <p><span class="math display">\[L(\mu ; \vec{y})= \prod_{i=1}^{n}L(\mu | y_i) = \prod_{i=1}^{n}\frac{1}{\sqrt{2\pi\sigma^2}} \exp\bigg[{-\frac{(y_i-\mu)^2}{2\sigma^2}}\bigg].\]</span></p>
@@ -253,7 +253,7 @@ L(\mu ; \vec{y}) \propto \exp\bigg[{-\frac{(\bar{y}-\mu)^2}{2\sigma^2/n}}\bigg] 
 <h2></h2>
 <p><span class="math display">\[L(\mu ; \vec{y}) \propto \exp\bigg[{-\frac{(5.735-\mu)^2}{2(0.593^2/25)}}\bigg] \;\;\;\; \text{ for } \; \mu \in (-\infty, \infty),\]</span></p>
 
-<img data-src="1-lec-normal-normal_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section>
+<img data-src="lec-normal-normal_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section>
 <section id="normal-prior" class="slide level2">
 <h2>Normal prior</h2>
 <p><span class="math display">\[\mu \sim N(\theta, \tau^2) \; , \]</span></p>
@@ -271,7 +271,7 @@ f(\mu) = \frac{1}{\sqrt{2\pi\tau^2}} \exp\bigg[{-\frac{(\mu - \theta)^2}{2\tau^2
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">plot_normal</span>(<span class="at">mean =</span> <span class="fl">6.5</span>, <span class="at">sd =</span> <span class="fl">0.4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="1-lec-normal-normal_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section>
+<img data-src="lec-normal-normal_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section>
 <section id="the-normal-normal-bayesian-model" class="slide level2">
 <h2>The Normal-Normal Bayesian model</h2>
 <p>Let <span class="math inline">\(\mu \in (-\infty,\infty)\)</span> be an unknown <em>mean</em> parameter and <span class="math inline">\((Y_1,Y_2,\ldots,Y_n)\)</span> be an independent <span class="math inline">\(N(\mu,\sigma^2)\)</span> sample where <span class="math inline">\(\sigma\)</span> is assumed to be <em>known</em>. The Normal-Normal Bayesian model complements the Normal structure of the data with a Normal prior on <span class="math inline">\(\mu\)</span>:</p>
@@ -358,7 +358,7 @@ Y_i | \mu &amp; \stackrel{ind}{\sim} N(\mu, \sigma^2) \\
 <span id="cb7-2"><a href=""></a>  <span class="at">y_bar =</span> <span class="fl">5.735</span>, <span class="at">n =</span> <span class="dv">25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="1-lec-normal-normal_files/figure-revealjs/unnamed-chunk-7-1.png" width="864" class="r-stretch"></section>
+<img data-src="lec-normal-normal_files/figure-revealjs/unnamed-chunk-7-1.png" width="864" class="r-stretch"></section>
 <section id="section-5" class="slide level2">
 <h2></h2>
 <div class="cell">
@@ -493,19 +493,19 @@ P(\theta |\sigma, y) \propto \exp(-\frac{1}{2\tau_{1}^{2}}(\theta-\mu_{1})^{2})
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="1-lec-normal-normal_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="lec-normal-normal_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="1-lec-normal-normal_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="1-lec-normal-normal_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="1-lec-normal-normal_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="1-lec-normal-normal_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="1-lec-normal-normal_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="lec-normal-normal_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="lec-normal-normal_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="lec-normal-normal_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="lec-normal-normal_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="lec-normal-normal_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="1-lec-normal-normal_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="1-lec-normal-normal_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="1-lec-normal-normal_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="1-lec-normal-normal_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="lec-normal-normal_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="lec-normal-normal_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="lec-normal-normal_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="lec-normal-normal_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
