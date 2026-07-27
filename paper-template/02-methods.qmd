@@ -1,0 +1,23 @@
+
+# Methods
+
+Let $i = 1, \dots, N$ be the unit in our amazing dataset, $Y_i$ be the outcome variable of interest for unit $i$ in this amazing application and let $X_i$ be the preditor of interest for unit $i$.
+
+A linear regression model assumes that
+
+$$ Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i $${#eq-lin-reg}
+
+In the linear regression model of @eq-lin-reg, $\varepsilon_i$ are independent and identically distributed Normal variables.
+
+@fig-brain is an example of a figure included by saving an image in a folder within this repo.
+
+```{r}
+#| echo: false
+#| label: fig-brain
+#| fig-cap: "An amazing figure caption. Image Credit: www.hopkinsmedicine.org"
+#| fig-alt: "Alt text only works when you render to html, but I still wanted to show you how to specify it"
+#| out-width: 60%
+
+knitr::include_graphics("figures/brain.jpg")
+
+```

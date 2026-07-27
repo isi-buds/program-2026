@@ -1,0 +1,35 @@
+
+# Results {#sec-results}
+
+## Descriptive results
+
+@tbl-penguins is an example of a figure included by copy/pasting the image address on the web.
+
+```{r}
+#| echo: false
+#| message: false
+#| label: tbl-penguins
+#| tbl-cap: "Mean bill length, bill depth and flipper length by species in millimeters, in the `palmerpenguins` dataset. When computing the mean of a variable, missing values were not considered."
+
+library(kableExtra)
+library(palmerpenguins)
+library(dplyr)
+
+penguins_summary <- penguins %>% 
+  group_by(species) %>% 
+  summarize(
+    mean_bill_length_mm = mean(bill_length_mm, na.rm = TRUE),
+    mean_bill_depth_mm = mean(bill_depth_mm, na.rm = TRUE),
+    mean_flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE),
+  )
+
+kable(penguins_summary, 
+      format = "latex",
+      col.names = c("Species", 
+                    "Bill length (mm)",
+                    "Bill depth (mm)",
+                    "Flipper length (mm)"),
+      digits = 1)
+
+```
+

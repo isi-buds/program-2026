@@ -1,0 +1,10 @@
+# Introduction
+
+<!--# What the research is about: .... Why this is interesting: (1) ... (2) ... -->
+
+<!--# What other research found on this topic: ... -->
+
+Event-related potentials (ERP) measure neural activity in response to specific events (e.g. motor or cognitive stimuli) and are
+regarded as a powerful, noninvasive way to explore human brain activity [@luck_introduction_2014].
+
+<!--# What our contribution is: (1) ... (2) ... -->

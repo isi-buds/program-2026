@@ -1,0 +1,7 @@
+---
+bibliography: references.bib
+---
+
+# Discussion
+
+The results reported in @sec-results suggest that...@migliavada2022

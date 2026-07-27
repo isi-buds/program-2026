@@ -1,0 +1,28 @@
+---
+title: "An amazing title"
+author: "An amazing author"
+format: 
+  pdf:
+    number-sections: true
+mainfont: Arial
+fontsize: 11pt
+bibliography: references.bib
+---
+
+## Abstract {.unnumbered}
+
+An amazing abstract.
+
+\newpage
+
+{{< include 01-introduction.qmd >}}
+
+{{< include 02-methods.qmd >}}
+
+{{< include 03-results.qmd >}}
+
+{{< include 04-discussion.qmd >}}
+
+\newpage
+
+# References {.unnumbered}
